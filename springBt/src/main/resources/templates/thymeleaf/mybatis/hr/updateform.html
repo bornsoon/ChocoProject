@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/thymeleaf/mybatis/default_layout}">
+
+<div layout:fragment="content">
+	<h1>사원정보 수정</h1>
+	<form action="./update" method="post">
+	<table border="1" th:object="${emp}" class="table">
+	<tr>
+		<th>EMPLOYEE_ID</th>
+		<td><input type="number" th:field="*{employeeId}" th:readonly="true"></td>
+	</tr>
+	<tr>
+		<th>FIRST_NAME</th>
+		<td><input type="text" th:field="*{firstName}"></td>
+	</tr>
+	<tr>
+		<th>LAST_NAME</th>
+		<td><input type="text" th:field="*{lastName}" required></td>
+	</tr>
+	<tr>
+		<th>EMAIL</th>
+		<td><input type="text" th:field="*{email}" required></td>
+	</tr>
+	<tr>
+		<th>PHONE_NUMBER</th>
+		<td><input type="text" th:field="*{phoneNumber}"></td>
+	</tr>
+	<tr>
+		<th>HIRE_DATE</th>
+		<td><input type="date" th:field="*{hireDate}" required></td>
+	</tr>
+	<tr>
+		<th>JOB_ID</th>
+		<td>
+			<select th:field="*{jobId}">
+				<option th:each="job:${jobList}" th:utext="${job.title}" th:value="${job.jobId}" 
+					    th:selected="${job.jobId==emp.jobId}"></option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th>SALARY</th>
+		<td><input type="number" th:field="*{salary}"></td>
+	</tr>
+	<tr>
+		<th>COMMISSION_PCT</th>
+		<td><input type="number"th:field="*{commissionPct}" step="0.1" min="0" max="0.99"></td>
+	</tr>
+	<tr>
+		<th>MANAGER_ID</th>
+		<td>
+			<select th:field="*{managerId}">
+				<option th:each="manager:${managerList}" th:utext="${manager.firstName}" th:value="${manager.managerId}" 
+					    th:selected="${manager.managerId==emp.managerId}"></option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th>DEPARTMENT_ID</th>
+		<td>
+			<select th:field="*{departmentId}">
+				<option th:each="department:${deptList}" th:utext="${department.departmentName}" th:value="${department.departmentId}" 
+					    th:selected="${department.departmentId==emp.departmentId}"></option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th>&nbsp;</th>
+		<td>
+			<input type="submit" value="수정" class="btn btn-primary"> 
+			<input type="reset" value="취소"class="btn btn-secondary">
+		</td>
+	</tr>
+	</table>
+	</form>
+</div>
+
+</html>
