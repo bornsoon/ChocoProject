@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <div th:fragment="header">
+        header 영역입니다. [[ ${session.userid} ]]
+        <a href="./login" class="btn btn-success" th:if="${session.userid == null}">로그인</a>
+        <a href="./logout" class="btn btn-success" th:if="${session.userid != null}">로그아웃</a>
+        <hr>
+    </div>
+    
+    <div th:fragment="footer">
+    	<hr>
+        footer 영역입니다.
+    </div>
+</html>
