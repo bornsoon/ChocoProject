@@ -1,0 +1,7 @@
+# 모든 파일과 폴더 무시
+/*
+
+# 예외 처리할 파일 및 폴더
+!/.gitignore
+!src/
+!build.gradle
