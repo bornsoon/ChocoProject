@@ -1,4 +1,4 @@
-package com.choco.post;
+package com.choco.post.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +12,7 @@ public class PostController {
 
 	
 	@GetMapping(value = {"/post", "/post/"})
-	public String home(Model model) {
+	public String post(Model model) {
 		
 		model.addAttribute("serverTime",  "서버시간");
 		

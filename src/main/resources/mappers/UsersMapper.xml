@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choco.users.dao.UsersRepository">
+
+	<select id="getUsersCount" resultType="int">
+		SELECT COUNT(*) FROM USERS
+	</select>	
+	
+	<select id="getUsersName" parameterType="String" resultType="String">
+		SELECT USERS_NAME FROM USERS
+		WHERE USERS_ID=#{usersId}
+	</select>		
+</mapper>
