@@ -41,7 +41,7 @@ public class BoardController {
 	@GetMapping("/new")
 	public String newBoard(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		model.addAttribute("board", new Board());
-		session.setMaxInactiveInterval(600); //10분
+		
 		session.setAttribute("userid", "hello123");
 		
 		return "thymeleaf/choco/board/board_form";
@@ -49,13 +49,15 @@ public class BoardController {
 	
 	@PostMapping("/add")
 	public String submitBoard(Board board, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		
 		HttpSession session = request.getSession();
 		String usersId = (String)session.getAttribute("userid");
 		board.setUsersId(usersId);
 		
 		try {
-			boardService.updateBoard(board);
+			boardService.createBoard(board);
+			redirectAttributes.addFlashAttribute("message", usersId + "님의 게시글이 등록되었습니다.");
+			log.info("test");
+
 		}
 		catch(Exception ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());

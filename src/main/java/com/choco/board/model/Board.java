@@ -1,5 +1,6 @@
 package com.choco.board.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ public class Board {
 	private int boardId;
 	private String boardTitle;
 	private String boardContent;
-	private String boardCategory;
-	private LocalDateTime boardDate;
+	private Timestamp boardDate;
 	private String usersId;
+	private String boardCategory;
 }

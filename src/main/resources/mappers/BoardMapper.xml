@@ -12,11 +12,14 @@
 		WHERE BOARD_ID=#{boardId}
 	</select>	
 	
-	<select id="createBoard" parameterType="com.choco.board.model.Board">
+	<insert id="createBoard" parameterType="com.choco.board.model.Board">
+		INSERT INTO BOARD (
+			BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE, USERS_ID, BOARD_CATEGORY)
+		VALUES (
+			BR_SEQ.nextval, #{boardTitle}, #{boardContent}, CURRENT_TIMESTAMP, #{usersId}, #{boardCategory})
+	</insert>
 		
-	</select>
+	<update id="updateBoard" parameterType="com.choco.board.model.Board">
 		
-	<select id="updateBoard" parameterType="com.choco.board.model.Board">
-		
-	</select>
+	</update>
 </mapper>
