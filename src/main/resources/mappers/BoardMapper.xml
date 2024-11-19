@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choco.board.dao.BoardRepository">
+
+	<select id="getBoardList" resultType="com.choco.board.model.Board">
+		SELECT * FROM BOARD
+	</select>
+	
+	<select id="getBoardDetail" parameterType="int" resultType="com.choco.board.model.Board">
+		SELECT * FROM BOARD
+		WHERE BOARD_ID=#{boardId}
+	</select>	
+	
+	<insert id="createBoard" parameterType="com.choco.board.model.Board">
+		INSERT INTO BOARD (
+			BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE, USERS_ID, BOARD_CATEGORY)
+		VALUES (
+			BR_SEQ.nextval, #{boardTitle}, #{boardContent}, CURRENT_TIMESTAMP, #{usersId}, #{boardCategory})
+	</insert>
+		
+	<update id="updateBoard" parameterType="com.choco.board.model.Board">
+		
+	</update>
+</mapper>

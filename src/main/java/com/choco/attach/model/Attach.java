@@ -1,4 +1,4 @@
-package com.choco.users.model;
+package com.choco.attach.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,10 +7,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter
-@ToString
+@ToString(exclude= {"attachFile"}) 
 @AllArgsConstructor
 @NoArgsConstructor
-public class Users {
-	private int usersId;
-	private String usersName;
+public class Attach {
+	private int attachId;
+	private String attachName;
+	private int postId;
+	private byte[] attachFile;
 }
