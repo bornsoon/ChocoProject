@@ -2,23 +2,23 @@
 <html xmlns:th="http//www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/thymeleaf/choco/default_layout}">
-	
-<div layout:fragment="content"> 
+
+<th:block layout:fragment="title">
+	<title>MYCUTEPET | HOME</title>
+</th:block>
+
+<th:block layout:fragment="wrapper">	
   <!-- 메인 이미지 -->
   <div class="main-img">
       <img src="/images/main-img.png" alt="Pet Lovers" class="main-img" />
   </div>
 
   <!-- 콘텐츠 래퍼 -->
-  <div class="content-wrapper">
+  <div layout:fragment="content-wrapper" class="content-wrapper">
   <!-- 배너 -->
-  <div class="banner">
-    <a href="https://pethroom.com" target="_blank">
-    <img src="/images/banner.png" alt="페쓰룸 광고"/></a>
-  </div>
-
+  <div th:replace="/thymeleaf/choco/include::banner"></div>
     <!-- 메인 콘텐츠 -->
-    <div class="main-content-wrapper">
+    <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
       <h4>오늘의 주접왕</h4> <br>
       <div class="post-container">
         <!-- 각 게시글 카드 -->
@@ -67,5 +67,5 @@
       </div>
      </div>
     </div>
-</div> 
+</th:block>
 </html>
