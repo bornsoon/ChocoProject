@@ -23,9 +23,9 @@
 		<form action="/board/add" method="post" enctype="multipart/form-data" oninput="markFormAsDirty()" th:object="${board}">
 		    <div class="mb-3">
 			    <select class="form-select" th:field="*{boardCategory}" required>
-			        <option value="1">강아지</option>
-			        <option value="2">고양이</option>
-			        <option value="3">소동물</option>
+			        <option value="dog">강아지</option>
+			        <option value="cat">고양이</option>
+			        <option value="other">소동물</option>
 			    </select>
 			</div>
 			

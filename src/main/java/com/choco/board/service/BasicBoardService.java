@@ -20,8 +20,13 @@ public class BasicBoardService implements BoardService {
 	}
 	
 	@Override
-	public Board getBoardDetail(int boardId) {
-		return boardRepository.getBoardDetail(boardId);
+	public List<Board> getBoardList(String boardCategory) {
+		return boardRepository.getBoardList(boardCategory);
+	}
+	
+	@Override
+	public Board getBoardInfo(int boardId) {
+		return boardRepository.getBoardInfo(boardId);
 	}
 	
 	@Override
