@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/thymeleaf/choco/default_layout}">
+
+<th:block layout:fragment="title">
+	<title>MYCUTEPET | BOARD</title>
+</th:block>
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/home.css}" />
+	<link rel="stylesheet" th:href="@{/css/board.css}" />
+</th:block> 
+
+<th:block layout:fragment="wrapper">
+  <!-- 메인 이미지 -->
+  <div class="main-img">
+      <img src="/images/board-img.png" alt="Pet Lovers" class="main-img" />
+  </div>
+
+  <!-- 콘텐츠 래퍼 -->
+  <div layout:fragment="content-wrapper" class="content-wrapper">
+  <!-- 배너 -->
+  <div th:replace="/thymeleaf/choco/include::banner"></div>
+    <!-- 메인 콘텐츠 -->
+    <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
+    
+	<div class="board-container">	
+	
+    <div class="btn-box" th:with="category=${boardCategory}">
+      <button onclick="location.href='/board/category'" th:class="${category==null?'category-btn--active scale':'category-btn scale'}">전체</button>
+      <button onclick="location.href='/board/category/dog'" th:class="${category=='dog'?'category-btn--active scale':'category-btn scale'}" >강아지</button>
+      <button onclick="location.href='/board/category/cat'" th:class="${category=='cat'?'category-btn--active scale':'category-btn scale'}">고양이</button>
+      <button onclick="location.href='/board/category/other'" th:class="${category=='other'?'category-btn--active scale':'category-btn scale'}">소동물</button>
+      <button onclick="location.href='/board/category/other'" class=btn-write></button>
+    </div>
+    
+        <!-- 각 게시글 카드 -->
+        <table border="1">
+          <tr>
+          	<th>USERS_ID</th>
+          	<th>BOARD_DATE</th>
+			<th>BOARD_TITLE</th>
+			<th>BOARD_CONTENT</th>
+			<th>ATTACH</th>
+          </tr>
+          <tr th:each="board: ${boardList}" th:onclick="|location.href='/board/${board.boardId}'|">
+          	<td th:utext="${board.usersId}"></td>
+          	<td th:utext="${board.boardDate}"></td>
+          	<td th:utext="${board.boardTitle}"></td>
+          	<td th:utext="${board.boardContent}"></td>
+          	<td>첨부파일 미리보기</td>
+          </tr>
+        </table>
+     </div>
+    </div>
+    </div>
+</th:block>
+</html>

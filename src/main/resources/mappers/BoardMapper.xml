@@ -3,11 +3,14 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.choco.board.dao.BoardRepository">
 
-	<select id="getBoardList" resultType="com.choco.board.model.Board">
+	<select id="getBoardList" parameterType="String" resultType="com.choco.board.model.Board">
 		SELECT * FROM BOARD
+		<if test="deptid != null">
+			WHERE BOARD_CATEGORY=#{boardCategory}  
+		</if>
 	</select>
 	
-	<select id="getBoardDetail" parameterType="int" resultType="com.choco.board.model.Board">
+	<select id="getBoardInfo" parameterType="int" resultType="com.choco.board.model.Board">
 		SELECT * FROM BOARD
 		WHERE BOARD_ID=#{boardId}
 	</select>	

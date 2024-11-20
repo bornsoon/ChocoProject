@@ -9,7 +9,8 @@ import com.choco.board.model.Board;
 @Mapper
 public interface BoardRepository {
 	List<Board> getBoardList();
-	Board getBoardDetail(int boardId);
+	List<Board> getBoardList(String boardCategory);
+	Board getBoardInfo(int boardId);
 	void createBoard(Board board);
 	void updateBoard(Board board);
 }
