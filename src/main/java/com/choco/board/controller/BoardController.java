@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.choco.attach.model.Attach;
+import com.choco.attach.service.AttachService;
 import com.choco.board.model.Board;
 import com.choco.board.service.BoardService;
 
@@ -25,6 +29,7 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
+	AttachService attachService;
 	
 	@GetMapping(value={"", "/"})
 	public String boardList(Model model, RedirectAttributes redirectAttributes) {
@@ -71,15 +76,26 @@ public class BoardController {
 	}
 	
 	@PostMapping("/add")
-	public String submitBoard(Board board, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	public String submitBoard(Board board, HttpServletRequest request,
+							  @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 		HttpSession session = request.getSession();
-		String usersId = (String)session.getAttribute("userid");
-		board.setUsersId(usersId);
+		String usersId = (String)session.getAttribute("userid");;
 		
+		board.setUsersId(usersId);
+	    int boardId = board.getBoardId();
+		
+		// !!!!파일 작업은 꼭 try로 감싸주기!!!!
 		try {
+			if(file != null && !file.isEmpty()) {
+				log.info(file.getOriginalFilename());
+				Attach attach = new Attach();
+				attach.setAttachName(file.getOriginalFilename());
+				attach.setAttachFile(file.getBytes());
+				attach.setBoardId(boardId);
+				attachService.insertAttach(boardId);
+			}
 			boardService.createBoard(board);
 			redirectAttributes.addFlashAttribute("message", usersId + "님의 게시글이 등록되었습니다.");
-			log.info("test");
 
 		}
 		catch(Exception ex) {
