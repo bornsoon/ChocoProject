@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-	@GetMapping(value={"","/"})
+	@GetMapping(value={"", "/", "/home"})
 	public String index() {
 		return "thymeleaf/choco/home";
 	}
