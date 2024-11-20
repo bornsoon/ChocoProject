@@ -1,5 +1,5 @@
 package com.choco.comment.service;
 
-public interface BasicCommnetService {
+public interface BasicCommentService {
 
 }
