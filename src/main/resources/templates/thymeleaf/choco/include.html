@@ -17,9 +17,14 @@
       <button class="login-button" onclick="location.href='/mypage'" th:if="${session.usersId != null}">마이페이지</button> 
       </div>
      </header>
+     
+<!-- 배너 -->
+    <div th:fragment="banner" class="banner">
+      <a href="https://pethroom.com" target="_blank">
+      <img src="/images/banner.png" alt="페쓰룸 광고"/></a>
+    </div>
       
-      
- <!-- 푸터 -->
+  <!-- 푸터 -->
     <footer th:fragment="footer">
     <div class="footer-container">
       <div class="footer-logo">
@@ -27,8 +32,8 @@
       </div>
       <div class="footer-info">
         <h4>ChocoCode Company</h4> 
-        <p><h6>78, Gosanja-ro 32-gil, Dongdaemun-gu, <u>Seoul</u>, Republic of Korea </p>
-        <p>ChocoCode@saesac.com</p></h6>
+        <p><h6>78, Gosanja-ro 32-gil, Dongdaemun-gu, <u>Seoul</u>, Republic of Korea<br>
+        ChocoCode@saesac.com</h6></p>
       </div>
     </div>
    </footer>     
