@@ -8,7 +8,9 @@
 		       ATTACH_NAME, 
 		       ATTACH FILE
 		FROM ATTACH
-		WHERE BOARD_ID=#{boardId}
+		WHERE BOARD_ID=#{boardId} AND 
+		      LOWER(REGEXP_SUBSTR(ATTACH_NAME, '[^\.]+$', 1, 1))
+		      IN ('jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'psd', 'bmp', 'tga')  
 		FETCH FIRST ROW ONLY
 	</select>
 	

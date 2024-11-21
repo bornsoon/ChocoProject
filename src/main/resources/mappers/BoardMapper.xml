@@ -11,15 +11,16 @@
 		       USERS_ID, 
 		       BOARD_CATEGORY
 		FROM BOARD 
-		<if test="baordId != null">
-			WHERE BOARD_CATEGORY=#{boardCategory}  
+		
+		<if test="baordCategory != null">
+			WHERE BOARD_CATEGORY = #{boardCategory}  
 		</if>
 	</select>
 	
 	<select id="getBoardInfo" parameterType="int" resultType="com.choco.board.model.Board">
 		SELECT *
 		FROM BOARD 
-		WHERE BOARD_ID=#{boardId}
+		WHERE BOARD_ID = #{boardId}
 	</select>	
 	
 	<insert id="createBoard" parameterType="com.choco.board.model.Board">
@@ -30,6 +31,15 @@
 	</insert>
 		
 	<update id="updateBoard" parameterType="com.choco.board.model.Board">
-		
+		UPDATE BOARD
+		SET BOARD_TITLE = #{boardTitle},
+		    BOARD_CONTENT = #{boardContent},
+		    BOARD_CATEGORY = #{boardCategory}
+		WHERE BOARD_ID = #{boardId}
 	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM BOARD
+		WHERE BOARD_ID = #{boardId}
+	</delete>
 </mapper>

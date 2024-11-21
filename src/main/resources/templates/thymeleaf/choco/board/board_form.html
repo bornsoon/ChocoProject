@@ -20,7 +20,7 @@
     <!-- 메인 콘텐츠 -->
   <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
 	<div style="width:80%;">
-		<form action="/board/add" method="post" enctype="multipart/form-data" oninput="markFormAsDirty()" th:object="${board}">
+		<form action="/board/create" method="post" enctype="multipart/form-data" oninput="markFormAsDirty()" th:object="${board}">
 		    <div>
 			    <select class="form-select" th:field="*{boardCategory}" required>
 			        <option value="dog">강아지</option>

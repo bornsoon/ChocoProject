@@ -32,11 +32,12 @@ public class BoardController {
 	AttachService attachService;
 	
 	@GetMapping(value={"", "/"})
-	public String boardList(Model model, RedirectAttributes redirectAttributes) {
+	public String boardList(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		
 		try {
 			List<Board> boardList = boardService.getBoardList();
-			model.addAttribute("boardList", boardList);			
+			model.addAttribute("boardList", boardList);	
+			session.setAttribute("usersId", "lhl576");
 		}
 		catch(Exception ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
@@ -63,31 +64,29 @@ public class BoardController {
 		Board board = boardService.getBoardInfo(boardId);
 		model.addAttribute("board", board);
 		
-		return "thymeleaf/choco/board/board_form";
+		return "thymeleaf/choco/board/board_info";
 	}
 	
-	@GetMapping("/new")
-	public String newBoard(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-		model.addAttribute("board", new Board());
-		
-		session.setAttribute("userid", "lhl576");
+	@GetMapping("/create")
+	public String createBoard(Model model, RedirectAttributes redirectAttributes) {
+		model.addAttribute("board", new Board());	
 		
 		return "thymeleaf/choco/board/board_form";
 	}
 	
-	@PostMapping("/add")
-	public String submitBoard(Board board, HttpServletRequest request,
+	@PostMapping("/create")
+	public String createBoard(Board board, HttpServletRequest request,
 							  @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 		HttpSession session = request.getSession();
-		String usersId = (String)session.getAttribute("userid");;
+		String usersId = (String)session.getAttribute("usersId");;
 		
 		board.setUsersId(usersId);
 	    int boardId = board.getBoardId();
 		
 		// !!!!파일 작업은 꼭 try로 감싸주기!!!!
 		try {
-			if(file != null && !file.isEmpty()) {
-				log.info(file.getOriginalFilename());
+			if (file != null && !file.isEmpty()) {
+				log.info(file.getOriginalFilename());  
 				Attach attach = new Attach();
 				attach.setAttachName(file.getOriginalFilename());
 				attach.setAttachFile(file.getBytes());
@@ -100,6 +99,34 @@ public class BoardController {
 		}
 		catch(Exception ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+		}
+		return "redirect:/board";
+	}
+	
+	@GetMapping("/update")
+	public String updateBoard(@RequestParam("boardId") int boardId,  Model model,
+			                  HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		Board board = boardService.getBoardInfo(boardId);
+		String usersId = board.getUsersId();
+		HttpSession session = request.getSession();
+		String sessionId = (String)session.getAttribute("usersId");
+		if (sessionId.equals(usersId)) {
+			boardService.deleteBoard(boardId);
+			model.addAttribute("board", board);
+			return "thymeleaf/choco/board/board_form";
+		} else {
+			return "redirect:/board";
+		}
+	}
+	
+	@GetMapping("/delete")
+	public String deleteBoard(@RequestParam("boardId") int boardId, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String sessionId = (String)session.getAttribute("usersId");
+		Board board = boardService.getBoardInfo(boardId);
+		String usersId = board.getUsersId();
+		if (sessionId.equals(usersId)) {
+			boardService.deleteBoard(boardId);
 		}
 		return "redirect:/board";
 	}
