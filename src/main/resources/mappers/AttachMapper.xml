@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.choco.attach.dao.AttachRepository">
+<mapper namespace="com.choco.board.dao.BoardRepository">
 
+	<select id="getOneAttachInfo" parameterType="int" resultType="com.choco.attach.model.Attach">
+		SELECT ATTACH_ID,
+		       ATTACH_NAME, 
+		       ATTACH FILE
+		FROM ATTACH
+		WHERE BOARD_ID=#{boardId} AND 
+		      LOWER(REGEXP_SUBSTR(ATTACH_NAME, '[^\.]+$', 1, 1))
+		      IN ('jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'psd', 'bmp', 'tga')  
+		FETCH FIRST ROW ONLY
+	</select>
 	
+	<select id="getAttachList" parameterType="int" resultType="com.choco.attach.model.Attach">
+		SELECT *
+		FROM ATTACH
+		WHERE BOARD_ID=#{boardId}
+	</select>	
+	
+	<insert id="insertAttach" parameterType="com.choco.attach.model.Attach">
+		INSERT INTO ATTACH
+		VALUES (
+			ATTACH_SEQ.nextval, #{attachName}, #{attachFile}, #{boardId})
+	</insert>
+		
+	<delete id="delete" parameterType="int">
+		DELETE FROM ATTACH 
+		WHERE BOARD_ID=#{boardId}
+	</delete>
 </mapper>

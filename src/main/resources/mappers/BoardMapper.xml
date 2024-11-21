@@ -4,15 +4,23 @@
 <mapper namespace="com.choco.board.dao.BoardRepository">
 
 	<select id="getBoardList" parameterType="String" resultType="com.choco.board.model.Board">
-		SELECT * FROM BOARD
-		<if test="deptid != null">
-			WHERE BOARD_CATEGORY=#{boardCategory}  
+		SELECT BOARD_ID,
+		       BOARD_TITLE, 
+		       SUBSTR(TO_CHAR(BOARD_CONTENT), 1, 50) AS BOARD_CONTENT, 
+		       TO_CHAR(REPLACE(SUBSTR(BOARD_DATE,1,8), '/', '.')) AS BOARD_DATE,
+		       USERS_ID, 
+		       BOARD_CATEGORY
+		FROM BOARD 
+		
+		<if test="baordCategory != null">
+			WHERE BOARD_CATEGORY = #{boardCategory}  
 		</if>
 	</select>
 	
 	<select id="getBoardInfo" parameterType="int" resultType="com.choco.board.model.Board">
-		SELECT * FROM BOARD
-		WHERE BOARD_ID=#{boardId}
+		SELECT *
+		FROM BOARD 
+		WHERE BOARD_ID = #{boardId}
 	</select>	
 	
 	<insert id="createBoard" parameterType="com.choco.board.model.Board">
@@ -23,6 +31,15 @@
 	</insert>
 		
 	<update id="updateBoard" parameterType="com.choco.board.model.Board">
-		
+		UPDATE BOARD
+		SET BOARD_TITLE = #{boardTitle},
+		    BOARD_CONTENT = #{boardContent},
+		    BOARD_CATEGORY = #{boardCategory}
+		WHERE BOARD_ID = #{boardId}
 	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM BOARD
+		WHERE BOARD_ID = #{boardId}
+	</delete>
 </mapper>
