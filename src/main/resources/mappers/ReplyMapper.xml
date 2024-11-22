@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choco.reply.dao.ReplyRepository">
+	
+	<!-- 댓글 목록 -->
+	<select id="getReplyList" resultType="com.choco.reply.model.Reply">
+		SELECT * FROM reply
+		<!--  최신순 정렬 --> 
+		ORDER BY REPLY_DATE DESC 
+	</select>
+	
+	<!-- 댓글 등록 -->
+	<insert id="createReply" parameterType="com.choco.reply.model.Reply">
+		INSERT INTO Reply (
+			REPLY_ID, REPLY_DATE, REPLY_CONTENT, USERS_ID, BOARD_ID)
+		VALUES (
+			BR_SEQ.nextval, CURRENT_TIMESTAMP, #{replyContent}, #{usersId}, #{boardId})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="com.choco.reply.model.Reply">
+		UPDATE reply
+		SET REPLY_CONTENT = #{replyContent}, REPLY_DATE = CURRENT_TIMESTAMP
+		WHERE REPLY_ID = #{replyId}
+	</update>
+
+	<!-- userId의 댓글 조회 --> 
+	<select id="getRepliesByUserId" parameterType="String" resultType="com.choco.reply.model.Reply">
+	    SELECT * 
+	    FROM reply 
+	    WHERE users_id = #{userId}
+	</select>
+	
+	<!-- boardId의 댓글 조회 --> 
+	<select id="getRepliesByBoardId" parameterType="int" resultType="com.choco.reply.model.Reply">
+	    SELECT * 
+	    FROM reply 
+	    WHERE board_id = #{boardId}
+	</select>
+</mapper>

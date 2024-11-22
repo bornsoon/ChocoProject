@@ -1,4 +1,4 @@
-package com.choco.attach.model;
+package com.choco.reply.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,12 +7,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter
-@ToString(exclude= {"attachFile"}) //ToString에서 attachFile만 빼겠다.
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Attach {
-	private int attachId;
-	private String attachName;
-	private byte[] attachFile;
+public class Reply {
+	private int replyId;
+	private String replyContent;
+	private String replyDate;
+	private String usersId;
 	private int boardId;
 }
