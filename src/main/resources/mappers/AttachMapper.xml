@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< Updated upstream
-<mapper namespace="com.choco.board.dao.BoardRepository">
-=======
 <mapper namespace="com.choco.attach.dao.AttachRepository">
->>>>>>> Stashed changes
 
 	<select id="getOneAttachImg" parameterType="int" resultType="com.choco.attach.model.Attach">
 		SELECT ATTACH_ID,
