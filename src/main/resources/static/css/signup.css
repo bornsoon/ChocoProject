@@ -1,0 +1,471 @@
+/* 회원가입 화면 */
+/* 정중앙 left: 685px */
+body {
+    position: relative;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #FFFFFF;
+    padding-bottom: 300px;
+}
+
+.signup-page {
+    position: relative;
+    width: 1440px;
+    height: 1890px;
+    margin: 0 auto;
+}
+
+/* 회원가입 */
+.signup-title {
+    position: absolute;
+    left: 350px;
+    top: 80px;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    color: #000000;
+}
+
+/* 로고 */
+.logo {
+    position: absolute;
+    width: 82px;
+    height: 68px;
+    left: 942px;
+    top: 56px;
+    background: url('/images/mycutepet.png') no-repeat center;
+    background-size: contain;
+}
+
+/* 구분선 */
+.line {
+    position: absolute;
+    left: 350px;
+    border: 0;
+    height: 0;
+}
+
+.main-line {
+    width: 670px;
+    top: 121px;
+    border: 3px solid #E6E6E6;
+}
+
+.accent-line {
+    width: 108px;
+    top: 121px;
+    border: 3px solid #000000;
+}
+
+.basicinfo-line {
+    position: absolute;
+    top: 248px;
+    width: 670px;
+    border: 2px solid #E6E6E6; 
+}
+
+.plusinfo-line {
+    position: absolute;
+    top: 1214px;
+    width: 670px;
+    border: 2px solid #E6E6E6; 
+}
+
+
+/* 기본정보 */
+.basic-info {
+    position: absolute;
+    left: 350px;
+    top: 214px;
+    font-weight: 650;
+    font-size:25px;
+    line-height: 36px;
+    color: #000000;
+}
+
+/* 필수 입력란 */
+.required {
+    position: absolute;
+    width: 250px;
+    height: 30px;
+    left: 775px;
+    top: 222px;
+    font-size: 18px;
+    text-align: right;
+    color: #000000;
+}
+
+.required-asterisk {
+    position: absolute;
+    width: 197px;
+    height: 30px;
+    left: 844px;
+    top: 225px;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 30px;
+    color: #F59206;
+}
+
+/* 프로필 문구 */
+.profile-sidetext {
+    position: absolute;
+    left: 790px;
+    top: 449px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #595959;
+}
+
+/* 프로필 사진 */
+.profile-photo {
+    position: absolute;
+    width: 170px;
+    height: 178px;
+    left: 600px;
+    top: 286px;
+    background: #F1F1F1;
+    border: 1px solid #C0BBBB;
+    border-radius: 3px;
+
+    /* 아이템 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.profile-photo:hover {
+    background: #EAEAEA; /* 박스 hover 효과 */
+}
+
+.profile-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #000000; /* 글씨 검정색 */
+}
+
+.profile-text input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #000000;
+}
+
+/* 프로필 미리보기 */
+.profile-preview {
+    position: absolute;
+    width: 172px;
+    height: 180px;
+    left: 600px;
+    top: 286px;
+    border-radius: 3px;
+    object-fit: cover; /* 이미지를 박스에 맞게 조정 */
+    display: none; /* 초기에는 보이지 않음 */
+}
+
+/* 반려동물 프로필 사진 */
+.profile-photo2 {
+    position: absolute;
+    width: 170px;
+    height: 178px;
+    left: 600px;
+    top: 1252px;
+    background: #F1F1F1;
+    border: 1px solid #C0BBBB;
+    border-radius: 3px;
+
+    /* 아이템 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.profile-photo2:hover {
+    background: #EAEAEA; /* 박스 hover 효과 */
+}
+
+/* 프로필 미리보기 */
+.profile-preview2 {
+    position: absolute;
+    width: 172px;
+    height: 180px;
+    left: 600px;
+    top: 1252px;
+    border-radius: 3px;
+    object-fit: cover; /* 이미지를 박스에 맞게 조정 */
+    display: none; /* 초기에는 보이지 않음 */
+}
+
+
+/* 입력 필드 컨테이너 */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* 입력 그룹 (라벨과 입력란 배치) */
+.input-group {
+    position: relative;
+    width: 670px;
+    left: 350px;
+    top: 500px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 라벨과 입력란 간 간격 */
+}
+
+/* 입력 필드의 스타일 */
+.input-group label {
+    left: 200px;
+    font-size: 22px;
+    color: #000000;
+    width: 200px; /* 라벨의 고정 너비 */
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    gap: 10px;
+}
+
+.input-group input {
+    flex: 1; /* 남은 공간을 입력란이 차지 */
+    padding: 10px;
+    border: 1px solid #868E96;
+    border-radius: 3px;
+    font-size: 20px;
+}
+
+/* 힌트 텍스트 */
+.input-group input::placeholder {
+    font-size: 20px;
+    color: #868E96;
+}
+
+/* Input Fields */
+.input-field {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    border: 1px solid #868E96;
+    border-radius: 3px;
+    font-size: 21px;
+    color: #868E96;
+}
+
+/* 입력 그룹 내부 오류 메시지 */
+.input-group .error-message {
+    margin: 5px 0 0 0; /* 입력 필드 바로 아래에 위치 */
+    color: red;
+    font-size: 14px;
+    display: none; /* 기본적으로 숨김 */
+    position: absolute;
+    left: 215px; /* 입력 필드와 같은 시작 위치 */
+    top: 43px; /* 입력 필드 아래로 약간 내려감 */
+}
+
+/* 중복확인 버튼 */
+.check-button {
+    box-sizing: border-box;
+    position: relative;
+    width: 120px;
+    height: 40px;
+    background: #F1F1F1;
+    border: 1px solid #C0BBBB;
+    border-radius: 3px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    text-align: center;
+    color: #000000;
+    cursor: pointer;
+}
+
+.check-button:hover {
+    background: #EAEAEA;
+}
+
+/* 비밀번호 확인 메시지 스타일 */
+.password-message {
+    width: 670px;
+    left: 562px;
+    top: 685px;
+    position: absolute;
+    font-size: 14px;
+    margin: 5px 0 0 0; /* 메시지를 입력란과 정렬 */
+}
+
+/* 추가정보 */
+.plus-info {
+    position: absolute;
+    left: 350px;
+    top:1180px;
+    font-weight: 650;
+    font-size:25px;
+    line-height: 36px;
+    color: #000000;
+}
+
+/* 선택 사항란 */
+.options {
+    position: absolute;
+    left: 530px;
+    top: 1192px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #595959;
+}
+
+/* 프로필 문구2 */
+.profile-sidetext2 {
+    position: absolute;
+    left: 790px;
+    top: 1412px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #595959;
+}
+
+/* 입력 그룹 (라벨과 입력란 배치) */
+.input-group2 {
+    position: relative;
+    width: 670px;
+    left: 350px;
+    top: 980px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 라벨과 입력란 간 간격 */
+}
+
+/* 입력 필드의 스타일 */
+.input-group2 label {
+    left: 200px;
+    font-size: 22px;
+    color: #000000;
+    width: 200px; /* 라벨의 고정 너비 */
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    gap: 10px;
+}
+
+.input-group2 input {
+    flex: 1; /* 남은 공간을 입력란이 차지 */
+    padding: 10px;
+    border: 1px solid #868E96;
+    border-radius: 3px;
+    font-size: 20px;
+}
+
+/* 힌트 텍스트 */
+.input-group2 input::placeholder {
+    font-size: 20px;
+    color: #868E96;
+}
+
+/* 드롭박스 선택 */
+.input-group2 select {
+    flex: 1; /* 드롭다운이 남은 공간을 차지 */
+    padding: 10px;
+    border: 1px solid #868E96;
+    border-radius: 3px;
+    font-size: 20px;
+    color: #000000;
+    background-color: #FFFFFF;
+}
+
+/* 회원가입 버튼 */
+.signup-box input[type="submit"] {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 240px;
+    height: 60px;
+    left: 390px; /* 350px가 line 시작 위치 */
+    top: 1900px;
+    background: #000000;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 25px;
+    color: #FCD11E;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.signup-box input[type="submit"]:hover {
+    background-color: #FCD11E;
+    color: #000000;
+}
+
+/* 취소 버튼 */
+.cancel-box input[type="submit"] {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 240px;
+    height: 60px;
+    left: 740px;
+    top: 1900px;
+    background: #FFFFFF;
+    border-color: #000000;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 25px;
+    color: #000000;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cancel-box input[type="submit"]:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.ic--baseline-upload {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M5 20h14v-2H5zm0-10h4v6h6v-6h4l-7-7z'/%3E%3C/svg%3E");
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+.stash--asterisk-duotone {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 7.25a.75.75 0 0 1 .75.75v2.7l2.339-1.35a.75.75 0 1 1 .75 1.3L13.5 12l2.34 1.35a.75.75 0 0 1-.75 1.3l-2.34-1.351V16a.75.75 0 0 1-1.5 0v-2.701l-2.34 1.35a.75.75 0 0 1-.75-1.298L10.5 12l-2.339-1.35a.75.75 0 1 1 .75-1.3l2.339 1.35V8a.75.75 0 0 1 .75-.75'/%3E%3C/svg%3E");
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    color: #F59206;
+}

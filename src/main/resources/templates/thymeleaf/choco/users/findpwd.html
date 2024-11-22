@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCutePet | 비밀번호 찾기</title>
+    <link rel="stylesheet" th:href="@{/css/findpwd.css}">
+</head>
+</head>
+<body>
+    <div class="find-pwd-page">
+        <!-- 로고 -->
+        <div class="logo"></div>
+
+        <!-- 제목 -->
+        <div class="title">비밀번호 찾기</div>
+        <div class="subtitle">비밀번호 찾기에 필요한 ID와 이름 그리고 생년월일을 입력해주세요.</div>
+
+        <!-- 구분선 -->
+        <hr class="line main-line">
+        <hr class="line accent-line">
+        
+        
+		<form action="/findpwd" method="post">
+        <!-- 입력 필드 -->
+        <div class="input-container">
+            <!-- 아이디 -->
+            <div class="input-group">
+                <label for="name">아이디</label>
+                <input type="text" id="usersId" name="usersId" required>
+            </div>
+        
+            <!-- 이름 -->
+            <div class="input-group">
+                <label for="nickname">이름</label>
+                <input type="text" id="usersName" name="usersName" required>
+            </div>
+        
+            <!-- 생년월일 -->
+            <div class="input-group">
+                <label for="birthdate">생년월일</label>
+                <input type="text" id="usersBirthdate" name="usersBirthdate" placeholder="연도, 월, 일 순으로 8자리 입력해주세요." required>
+            </div>
+        </div>
+
+        <!-- 비밀번호 찾기 버튼 -->
+        <div>
+			<input type="submit" value="비밀번호 찾기" class="findpwd-btn">
+        </div>
+        
+        </form>
+    </div>
+    
+    <script th:if="${message}" th:inline="javascript">
+        alert([[${message}]]);
+    </script>
+    
+</body>
+</html>

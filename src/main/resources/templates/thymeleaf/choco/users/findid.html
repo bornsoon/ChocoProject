@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCutePet | 아이디 찾기</title>
+    <link rel="stylesheet" th:href="@{/css/findid.css}">
+</head>
+</head>
+<body>
+    <div class="find-id-page">
+        <!-- 로고 -->
+        <div class="logo"></div>
+
+        <!-- 제목 -->
+        <div class="title">아이디 찾기</div>
+        <div class="subtitle">아이디 찾기에 필요한 이름, 닉네임 그리고 생년월일을 입력해주세요.</div>
+
+        <!-- 구분선 -->
+        <hr class="line main-line">
+        <hr class="line accent-line">
+
+
+		<form action="/findid" method="post">
+        <!-- 입력 필드 -->
+        <div class="input-container">
+            <!-- 이름 -->
+            <div class="input-group">
+                <label for="name">이름</label>
+                <input type="text" id="usersName" name="usersName" required>
+            </div>
+        
+            <!-- 닉네임 -->
+            <div class="input-group">
+                <label for="nickname">닉네임</label>
+                <input type="text" id="usersNickname" name="usersNickname" required>
+            </div>
+        
+            <!-- 생년월일 -->
+            <div class="input-group">
+                <label for="birthdate">생년월일</label>
+                <input type="text" id="usersBirthdate" name="usersBirthdate" placeholder="연도, 월, 일 순으로 8자리 입력해주세요." required>
+            </div>
+        </div>
+
+		<!-- 아이디 찾기 버튼 -->
+		<div>
+			<input type="submit" value="아이디 찾기" class="findid-btn">
+        </div>
+        
+		</form>
+		
+    </div>
+    
+    <script th:if="${message}" th:inline="javascript">
+        alert([[${message}]]);
+    </script>
+</body>
+</html>

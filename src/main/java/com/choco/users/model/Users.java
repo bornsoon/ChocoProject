@@ -7,10 +7,25 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter
-@ToString
+@ToString(exclude= {"usersProfile"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Users {
-	private int usersId;
+	
+	private String usersId;
 	private String usersName;
+	private String usersPwd;
+	private String usersEmail;
+	private String usersNickname;
+	private String usersBirthdate;
+	private byte[] usersProfile;
+	
+	public String getUsersId() {
+		return usersId;
+	}
+	
+	public String getUsersName() {
+		return usersName;
+	}
+	
 }
