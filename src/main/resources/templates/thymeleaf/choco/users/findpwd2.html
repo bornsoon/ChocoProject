@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCutePet | 비밀번호 조회</title>
+    <link rel="stylesheet" th:href="@{/css/findpwd2.css}">
+</head>
+</head>
+<body>
+    <div class="find-pwd-page">
+        <!-- 로고 -->
+        <div class="logo"></div>
+
+        <!-- 제목 -->
+        <div class="title">비밀번호 찾기</div>
+        <div class="subtitle">고객님의 정보와 일치하는 비밀번호입니다.</div>
+
+        <!-- 구분선 -->
+        <hr class="line main-line">
+        <hr class="line accent-line">
+
+        <!-- 출력 필드 -->
+        <div class="output-container">
+            <p th:text="${findPwd}"></p>
+        </div>
+		
+		<!-- 로그인 버튼 -->
+      	<div class="login-btn">
+         	<a href="main_login" style="text-decoration: none; color: inherit;">로그인하기</a>
+     	</div>
+		
+		
+
+    </div>
+</body>
+</html>
