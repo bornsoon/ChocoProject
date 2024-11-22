@@ -1,45 +1,29 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MYCUTEPET | BOARD</title>
-    <link rel="stylesheet" href="board.css"> <!-- CSS 파일 연결 -->
-    <script src="https://kit.fontawesome.com/f4214a91db.js" crossorigin="anonymous"></script>
-</head>
-<body>
-  <!-- 헤더 -->
-    <header>
-      <div class="header-container">
-       <div class="logo">
-        <img src="mycutepet-logo.png" alt="MYCUTEPET 로고" />
-        <span>MYCUTEPET</span>
-       </div>
-      <nav class="nav-links">
-        </h4><a href="#home">홈</a>
-        <a href="#board">주접 게시판</a>
-        <a href="#calculator">건강 계산기</a>
-      </nav>
-      <button class="login-button">로그인</button>
-      </header>
+<html xmlns:th="http//www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/thymeleaf/choco/default_layout}">
 
+<th:block layout:fragment="title">
+	<title>MYCUTEPET | BOARD</title>
+</th:block>
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/home.css}" />
+	<link rel="stylesheet" th:href="@{/css/board.css}" />
+</th:block> 
+
+<th:block layout:fragment="wrapper">
   <!-- 메인 이미지 -->
-  </div>
   <div class="main-img">
-      <img src="post-img.png" alt="Pet Lovers" class="main-img" />
+      <img src="/images/board-img.png" alt="Pet Lovers" class="main-img" />
   </div>
 
   <!-- 콘텐츠 래퍼 -->
-  <div class="content-wrapper">
+  <div layout:fragment="content-wrapper" class="content-wrapper">
   <!-- 배너 -->
-  <div class="banner">
-    <a href="https://pethroom.com" target="_blank">
-    <img src="banner.png" alt="페쓰룸 광고";/></a>
-  </div>
-
-
+  <div th:replace="~{/thymeleaf/choco/include::banner}"></div>
     <!-- 메인 콘텐츠 -->
-    <div class="main-content-wrapper">
+    <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
+
     <div class="postbtn-container">
       <h4>주접 게시판</h4>
       <!-- 게시글 버튼 -->
@@ -113,21 +97,52 @@
         </div>
       </div>
      </div>
-
- 
-  <!-- 푸터 -->
-    <footer>
-    <div class="footer-container">
-      <div class="footer-logo">
-        <img src="mycutepet-whitelogo.png" alt="MYCUTEPT Logo">
-      </div>
-      <div class="footer-info">
-        <h4>ChocoCode Company</h4> 
-        <p><h6>78, Gosanja-ro 32-gil, Dongdaemun-gu, <u>Seoul</u>, Republic of Korea </p>
-        <p>ChocoCode@saesac.com</p></h6>
-      </div>
+   
+      
+	<div class="board-container">	
+    <div class="btn-box" th:with="category=${boardCategory}">
+      <button onclick="location.href='/board'" th:class="${category==null?'category-btn--active scale':'category-btn scale'}">전체</button>
+      <button onclick="location.href='/board/category/dog'" th:class="${category=='dog'?'category-btn--active scale':'category-btn scale'}" >강아지</button>
+      <button onclick="location.href='/board/category/cat'" th:class="${category=='cat'?'category-btn--active scale':'category-btn scale'}">고양이</button>
+      <button onclick="location.href='/board/category/other'" th:class="${category=='other'?'category-btn--active scale':'category-btn scale'}">소동물</button>
+      <button onclick="location.href='/board/create'" class=btn-write></button>
     </div>
-   </footer>
-  
-</body>
+    
+    <div class="board-list-box">
+      <div class="board-top">
+      
+      </div>
+      <div class="board-list">
+	    <ul class="board-info">
+	      <li th:each="board: ${boardList}">
+	        <a href="@{/board/{boardId}}" class="board-card">
+	      
+	        </a>
+	      </li>
+	    </ul>
+	  </div>
+      <div class="board-img"><img src=""></div>
+    </div>
+      <div>
+        <table border="1">
+          <tr>
+          	<th>USERS_ID</th>
+          	<th>BOARD_DATE</th>
+			<th>BOARD_TITLE</th>
+			<th>BOARD_CONTENT</th>
+			<th>ATTACH</th>
+          </tr>
+          <tr th:each="board: ${boardList}" th:onclick="|location.href='/board/${board.boardId}'|">
+          	<td th:utext="${board.usersId}"></td>
+          	<td th:utext="${board.boardDate}"></td>
+          	<td th:utext="${board.boardTitle}"></td>
+          	<td th:utext="${board.boardContent}"></td>
+          	<td>첨부파일 미리보기</td>
+          </tr>
+        </table>
+      </div>
+     </div>
+    </div>
+    </div>
+</th:block>
 </html>

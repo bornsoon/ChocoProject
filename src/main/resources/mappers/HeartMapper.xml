@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choco.heart.HeartRepository">
+
+		<!-- 좋아요 데이터 존재 여부 확인 -->
+	  <select id="checkHeart" resultType="int">
+		SELECT 1
+	    FROM HEART
+	    WHERE HEART_ID = #{boardId} AND USERS_ID = #{sessionId};
+	  </select>
+    
+    <!-- 좋아요 개수 -->
+	  <select id="getHeartCount" parameterType="int" resultType="int">
+	    SELECT COUNT(*) FROM HEART
+	    WHERE HEART_ID=#{heartId}
+	  </select> 
+    
+    <!-- 특정 사용자가 특정 게시물 또는 댓글에 좋아요 추가 -->
+      <insert id="insertHeart" parameterType="com.choco.heart.model.Heart">
+        INSERT INTO HEART (
+        heart_id, users_id,)
+        VALUES (
+        #{heartId}, #{usersId})
+      </insert>
+      
+    <!-- 특정 사용자가 특정 게시물 또는 댓글에 좋아요 삭제 -->
+      <delete id="deleteHeart" parameterType="com.choco.heart.model.Heart">
+        DELETE FROM HEART
+        WHERE HEART_ID=#{heartId} AND USERS_ID=#{usersId}
+      </delete>
+
+</mapper>
