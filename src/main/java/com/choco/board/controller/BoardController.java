@@ -30,6 +30,8 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
 	AttachService attachService;
 	
 	@GetMapping(value={"", "/"})
@@ -85,12 +87,14 @@ public class BoardController {
 				attach.setAttachFile(file.getBytes());
 				log.info("파일바이트: " + file.getBytes());
 				log.info(attach.toString());
+				log.info("파일insert 시도");
 				attachService.insertAttach(attach);
 				log.info("파일insert");
 			}
 			log.info("게시글 등록 성공");
 		}
 		catch(Exception ex) {
+			ex.printStackTrace();
 			log.error("게시글 등록 오류: ", ex.getMessage());
 		}
 		return "redirect:/board";
