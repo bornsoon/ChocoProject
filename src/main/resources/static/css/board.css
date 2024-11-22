@@ -210,7 +210,7 @@ header {
   .search-btn:hover {
     transform: scale(1.02); /* 카드 확대 */
     }
-  }
+
 
 /* 보드 콘텐츠 */
   /* 게시판 목록 */
@@ -262,7 +262,7 @@ header {
       display: flex-start;
       align-items: center; /* 이미지와 텍스트 수평정렬 */
       justify-content: space-between;
-      border-top: 1px solid #e0e0e0; /* 상단 아웃라인 */
+      /* border-top: 1px solid #e0e0e0; /* 상단 아웃라인 */
       border-bottom: 1px solid #e0e0e0; /* 하단 아웃라인 */
       padding: 20px;
       }
