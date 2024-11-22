@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http//www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/thymeleaf/choco/default_layout}">
 
@@ -22,47 +22,13 @@
       <h4>오늘의 주접왕</h4> <br>
       <div class="post-container">
         <!-- 각 게시글 카드 -->
-        <div class="post-card">
+        <div class="post-card" th:each="board: ${boardList}"
+        	th:onclick="|location.href='/board/${board.boardId}'|">
           <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드1</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
-        </div>
-        <div class="post-card">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드 2</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
-        </div>
-        <div class="post-card">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드3</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
-        </div>
-        <div class="post-card">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드4</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
-        </div>
-        <div class="post-card">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드5</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
-        </div>
-        <div class="post-card">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드6</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
+          <h3 th:utext="${board.boardTitle}"></h3>
+          <p th:utext="${board.boardContent}"></p>
+          <p class="post-date" th:utext="${board.boardDate}"></p>
+          <span>Read more</span>
         </div>
       </div>
      </div>

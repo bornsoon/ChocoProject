@@ -1,0 +1,83 @@
+.board-container {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 50px 200px 0 100px;
+  margin: 0 auto; /* 상하, 좌우 여백 */
+}
+
+.scale:hover {
+  scale: 120%; 
+}
+
+.hide {
+  visibility: hidden;
+  scale: 200%;
+}
+
+.btn-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-sizing: content-box;
+  width: 100%;
+}
+
+.btn {
+  background-color: #000000; 
+  color: #FCD11E; 
+  border: none;
+  border-radius: 50px; /* 둥근 버튼 */
+  height: 54px;
+  padding: 8px 20px;
+  font-size: 19px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.category-btn {
+  background-color: #D9D9D9; 
+  color: #000000; 
+  border: none;
+  border-radius: 50px; /* 둥근 버튼 */
+  width: 145px;
+  height: 54px;
+  padding: 8px 20px;
+  font-size: 19px;
+  font-weight: 950;
+  cursor: pointer;
+  box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.3);
+}
+
+.category-btn--active {
+   /* 호버 시 배경색 변경 */
+  background-color: #FCD11E;
+  color: #000000; 
+  border: none;
+  border-radius: 50px; /* 둥근 버튼 */
+  width: 145px;
+  height: 54px;
+  padding: 8px 20px;
+  font-size: 19px;
+  font-weight: 950;
+  cursor: pointer;
+  box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.3);
+}
+
+.category-btn--active:hover {
+   /* 호버 시 배경색 변경 */
+  background-color: #fde06f;
+}
+
+.btn-write {
+  background: url(/images/ico-write.svg) no-repeat center;
+  border-radius: 30px;
+  width: 123px;
+  height: 117px;
+  border: none;
+  box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-write:hover {
+  background: url(/images/ico-write-yellow.svg) no-repeat center;
+}

@@ -11,7 +11,7 @@
       <nav class="nav-links">
         <a href="/home">홈</a>
         <a href="/board">주접 게시판</a>
-        <a href="/calculator">건강 계산기</a>
+        <a href="/calc">건강 계산기</a>
       </nav>
       <button class="login-button" onclick="location.href='/login'" th:if="${session.usersId == null}">로그인 </button>
       <button class="login-button" onclick="location.href='/mypage'" th:if="${session.usersId != null}">마이페이지</button> 
