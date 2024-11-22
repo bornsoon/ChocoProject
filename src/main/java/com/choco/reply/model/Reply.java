@@ -1,4 +1,4 @@
-package com.choco.post.model;
+package com.choco.reply.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,9 +10,10 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
-	private int attachId;
-	private String attachName;
-	private int postId;
-	private byte[] attachFile;
+public class Reply {
+	private int replyId;
+	private String replyContent;
+	private String replyDate;
+	private String usersId;
+	private int boardId;
 }

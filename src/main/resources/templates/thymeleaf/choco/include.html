@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">    
+
+ <!-- 헤더 -->
+    <header th:fragment="header">
+      <div class="header-container">
+       <div class="logo">
+        <img src="/images/mycutepet-logo.png" alt="MYCUTEPET 로고" />
+        <span>MYCUTEPET</span>
+       </div>
+      <nav class="nav-links">
+        <a href="/home">홈</a>
+        <a href="/board">주접 게시판</a>
+        <a href="/calc">건강 계산기</a>
+      </nav>
+      <button class="login-button" onclick="location.href='/login'" th:if="${session.usersId == null}">로그인 </button>
+      <button class="login-button" onclick="location.href='/mypage'" th:if="${session.usersId != null}">마이페이지</button> 
+      </div>
+     </header>
+     
+<!-- 배너 -->
+    <div th:fragment="banner" class="banner">
+      <a href="https://pethroom.com" target="_blank">
+      <img src="/images/banner.png" alt="페쓰룸 광고"/></a>
+    </div>
+      
+  <!-- 푸터 -->
+    <footer th:fragment="footer">
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="/images/mycutepet-whitelogo.png" alt="MYCUTEPT Logo">
+      </div>
+      <div class="footer-info">
+        <h4>ChocoCode Company</h4> 
+        <p><h6>78, Gosanja-ro 32-gil, Dongdaemun-gu, <u>Seoul</u>, Republic of Korea<br>
+        ChocoCode@saesac.com</h6></p>
+      </div>
+    </div>
+   </footer>     

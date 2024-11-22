@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <th:block layout:fragment="title">
+    	<title>MYCUTEPET</title>
+    </th:block>
+    <th:block layout:fragment="css">
+    	<link rel="stylesheet" th:href="@{/css/home.css}" />
+    </th:block> 
+</head>
+<body>
+    <header th:replace="~{/thymeleaf/choco/include::header}"></header>
+
+    <section layout:fragment="wrapper">
+
+	<div layout:fragment="content-wrapper" class="content-wrapper">
+		<div layout:fragment="main-content-wrapper" class="main-content-wrapper"></div>
+	</div>
+
+    </section>
+	
+    <footer th:replace="~{/thymeleaf/choco/include::footer}"></footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>    
+    <th:block layout:fragment="script"></th:block>
+</body>
+</html>

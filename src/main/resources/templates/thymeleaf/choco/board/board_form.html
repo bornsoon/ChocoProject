@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/thymeleaf/choco/default_layout}">
+
+<th:block layout:fragment="title">
+	<title>MYCUTEPET | BOARD FORM</title>
+</th:block>
+
+<th:block layout:fragment="wrapper">	
+  <!-- 메인 이미지 -->
+  <div class="main-img">
+      <img src="/images/board-img.png" alt="Pet Lovers" class="main-img" />
+  </div>
+
+  <!-- 콘텐츠 래퍼 -->
+  <div layout:fragment="content-wrapper" class="content-wrapper">
+  <!-- 배너 -->
+  <div th:replace="~{/thymeleaf/choco/include::banner}"></div>
+    <!-- 메인 콘텐츠 -->
+  <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
+	<div style="width:80%;">
+		<form action="/board/create" method="post" enctype="multipart/form-data" oninput="markFormAsDirty()" th:object="${board}">
+		    <div>
+			    <select class="form-select" th:field="*{boardCategory}" required>
+			        <option value="dog">강아지</option>
+			        <option value="cat">고양이</option>
+			        <option value="other">소동물</option>
+			    </select>
+			</div>
+			
+			<div class="mb-3">
+		  	    <label for="validationTextarea">제목</label>
+		        <input type="text" th:field="*{boardTitle}" placeholder="제목을 입력해주세요." required />
+		    </div>
+		  
+			<div class="mb-3">
+		  	    <label for="validationTextarea">내용</label>
+		        <textarea th:field="*{boardContent}" placeholder="내용을 입력하세요." required></textarea>
+		    </div>
+	
+		    <div class="mb-3">
+		        <input type="file" name="file" multiple>
+		    </div>
+		
+		    <div class="mb-3">
+		        <button class="btn btn-primary" type="submit">등록</button>
+		    </div> 
+		</form>
+    </div>
+  </div>
+</div>
+      
+</th:block>
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choco.board.dao.BoardRepository">
+
+	<select id="getBoardList" parameterType="String" resultType="com.choco.board.model.Board">
+		SELECT DISTINCT B.BOARD_ID,
+		       BOARD_TITLE, 
+		       SUBSTR(TO_CHAR(BOARD_CONTENT), 1, 50) AS BOARD_CONTENT, 
+		       TO_CHAR(REPLACE(SUBSTR(BOARD_DATE,1,8), '/', '.')) AS BOARD_DATE,
+		       B.USERS_ID,
+		       COUNT(HEART_ID) OVER(PARTITION BY B.BOARD_ID) AS HEART_SUM
+		FROM BOARD B 
+		LEFT JOIN ATTACH A
+		ON B.BOARD_ID = A.BOARD_ID
+		LEFT JOIN HEART H
+		ON B.BOARD_ID = H.HEART_ID
+		<if test = "boardCategory != null">
+			WHERE BOARD_CATEGORY = #{boardCategory} 
+		</if>
+		ORDER BY BOARD_DATE DESC
+	</select>
+
+	<select id="getBoardListByHeart" parameterType="int" resultType="com.choco.board.model.Board">
+		SELECT DISTINCT B.BOARD_ID,
+		       BOARD_TITLE, 
+		       SUBSTR(TO_CHAR(BOARD_CONTENT), 1, 50) AS BOARD_CONTENT, 
+		       TO_CHAR(REPLACE(SUBSTR(BOARD_DATE,1,8), '/', '.')) AS BOARD_DATE,
+		       B.USERS_ID,
+		       COUNT(HEART_ID) OVER(PARTITION BY B.BOARD_ID) AS HEART_SUM
+		FROM BOARD B 
+		LEFT JOIN ATTACH A
+		ON B.BOARD_ID = A.BOARD_ID
+		LEFT JOIN HEART H
+		ON B.BOARD_ID = H.HEART_ID
+		ORDER BY HEART_SUM
+		<if test = "rank != null">
+			FETCH FIRST #{top} ROW ONLY
+		</if>
+	</select>	
+	
+	<select id="getBoardListByUsersId" parameterType="String" resultType="com.choco.board.model.Board">
+		SELECT BOARD_ID,
+		       BOARD_TITLE, 
+		       SUBSTR(TO_CHAR(BOARD_CONTENT), 1, 50) AS BOARD_CONTENT, 
+		       TO_CHAR(REPLACE(SUBSTR(BOARD_DATE,1,8), '/', '.')) AS BOARD_DATE,
+		       USERS_ID, 
+		       BOARD_CATEGORY
+		FROM BOARD 
+		WHERE USERS_ID = #{usersId}  
+	</select>	
+	
+	<select id="getBoardInfo" parameterType="int" resultType="com.choco.board.model.Board">
+		SELECT *
+		FROM BOARD 
+		WHERE BOARD_ID = #{boardId}
+	</select>	
+	
+	<select id="createBoardId" resultType="int">
+		SELECT BR_SEQ.NEXTVAL
+		FROM DUAL
+	</select>
+	
+	<insert id="createBoard" parameterType="com.choco.board.model.Board">
+		INSERT INTO BOARD (
+			BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE, USERS_ID, BOARD_CATEGORY)
+		VALUES (
+			#{boardId}, #{boardTitle}, #{boardContent}, CURRENT_TIMESTAMP, #{usersId}, #{boardCategory})
+	</insert>
+		
+	<update id="updateBoard" parameterType="com.choco.board.model.Board">
+		UPDATE BOARD
+		SET BOARD_TITLE = #{boardTitle},
+		    BOARD_CONTENT = #{boardContent},
+		    BOARD_CATEGORY = #{boardCategory}
+		WHERE BOARD_ID = #{boardId}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM BOARD
+		WHERE BOARD_ID = #{boardId}
+	</delete>
+</mapper>

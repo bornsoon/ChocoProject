@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/thymeleaf/choco/default_layout}">
+
+<th:block layout:fragment="title">
+	<title>MYCUTEPET | AGE</title>
+</th:block>
+
+    <th:block layout:fragment="css">
+    	<link rel="stylesheet" th:href="@{/css/home.css}" />
+    	<link rel="stylesheet" th:href="@{/css/calc.css}" />
+    </th:block> 
+
+<th:block layout:fragment="wrapper">	
+  <!-- 메인 이미지 -->
+  <div class="calc-img">
+      <img src="/images/cal-img.png" alt="Pet Lovers" class="calc-img" />
+  </div>
+
+  <!-- 콘텐츠 래퍼 -->
+  <div layout:fragment="content-wrapper" class="content-wrapper">
+  <!-- 배너 -->
+  <div th:replace="/thymeleaf/choco/include::banner"></div>
+    <!-- 메인 콘텐츠 -->
+    <div layout:fragment="calc-content-wrapper" class="calc-content-wrapper">
+      <div class="calc-inside-container"> <!-- 배너 옆 메인 콘텐츠 -->
+        <!-- 버튼 -->
+		<div class="calc-button-container"> <!-- 계산기 버튼 -->
+		  <div class="button-group">
+		    <button class="calc-age-button" onclick="location.href='/calc/age'">나이 계산기</button>
+		    <button class="calc-recommend-calorie-button" onclick="location.href='/calc/recommend-calorie'">권장 칼로리 계산기</button>
+		  </div>
+		  <div class="text-container">
+		    <div class="text-left">정확한 생년월일을 모르겠어요</div>
+		    <div class="text-right">
+		      걱정 마세요!<br>
+		      태어난 연도 혹은 월까지만 입력해도<br>
+		      대략적인 나이를 추산할 수 있습니다.
+		    </div>
+		  </div>
+		</div>
+      </div>     	
+       	  <div class="calc-outline-block">
+       		<div class="image-container">
+			    <!-- 강아지 이미지와 텍스트 -->
+			    <div class="image-item">
+			      <img id="dog-image" src="/images/dog.png" alt="강아지">
+			    </div>
+			    <!-- 고양이 이미지와 텍스트 -->
+			    <div class="image-item">
+			      <img id="cat-image" src="/images/calc-age.png" alt="고양이">
+			    </div>
+			 </div>
+		      <br>
+		     <!-- 생년월일 및 계산기 입력 부분 -->
+		     <div class="inputs">
+		       <div class="text">생년월일</div>
+		         <label for="birth-input"></label>
+		         <input type="text" id="birth-input" placeholder= />
+		         <br>
+		     <div class="size-container" id="size-container"> <!-- 강아지 크기 선택이 고양이 계산기에서는 뜨지 않게 container에 넣음 -->
+		      	<div class="text">반려동물 크기</div>
+		          <label for="size-select"></label>
+		          <select id="size-select"> 
+		            <option value="small">소형견(10kg 미만)</option>
+		            <option value="medium">중형견(10kg 이상 25kg 미만)</option>
+		            <option value="large">대형견(25kg 이상)</option>
+		          </select>
+		        </div>
+		       <br>
+		       <button id="calculate-button">계산하기</button>
+		      </div>
+		     <br>
+		     <div class="result" id="result-section" style="display: none;">
+	           <p id="age-result"></p> <!-- 결과가 출력될 부분 -->
+	      	 </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- js 연결 -->
+    <th:block layout:fragment="script"> 
+    <script type="text/javascript" th:src="@{/js/calc_age.js}"></script>
+    </th:block>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>반려동물 권장 칼로리 계산기</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .inputs, .result {
+      display: none;
+      margin-top: 20px;
+    }
+    .inputs label, .inputs select, .inputs input, .inputs button {
+      margin: 10px;
+    }
+    #dog-image, #cat-image {
+      width: 150px;
+      cursor: pointer;
+      margin: 20px;
+    }
+    #calculate-button {
+      margin-top: 20px;
+    }
+    .result {
+      font-size: 20px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>권장 칼로리 계산기</h1>
+  <div>
+    <img id="dog-image" src="dog.jpg" alt="강아지" />
+    <img id="cat-image" src="cat.jpg" alt="고양이" />
+  </div>
+  <div class="inputs">
+    <label for="weight-input">몸무게 (kg):</label>
+    <input type="number" id="weight-input" step="0.01" placeholder="몸무게를 입력하세요" />
+    <br>
+    <label for="status-select">상태 선택:</label>
+    <select id="status-select">
+      <!-- 동적 옵션 추가 -->
+    </select>
+    <br>
+    <button id="calculate-button">계산하기</button>
+  </div>
+  <div class="result">
+    <p id="calorie-result"></p>
+  </div>
+
+  <script src="calc_recommend_calorie.js"></script>
+</body>
+</html>
