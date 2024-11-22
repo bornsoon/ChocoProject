@@ -133,7 +133,7 @@ header {
     .post-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr); /* 가로 2개 */
-      gap: 80px 80px; /* 카드 간 간격 */
+      gap: 60px; /* 카드 간 간격 */
       width: 100%;
       max-width: 800px; /* 최대 너비 설정 */
       justify-content: center; /* 중앙 정렬 */
@@ -141,7 +141,6 @@ header {
     }
     /* 게시글 카드 스타일 */
     .post-card {
-      width: 100%;
       max-width: 350px; /* 카드 최대 너비 */
       background-color: #ffffff;
       border: 1px solid #e0e0e0;
@@ -173,7 +172,7 @@ header {
       color: #999999;
       font-size: 12px;
     }
-    .post-card a {
+    .post-card span {
       display: block;
       font-size: 14px;
       color: #FCD11E;

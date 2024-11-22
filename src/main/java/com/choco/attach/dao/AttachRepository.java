@@ -8,8 +8,7 @@ import com.choco.attach.model.Attach;
 
 @Mapper
 public interface AttachRepository {
-	Attach getOneAttachInfo(int boardId);
 	List<Attach> getAttachList(int boardId);
-	void insertAttach(int boardId);
+	void insertAttach(Attach attah);
 	void deleteAttach(int boardId);
 }
