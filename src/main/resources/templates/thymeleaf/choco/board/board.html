@@ -26,7 +26,6 @@
     <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
     
 	<div class="board-container">	
-	<h1 th:text="session.usersId"></h1>
     <div class="btn-box" th:with="category=${boardCategory}">
       <button onclick="location.href='/board'" th:class="${category==null?'category-btn--active scale':'category-btn scale'}">전체</button>
       <button onclick="location.href='/board/category/dog'" th:class="${category=='dog'?'category-btn--active scale':'category-btn scale'}" >강아지</button>

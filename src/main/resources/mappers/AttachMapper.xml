@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.choco.attach.dao.attachRepository">
+<mapper namespace="com.choco.attach.dao.AttachRepository">
 
-	<select id="getOneAttachInfo" parameterType="int" resultType="com.choco.attach.model.Attach">
+	<select id="getOneAttachImg" parameterType="int" resultType="com.choco.attach.model.Attach">
 		SELECT ATTACH_ID,
 		       ATTACH_NAME, 
 		       ATTACH FILE
@@ -23,7 +23,7 @@
 	<insert id="insertAttach" parameterType="com.choco.attach.model.Attach">
 		INSERT INTO ATTACH
 		VALUES (
-			ATTACH_SEQ.nextval, #{attachName}, #{attachFile}, #{boardId})
+			ATTACH_SEQ.nextval, #{attachName}, #{attachFile, jdbcType=BLOB}, #{boardId})
 	</insert>
 		
 	<delete id="delete" parameterType="int">

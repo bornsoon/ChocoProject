@@ -20,8 +20,13 @@ public class BasicBoardService implements BoardService {
 	}
 	
 	@Override
-	public List<Board> getBoardList(int usersId) {
-		return boardRepository.getBoardList(usersId);
+	public List<Board> getBoardListByHeart(int rank) {
+		return boardRepository.getBoardListByHeart(rank);
+	}
+	
+	@Override
+	public List<Board> getBoardListByUsersId(String usersId) {
+		return boardRepository.getBoardListByUsersId(usersId);
 	}
 	
 	@Override
@@ -32,6 +37,11 @@ public class BasicBoardService implements BoardService {
 	@Override
 	public Board getBoardInfo(int boardId) {
 		return boardRepository.getBoardInfo(boardId);
+	}
+	
+	@Override
+	public int createBoardId() {
+		return boardRepository.createBoardId();
 	}
 	
 	@Override

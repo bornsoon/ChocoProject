@@ -1,5 +1,6 @@
 package com.choco.board.controller;
 
+import java.sql.Blob;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,29 +34,19 @@ public class BoardController {
 	
 	@GetMapping(value={"", "/"})
 	public String boardList(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-		
-		try {
-			List<Board> boardList = boardService.getBoardList();
-			model.addAttribute("boardList", boardList);	
-			session.setAttribute("usersId", "lhl576");
-		}
-		catch(Exception ex) {
-			redirectAttributes.addFlashAttribute("message", ex.getMessage());
-		}
+		List<Board> boardList = boardService.getBoardList();
+		model.addAttribute("boardList", boardList);	
+		session.setAttribute("usersId", "lhl576");
+
 		return "thymeleaf/choco/board/board";
 	}
 	
 	@GetMapping("/category/{boardCategory}")
-	public String boardCategoryList(@PathVariable("boardCategory") String boardCategory, Model model, RedirectAttributes redirectAttributes) {
-		
-		try {
-			List<Board> boardList = boardService.getBoardList(boardCategory);
-			model.addAttribute("boardList", boardList);	
-			model.addAttribute("boardCategory", boardCategory);	
-		}
-		catch(Exception ex) {
-			redirectAttributes.addFlashAttribute("message", ex.getMessage());
-		}
+	public String BoardListByCategory(@PathVariable("boardCategory") String boardCategory, Model model, RedirectAttributes redirectAttributes) {
+		List<Board> boardList = boardService.getBoardList(boardCategory);
+		model.addAttribute("boardList", boardList);	
+		model.addAttribute("boardCategory", boardCategory);	
+
 		return "thymeleaf/choco/board/board";
 	}
 	
@@ -80,25 +71,27 @@ public class BoardController {
 		HttpSession session = request.getSession();
 		String usersId = (String)session.getAttribute("usersId");;
 		
-		board.setUsersId(usersId);
-	    int boardId = board.getBoardId();
-		
 		// !!!!파일 작업은 꼭 try로 감싸주기!!!!
 		try {
-			if (file != null && !file.isEmpty()) {
-				log.info(file.getOriginalFilename());  
+			board.setUsersId(usersId);
+			int boardId = boardService.createBoardId();
+			board.setBoardId(boardId);
+			boardService.createBoard(board);
+			if (file != null && !file.isEmpty()) {	
+				log.info("파일명: " + file.getOriginalFilename());  
 				Attach attach = new Attach();
+				attach.setBoardId(boardId);
 				attach.setAttachName(file.getOriginalFilename());
 				attach.setAttachFile(file.getBytes());
-				attach.setBoardId(boardId);
-				attachService.insertAttach(boardId);
+				log.info("파일바이트: " + file.getBytes());
+				log.info(attach.toString());
+				attachService.insertAttach(attach);
+				log.info("파일insert");
 			}
-			boardService.createBoard(board);
-			redirectAttributes.addFlashAttribute("message", usersId + "님의 게시글이 등록되었습니다.");
-
+			log.info("게시글 등록 성공");
 		}
 		catch(Exception ex) {
-			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+			log.error("게시글 등록 오류: ", ex.getMessage());
 		}
 		return "redirect:/board";
 	}

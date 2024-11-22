@@ -11,11 +11,6 @@ public class BasicAttachService implements AttachService {
 
 	@Autowired
 	AttachRepository attachRepository;
-	
-	@Override
-	public Attach getOneAttachInfo(int boardId) {
-		return attachRepository.getOneAttachInfo(boardId);
-	}
 
 	@Override
 	public List<Attach> getAttachList(int boardId) {
@@ -23,8 +18,8 @@ public class BasicAttachService implements AttachService {
 	}
 
 	@Override
-	public void insertAttach(int boardId) {
-		attachRepository.insertAttach(boardId);
+	public void insertAttach(Attach attach) {
+		attachRepository.insertAttach(attach);
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class BasicReplyService implements ReplyService {
 
 	@Override
 	public List<Reply> getReplysByUsersId(String usersId) {
-		return replyRepository.getReplyByUserId(usersId);
+		return replyRepository.getReplyByUsersId(usersId);
 	}
 
 	@Override

@@ -16,8 +16,8 @@ public interface ReplyRepository {
 	void deleteReply(int replyId);
 	
 	// userId의 댓글 조회
-	List<Reply> getReplyByUserId(@Param("usersId") String usersId);
-	
+	List<Reply> getReplyByUsersId(@Param("usersId") String usersId);
+
 	// boardId의 댓글 조회
 	List<Reply> getReplyByBoardId(@Param("boardId") int boardId);
 }
