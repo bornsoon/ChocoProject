@@ -1,9 +1,12 @@
 package com.choco.users.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.choco.users.model.Users;
+
 
 @Mapper
 public interface UsersRepository{
@@ -20,6 +23,10 @@ public interface UsersRepository{
 			@Param("usersName") String usersName, @Param("usersBirthdate") String usersBirthdate);
 	
 	void insertUsers(Users users);
+	
+	List<Users> getUsersList();
+	List<String> getIdList();
+	boolean getIdCheck(String inputId);
 	
 	boolean checkId(String usersId);
 }

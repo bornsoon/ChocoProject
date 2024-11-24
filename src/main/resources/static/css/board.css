@@ -1,9 +1,9 @@
 .board-container {
   display: block;
   box-sizing: border-box;
-  width: 80%;
-  min-width: 770px;
-  margin: 20px auto; /* 상하, 좌우 여백 */
+  width: 90%;
+  min-width: 700px;
+  margin: 10px auto; /* 상하, 좌우 여백 */
 }
 .btn-box {
   width: 100%;
@@ -156,10 +156,11 @@ input[type="radio"]:checked + .sort-label::before {
   }
 }    
 .board-content {
-  flex: 3;
+  flex: 1;
   padding-right: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
+  overflow: hidden; /* 콘텐츠가 넘치지 않도록 제한 */
 }
 .board-header {
   display: flex;
@@ -181,11 +182,15 @@ input[type="radio"]:checked + .sort-label::before {
 }
 .board-description {
   font-size: 15px;
+  max-width: 90%;
   margin-top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .board-footer {
   position: relative;
-  bottom: -15px;
+  bottom: -20px;
   display: flex;
   align-items: center;
   gap: 40px;
@@ -202,21 +207,21 @@ input[type="radio"]:checked + .sort-label::before {
 
 /* 썸네일 */
 .board-image {
-  flex: 1;
-  text-align: right;
-  justify-content: center;
-  align-items: center;
+  display: flex; /* 중앙 정렬을 위해 flexbox 사용 */
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
   background-color: #e7e5e56d;
   border-radius: 20px;
-  width: 100px;
-  height: auto;
-  overflow: hidden; /* 이미지 크기 제한 */
+  width: 180px;
+  height: 150px;
+  overflow: hidden;
   margin-left: auto;
+  flex-shrink: 0; /* 이미지 크기를 고정하여 줄어들지 않도록 설정 */
 }
 .board-image img {
-  width: 100%;
-  height: auto;
-  text-align: center;
+  max-width: 100%;  /* 비율을 유지하며 이미지 크기를 조정 */
+  max-height: 100%; /* 비율을 유지하며 이미지 크기를 조정 */
+  object-fit: contain; /* 이미지 비율 유지하며 컨테이너에 맞춤 */
   border-radius: 10px;
-  object-fit: cover; /* 이미지 비율 유지하면서 컨테이너에 맞춤 */
 }
+

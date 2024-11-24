@@ -101,7 +101,7 @@ header {
 
 /* 배너 스타일 */
 .banner {
-  width: 180px;
+  width: 190px;
   margin: 100px 50px ; /* 상하, 좌우 여백 */
   flex-shrink: 0; /* 배너가 줄어들지 않도록 설정 */
 }
