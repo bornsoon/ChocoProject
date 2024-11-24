@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/thymeleaf/choco/default_layout}">
+
+<th:block layout:fragment="title">
+	<title>MYCUTEPET | CALC</title>
+</th:block>
+
+    <th:block layout:fragment="css">
+    	<link rel="stylesheet" th:href="@{/css/home.css}" />
+    	<link rel="stylesheet" th:href="@{/css/calc.css}" />
+    </th:block> 
+
+<th:block layout:fragment="wrapper">	
+  <!-- 메인 이미지 -->
+  <div class="calc-img">
+      <img src="/images/cal-img.png" alt="Pet Lovers" class="main-img" />
+  </div>
+
+  <!-- 콘텐츠 래퍼 -->
+  <div layout:fragment="content-wrapper" class="content-wrapper">
+  <!-- 배너 -->
+  <div th:replace="/thymeleaf/choco/include::banner"></div>
+    <!-- 메인 콘텐츠 -->
+    <div layout:fragment="calc-content-wrapper" class="calc-content-wrapper">
+      <div class="calc-container">
+
+        <div class="calc-block" onclick="location.href='/calc/age'"> 
+          <div class="text-button">나이 계산기</div>
+          <img src="/images/calc-age.png" alt="나이계산기 이미지"> <!-- 찾아서 넣기 -->
+        </div>
+        <div class="calc-block" onclick="location.href='/calc/recommend-calorie'">
+          <div class="text-button">권장 칼로리 계산기</div>
+          <img src="/images/calc-recommend-calorie.png" alt="권장칼로리계산기 이미지"> <!-- 찾아서 넣기 -->
+        </div>
+        
+      </div>
+     </div>
+    </div>
+</th:block>
+</html>
