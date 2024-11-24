@@ -61,12 +61,6 @@ public class BoardController {
 	public String getBoardInfo(@PathVariable("boardId") int boardId, Model model) {
 		Board board = boardService.getBoardInfo(boardId);
 		model.addAttribute("board", board);
-		List<Reply> replyList = replyService.getReplyByBoardId(boardId);
-		Reply reply = new Reply();
-		reply.setBoardId(boardId);
-		log.info("보드:" + reply.getBoardId());
-		model.addAttribute("replyList", replyList);
-		model.addAttribute("reply", reply);
 		
 		return "thymeleaf/choco/board/board_info";
 	}
