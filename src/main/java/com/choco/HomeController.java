@@ -35,17 +35,7 @@ public class HomeController {
 	}
 	
 	@GetMapping("/calc")
-	public String calc() {
-		return "thymeleaf/choco/calc/calc";
-	}
-	
-	@GetMapping("/calc/age")
-	public String calc_age() {
-		return "thymeleaf/choco/calc/calc_age";
-	}
-	
-	@GetMapping("/calc/recommend-calorie")
-	public String calc_calorie() {
-		return "thymeleaf/choco/calc/calc_recommend_calorie";
+	public String calc(Model model) {
+		return "thymeleaf/choco/calc";
 	}
 }
