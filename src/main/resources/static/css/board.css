@@ -1,15 +1,16 @@
 /* 브라우저 기본 여백 제거 */
 html, body {
-  margin: 0; /* 모든 외부 여백 제거 */
-  padding: 0; /* 모든 내부 여백 제거 */
-  box-sizing: border-box; /* 전체 요소 크기 계산 방식 설정 */
-  height: 100%;
-  display: flex;
-  flex-direction: column; /* 세로 방향 배치 */
-  min-height: 100%; /* 콘텐츠가 부족해도 푸터를 하단으로 밀어냄 */
-}
+    margin: 0; /* 모든 외부 여백 제거 */
+    padding: 0; /* 모든 내부 여백 제거 */
+    box-sizing: border-box; /* 전체 요소 크기 계산 방식 설정 */
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* 세로 방향 배치 */
+    min-height: 100%; /* 콘텐츠가 부족해도 푸터를 하단으로 밀어냄 */
+    min-width: 1200px; 
+  }
 
-/* 전체 헤더 스타일 */
+/* [1] 전체 헤더 스타일 */
 header {
     background-color: #ffffff; /* 흰색 배경 */
     border-bottom: 1px solid #e0e0e0; /* 헤더 하단 경계선 */
@@ -19,16 +20,16 @@ header {
     width: 100%; /* 전체 화면에 맞춤 */
     padding: 10px 0 0px 0; /* 위, 오른, 아래, 왼 여백 */
   }
-/* 헤더 컨테이너 */
-.header-container {
-   display: flex;
-   justify-content: space-between; /* 좌우 배치 */
-   align-items: center; /* 세로 중앙 정렬 */
-   max-width: 100%; /* 너비를 화면 전체로 확장 */
-   padding: 0 0 10px 0; /* 위, 오른쪽, 아래, 왼쪽 여백 */
-   border-bottom: 1px solid #e0e0e0; /* 헤더 하단 경계선 */
-   flex-wrap: wrap; /* 텍스트 겹침 방지를 위해 줄바꿈 허용 */
-}
+  /* 헤더 컨테이너 */
+  .header-container {
+    display: flex;
+    justify-content: space-between; /* 좌우 배치 */
+    align-items: center; /* 세로 중앙 정렬 */
+    max-width: 100%; /* 너비를 화면 전체로 확장 */
+    padding: 0 0 10px 0; /* 위, 오른쪽, 아래, 왼쪽 여백 */
+    border-bottom: 1px solid #e0e0e0; /* 헤더 하단 경계선 */
+    flex-wrap: wrap; /* 텍스트 겹침 방지를 위해 줄바꿈 허용 */
+  }
   /* 로고 스타일 */
   .logo {
     display: flex;
@@ -75,19 +76,19 @@ header {
     color: #000000
   }
 
- /* main-img 이미지 스타일 */
+/* [2] main-img 이미지 스타일 */
   .main-img img {
     max-width: 100%; /* 이미지 너비를 전체의 100%로 제한 */
     padding: 15px 0 0 0; /* 상하, 좌우 여백 */
     border-bottom: 1px solid #e0e0e0; 
   }
 
-/* 콘텐츠 래퍼 */
+/* [3]콘텐츠 래퍼 */
 .content-wrapper {
   display: flex;
   flex: 1;
   }
-  /* 배너 스타일 */
+/* [4]배너 스타일 */
   .banner {
     max-width: 15%; /* 최대 너비 설정 */
     margin: 100px 50px ; /* 상하, 좌우 여백 */
@@ -98,19 +99,13 @@ header {
     cursor: pointer; /* 클릭 가능 표시 */
   }
   
-  /* 메인 콘텐츠 영역 스타일 */
+/* [5]메인 콘텐츠 영역 스타일 */
   .main-content-wrapper {
-      flex: 1; /* 나머지 공간을 차지하도록 설정 */
-      display: flex;
-      flex-direction: column; /* 세로 방향으로 배치 */
-      align-items: flex-start; /* 왼쪽 정렬 */
-      justify-content: flex-start; /* 상단 정렬 */
-      width: 1200px; /* 배너 뺀 나머지 영역 */
-      max-width: 100%;
-      height: auto;
-      margin: 0 60px 20px 30px;
-      padding: 30px;
-    }
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 배치 */
+    align-items: flex-start;
+    margin: 30px 40px 80px 10px; /* 상하, 좌우 여백 */
+  }
   .main-content-wrapper h4 {
       text-align: left;
       font-size: 22px;
@@ -119,12 +114,11 @@ header {
       color: #000000; /* 검은색 텍스트 */
       margin-bottom: 20px;
     }
-/* 게시글 버튼 컨테이너 */
+/* [6] 게시글 버튼 컨테이너 */
     .postbtn-container {
       display: grid;
-      grid-template-columns: repeat(1, 1fr); /* 가로 2개 */
       width: 85%;
-      justify-items: start;
+      justify-content: flex-start;
     }
     /* 게시글 카테고리, 글쓰기 버튼 */
     .category-btn {
@@ -133,14 +127,14 @@ header {
       color: #000000;
       border: none;
       border-radius: 50px;
-      width: 160px;
+      width: 140px;
       height: 40px;
       padding: 8px 20px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
       box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.3);
-      margin-right: 40px;
+      margin-right: 20px;
     }
     .btn-write {
       background-color: #000000;
@@ -167,24 +161,24 @@ header {
       box-shadow: none;
     }
     .btn-box {
-      width: 100%;
+      max-width: 90%;
       display: flex;
       justify-content: space-between;
+      margin-right: 10px;
     }
-     /* 검색창 */
+/* [7] 검색창 */
     .search-box {
+     max-width: 90%;
      background-color: #fcd01e18;
      border-radius: 10px;
      border: 1px solid #FCD11E;
      width: 400px;
      height: 30px;
-     margin-top: 30px;
-     margin-left: auto;
-     margin-bottom: 0;
+     margin: 30px auto 20px 0;
      justify-content: flex-end;
      align-items: center;
    }
-   .search-txt {
+    .search-txt {
     border-radius: 10px;
     text-align: left;
     border: none;
@@ -197,7 +191,7 @@ header {
     padding: 0 10px 0 20px;
     width: 310px;
   }
-  .search-btn {
+    .search-btn {
     background-color: rgba(255, 255, 255, 0);
     background-color: #FCD11E;
     border-radius: 10px;
@@ -207,27 +201,28 @@ header {
     width: 60px;
     height: 30px;
   }
-  .search-btn:hover {
+    .search-btn:hover {
     transform: scale(1.02); /* 카드 확대 */
     }
 
 
-/* 보드 콘텐츠 */
+/* [8] 게시판(/board) 목록 */
   /* 게시판 목록 */
   .board-list-container{
-   width: 100%;
+   display: grid;
+   width: 85%;
    max-width: 100%;
    height: auto;
    margin:  0 20px 0;
   }
 
-/* 정렬 옵션 */
-.sort-options {
-  display: flex;
-  gap: 20px; /* 버튼 간 간격 */
-  align-items: center;
-  margin-bottom: 10px;
-  }
+  /* 정렬 옵션 */
+  .sort-options {
+    display: flex;
+    gap: 20px; /* 버튼 간 간격 */
+    align-items: center;
+    margin-bottom: 10px;
+    }
     /* 라벨 스타일 */
     .sort-label {
       display: flex;
@@ -256,9 +251,9 @@ header {
       background-color: #fde06f; /* 클릭된 상태 배경색 */
     }
 
-    /* 개별 게시판 항목 */
-  .board-item {
-      width: 1000px;
+  /* 개별 게시판 항목 */
+    .board-item {
+      width: 800px;
       display: flex-start;
       align-items: center; /* 이미지와 텍스트 수평정렬 */
       justify-content: space-between;
@@ -321,9 +316,8 @@ header {
         align-items: center;
         gap: 5px;
       }
-
-  /* 썸네일 */
-  .board-image {
+    /* 썸네일 */
+    .board-image {
     flex: 1;
     text-align: right;
     justify-content: center;
@@ -335,13 +329,202 @@ header {
     overflow: hidden; /* 이미지 크기 제한 */
     margin-left: auto;
     }
-  .board-image img {
+    .board-image img {
     width: 100%;
     height: auto;
     text-align: center;
     border-radius: 10px;
     object-fit: cover; /* 이미지 비율 유지하면서 컨테이너에 맞춤 */
     }
+
+  /* [9] 게시글 작성 */
+    .form-group {
+      margin-bottom: 20px;
+      width: 800px;
+      margin: 20px auto;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+    /* 텍스트 */
+    label {
+      margin-bottom: 10px;
+      font-weight: bold; 
+    }
+    input, textarea {
+      margin-top: 15px;
+      margin-bottom: 20px;
+      width: 100%;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    /* 파일 업로드 */
+    .file-upload {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .file-input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 20px; /* 버튼과 입력창 간격 */
+        outline: none;
+    }
+    #file-display {
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        height: 30px;
+    }
+    .file-button {
+        display: grid;
+        padding: 10px;
+        background-color: #6c757d;
+        border: none;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100px;
+        height: 50px;
+        align-items: center;
+    }
+    .file-button:hover {
+        background-color: #5a6268;}
+    #file {
+        display: none;}  
+    
+    /* 작성 완료 */
+    .submit-btn {
+      margin-top: 50px;
+      margin-bottom: 50px;
+      position: relative;
+      left: 50%;
+      display: grid;
+      width: 150px;
+      background-color: #000;
+      color: #FCD11E;
+      border: none;
+      border-radius: 20px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+/* [10] 게시글 상세 페이지 */   
+    .category-btn.selected {
+      background-color: #fde06f;
+    }    
+    .boarddetail-container{
+      max-width: 800px;
+    }
+    /* 제목 */
+    .boarddetail-title {
+      display: grid;
+      align-self: start;
+      width: 800px;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 0 20px 20px 20px;
+    }
+    /* 글쓴이+날짜 */
+    .boarddetail.info {
+      display: grid;
+      gap: 50px;
+      align-items: center;
+      color:#5a6268
+    }
+
+    /* 내용 */
+    .boarddetail-content {
+      border-radius: 10px;
+      width: 100%;
+      border: 1px solid #e0e0e0;
+      padding: 20px;
+    }
+    .attached-file img {
+      display: block;
+      position: relative;
+      left: 50%;
+      width: 20px !important;
+      height: 20px !important;
+      object-fit: contain;
+      margin-top: 20px;
+      /* <div th:if="${attachedFile != null}" class="attached-file">
+         <img th:src="@{${attachedFile}}" alt="첨부이미지" />
+         </div> */
+    }
+    /* 좋아요 버튼 */
+      .heart-section {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .heart-btn {
+        margin-top: 50px;
+        position: relative;
+        left: 50%;
+        background-color: #FCD11E;
+        box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.521);
+        border: #00000048;
+        border-radius: 30%;
+        width: 80px;
+        height: 60px;
+        font-size: 35px;
+        cursor: pointer;
+      }
+      .heart-btn:hover {
+        transform: scale(1.05); 
+      }
+      .like-count {
+        font-size: 16px;
+      }
+
+    /* 댓글 */
+    .reply-section {
+      margin-top: 60px;
+    }
+    .reply-write {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #e0e0e0; /* 하단 아웃라인 */
+    }
+    .textarea {
+      width: 700px;
+      max-height: 100px;
+      border: 1px solid #e0e0e0;
+      padding: 20px;
+      border-radius: 10px;
+    }
+   .reply-btn {
+      background-color: #000;
+      color: #FCD11E;
+      width: 130px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .reply-btn:hover {
+      background-color: #FCD11E;
+      color: black;
+    }
+
+    .reply-list {
+      padding: 0;
+      margin-top: 20px;
+    }
+  
+    
+
 
 /* 푸터 스타일 */
 footer {
