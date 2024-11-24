@@ -7,6 +7,11 @@
 	<title>MYCUTEPET | HOME</title>
 </th:block>
 
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/home.css}" />
+	<link rel="stylesheet" th:href="@{/css/post.css}" />
+</th:block> 
+
 <th:block layout:fragment="wrapper">	
   <!-- 메인 이미지 -->
   <div class="main-img">
@@ -24,15 +29,31 @@
         <!-- 각 게시글 카드 -->
         <div class="post-card" th:each="board: ${boardList}"
         	th:onclick="|location.href='/board/${board.boardId}'|">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
+          <p th:utext="${board.attachFile}"></p>
           <h3 th:utext="${board.boardTitle}"></h3>
           <p th:utext="${board.boardContent}"></p>
           <p class="post-date" th:utext="${board.boardDate}"></p>
-          <span class="board-likes"> ❤️ : 10</span>    
-          <span>Read more</span>
+          <span>
+	          <span th:text="|❤️ : ${board.heartSum}|"></span>    
+	          <span>Read more</span>
+	      </span>
         </div>
       </div>
-     </div>
+       
+      <!-- DB에 데이터 없을 때 -->
+      <div class="post-container" th:if="${boardList == null}" th:with="nums=${#numbers.sequence(1,6)}">
+        <div class="post-card" th:each="i: ${nums}">
+          <img src="/images/cardimgtest.png" alt="임시 이미지">
+          <h3>우리집 강아지는 정말 귀여워 [[ ${i } ]]</h3>
+          <p>인간적으로 동동이는 정말 귀엽다. 이세상 모든 사람이 알았으면 좋겠다.</p>
+          <p class="post-date">날짜 없음</p>
+          <span>
+            <span>❤️ : 100</span>    
+	        <span>Read more</span>
+          </span>
+        </div>
+      </div>
     </div>
+  </div>
 </th:block>
 </html>

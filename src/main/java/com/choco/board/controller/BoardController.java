@@ -1,6 +1,5 @@
 package com.choco.board.controller;
 
-import java.sql.Blob;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +36,8 @@ public class BoardController {
 	@GetMapping(value={"", "/"})
 	public String boardList(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		List<Board> boardList = boardService.getBoardList();
+		log.info("11111");
+		log.info("blob: " + boardList.get(0).getAttachFile().toString());
 		model.addAttribute("boardList", boardList);	
 		session.setAttribute("usersId", "lhl576");
 
@@ -44,7 +45,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/category/{boardCategory}")
-	public String BoardListByCategory(@PathVariable("boardCategory") String boardCategory, Model model, RedirectAttributes redirectAttributes) {
+	public String boardListByCategory(@PathVariable("boardCategory") String boardCategory, Model model, RedirectAttributes redirectAttributes) {
 		List<Board> boardList = boardService.getBoardList(boardCategory);
 		model.addAttribute("boardList", boardList);	
 		model.addAttribute("boardCategory", boardCategory);	
@@ -85,11 +86,7 @@ public class BoardController {
 				attach.setBoardId(boardId);
 				attach.setAttachName(file.getOriginalFilename());
 				attach.setAttachFile(file.getBytes());
-				log.info("파일바이트: " + file.getBytes());
-				log.info(attach.toString());
-				log.info("파일insert 시도");
 				attachService.insertAttach(attach);
-				log.info("파일insert");
 			}
 			log.info("게시글 등록 성공");
 		}

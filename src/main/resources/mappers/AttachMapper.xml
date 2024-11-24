@@ -6,7 +6,7 @@
 	<select id="getOneAttachImg" parameterType="int" resultType="com.choco.attach.model.Attach">
 		SELECT ATTACH_ID,
 		       ATTACH_NAME, 
-		       ATTACH FILE
+		       ATTACH_FILE
 		FROM ATTACH
 		WHERE BOARD_ID=#{boardId} AND 
 		      LOWER(REGEXP_SUBSTR(ATTACH_NAME, '[^\.]+$', 1, 1))
