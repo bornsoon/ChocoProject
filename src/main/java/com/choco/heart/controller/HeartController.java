@@ -58,7 +58,7 @@ public class HeartController {
 	
 	@GetMapping("/delete")
 	public String deleteHeart(Model model, @Param("heartId") int heartId, @Param("usersId") String userId) {
-		model.addAttribute("boardId", boardId);
+		model.addAttribute("heartId", heartId);
 		return "heart/delete"; // 삭제 확인을 위한 뷰
 	}
 	

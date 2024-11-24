@@ -42,8 +42,7 @@ public class BoardController {
 	@GetMapping(value={"", "/"})
 	public String boardList(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		List<Board> boardList = boardService.getBoardList();
-		model.addAttribute("boardList", boardList);	
-		session.setAttribute("usersId", "lhl576");
+		model.addAttribute("boardList", boardList);
 
 		return "thymeleaf/choco/board/board";
 	}

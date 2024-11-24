@@ -14,9 +14,8 @@
         <a href="/calc">건강 계산기</a>
        </nav>
        <div>
-        <button class="login-button" onclick="location.href='/login'" th:if="${session.usersId == null}">로그인 </button>
+        <button class="login-button" onclick="location.href='/main_login'" th:if="${session.usersId == null}">로그인 </button>
         <button class="login-button" onclick="location.href='/mypage'" th:if="${session.usersId != null}">마이페이지</button> 
-       </div>
       </div>
      </header>
      

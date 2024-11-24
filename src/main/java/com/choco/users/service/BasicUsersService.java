@@ -39,10 +39,6 @@ public class BasicUsersService implements UsersService {
 	public String findPwd(String usersId, String usersName, String usersBirthdate) {
 		return usersRepository.findPwd(usersId, usersName, usersBirthdate);
 	}
-
-	
-	
-	
 	
 	@Override
 	public boolean checkId(String usersId) {

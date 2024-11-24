@@ -36,10 +36,6 @@ public class UsersController {
 	@Autowired
 	UsersService usersService;
 	
-	@Autowired
-	UsersRepository usersRepository;
-	
-
 	@PostMapping("/findid")
 	public String findId(@RequestParam("usersName") String usersName,
 			@RequestParam("usersNickname") String usersNickname,
@@ -88,8 +84,7 @@ public class UsersController {
 			session.setMaxInactiveInterval(3600); //10분
 			session.setAttribute("usersId", usersId);
 			
-			// return "redirect:/main_login";
-			return "thymeleaf/choco/users/findpwd2";
+			return "redirect:/home";
 		}
 		else {
 			session.invalidate();
@@ -170,7 +165,7 @@ public class UsersController {
 	@GetMapping("idCheck")
 	public boolean idCheck(@RequestParam(value="inputId") String inputId) {
 		
-		boolean isChecked = usersRepository.getIdCheck(inputId);
+		boolean isChecked = usersService.getIdCheck(inputId);
 		
 		return isChecked;
 	}
