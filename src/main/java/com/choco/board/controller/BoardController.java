@@ -17,6 +17,8 @@ import com.choco.attach.model.Attach;
 import com.choco.attach.service.AttachService;
 import com.choco.board.model.Board;
 import com.choco.board.service.BoardService;
+import com.choco.reply.model.Reply;
+import com.choco.reply.service.ReplyService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -33,10 +35,12 @@ public class BoardController {
 	@Autowired
 	AttachService attachService;
 	
+	@Autowired
+	ReplyService replyService;
+	
 	@GetMapping(value={"", "/"})
 	public String boardList(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		List<Board> boardList = boardService.getBoardList();
-		log.info("11111");
 		log.info("blob: " + boardList.get(0).getAttachFile().toString());
 		model.addAttribute("boardList", boardList);	
 		session.setAttribute("usersId", "lhl576");
@@ -57,6 +61,12 @@ public class BoardController {
 	public String getBoardInfo(@PathVariable("boardId") int boardId, Model model) {
 		Board board = boardService.getBoardInfo(boardId);
 		model.addAttribute("board", board);
+		List<Reply> replyList = replyService.getReplyByBoardId(boardId);
+		Reply reply = new Reply();
+		reply.setBoardId(boardId);
+		log.info("보드:" + reply.getBoardId());
+		model.addAttribute("replyList", replyList);
+		model.addAttribute("reply", reply);
 		
 		return "thymeleaf/choco/board/board_info";
 	}
