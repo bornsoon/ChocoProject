@@ -1,0 +1,55 @@
+/* 게시글 컨테이너 */
+.post-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 가로 2개 */
+  gap: 80px; /* 카드 간 간격 */
+  width: 100%;
+  max-width: 800px; /* 최대 너비 설정 */
+  justify-content: center; /* 중앙 정렬 */
+  margin: 0 auto; /* 상하, 좌우 여백 */
+}
+/* 게시글 카드 스타일 */
+.post-card {
+  max-width: 350px; /* 카드 최대 너비 */
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: left;
+  padding: 20px;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer; /* 클릭 가능 표시 */
+}
+.post-card img {
+  width: 100%;
+  height: auto; 
+  background-color: #f0f0f0; 
+  border-radius: 10px;
+  margin-bottom: 15px;
+}  
+.post-card h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.post-card p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.post-card .post-date {
+  color: #999999;
+  font-size: 12px;
+}
+.post-card span {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #FCD11E;
+  text-decoration: none;
+  margin-top: 10px;
+  text-align: right;
+}
+.post-card:hover {
+  transform: scale(1.05); /* 카드 확대 */
+}

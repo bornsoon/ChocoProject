@@ -13,7 +13,7 @@ public interface ReplyService {
 
 	
 	// userId의 댓글 조회
-    List<Reply> getReplysByUsersId(String usersId);
+    List<Reply> getReplyByUsersId(String usersId);
 	
 	// boardId의 댓글 조회
     List<Reply> getReplyByBoardId(int boardId);

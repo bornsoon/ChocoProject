@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choco.pet.dao.PetRepository">
+
+	<insert id="insertPet" parameterType="com.choco.pet.model.Pet">
+		INSERT INTO PET (
+			PET_PROFILE, PET_BREED, PET_BIRTHDATE, PET_NAME, PET_WEIGHT)
+		VALUES (
+			#{petProfile}, #{petBreed}, #{petBirthdate}, #{petName}, #{petWeight})
+	</insert>
+
+
+</mapper>

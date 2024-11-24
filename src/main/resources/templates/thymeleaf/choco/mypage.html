@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{/thymeleaf/choco/default_layout}">
+
+<th:block layout:fragment="title">
+	<title>MYCUTEPET | MYPAGE</title>
+</th:block>
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/home.css}" />
+	<link rel="stylesheet" th:href="@{/css/mypage.css}" />
+</th:block>
+
+<th:block layout:fragment="wrapper">	
+  <!-- 메인 이미지 -->
+  <div class="main-img">
+      <img src="/images/main-img.png" alt="Pet Lovers" class="main-img" />
+  </div>
+
+  <!-- 콘텐츠 래퍼 -->
+  <div layout:fragment="content-wrapper" class="content-wrapper">
+  <!-- 배너 -->
+  <div th:replace="~{/thymeleaf/choco/include::banner}"></div>
+  
+    <!-- 메인 콘텐츠 -->
+	<div layout:fragment="main-content-wrapper" class="main-content-wrapper">
+    
+     	<div class="mypage-container">
+        	<!-- 마이페이지 제목 -->
+        	<div class="mypage-title">
+            	마이페이지
+        	</div>
+
+        	<!-- 로그아웃 버튼 -->
+        	<!-- <div class="logout-button" th:onclick="location.href='/logout'">  -->
+        	<div class="logout-button logout" id="logout-button" style="cursor: pointer;">
+            	<span class="bi--box-arrow-right"></span>
+            	<span class="logout-text">로그아웃</span>
+        	</div>
+        	
+
+        	<!-- 좌측 박스: 나의 정보 -->
+        	<div class="info-box">
+            	<img src="/images/mypage-info.png" alt="나의 정보" class="info-image">
+            	<p class="info-text">나의 정보</p>
+        	</div>
+
+        	<!-- 우측 박스: 나의 활동 -->
+        	<div class="activity-box">
+            	<img src="/images/mypage-active.png" alt="나의 활동" class="activity-image">
+            	<p class="activity-text">나의 활동</p>
+        	</div>
+    	</div>
+    
+    
+     </div>
+     
+     
+    </div>
+</th:block>
+
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // 로그아웃 버튼 클릭 이벤트
+    $(document).ready(function () {
+        $('#logout-button').on('click', function () {
+            if (confirm('정말 로그아웃 하시겠습니까?')) {
+                // 로그아웃 URL로 이동
+                window.location.href = '/logout';
+            } else {
+                // 취소 시 아무 작업도 하지 않음
+                return false;
+            }
+        });
+    });
+</script>
+
+</html>

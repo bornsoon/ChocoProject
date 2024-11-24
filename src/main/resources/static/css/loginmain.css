@@ -1,0 +1,133 @@
+/* 공통 스타일 */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #FFFFFF;
+    overflow-y: scroll;
+}
+
+.login-page {
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+    margin: 0 auto;
+}
+
+/* 로고 */
+.logo {
+    position: absolute;
+    width: 303px;
+    height: 222px;
+    left: 568px;
+    top: 109px;
+    background: url('/images/mycutepet.png') no-repeat center;
+    background-size: cover;
+}
+
+/* 입력 박스 */
+.input-box {
+    position: absolute;
+    width: 600px;
+    left: 420px;
+    top: 459px;
+}
+
+
+.input-field {
+    position: relative;
+    width: 600px;
+    height: 63px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-field.icon {
+    width: 56px;
+    height: 56px;
+    background:#000000;
+}
+
+.input-field input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 25px;
+    color: #000000;
+}
+
+.line {
+    width: 600px;
+    height: 0;
+    border: 1px solid #D9D9D9;
+    margin: 10px 0;
+}
+
+/* 로그인 버튼 */
+.login-box {
+    position: absolute;
+    width: 600px;
+    height: 90px;
+    left: 420px;
+    top: 667px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000000;
+    border-radius: 20px;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+/* 추가 옵션 */
+.additional-options {
+    position: absolute;
+    width: 600px;
+    height: 50px;
+    left: 420px;
+    top: 839px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #868E96;
+    font-weight: 400;
+    font-size: 25px;
+}
+
+.divider {
+    width: 50px;
+    height: 0;
+    border: 1px solid #D9D9D9;
+    transform: rotate(90deg);
+}
+
+.charm--person {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'%3E%3Ccircle cx='8' cy='6' r='3.25'/%3E%3Cpath d='M2.75 14.25c0-2.5 2-5 5.25-5s5.25 2.5 5.25 5'/%3E%3C/g%3E%3C/svg%3E");
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  .uil--lock {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M17 9V7A5 5 0 0 0 7 7v2a3 3 0 0 0-3 3v7a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-7a3 3 0 0 0-3-3M9 7a3 3 0 0 1 6 0v2H9Zm9 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1Z'/%3E%3C/svg%3E");
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }

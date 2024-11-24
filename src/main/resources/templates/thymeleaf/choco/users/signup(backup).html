@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCutePet | 회원가입</title>
+    <link rel="stylesheet" th:href="@{/css/signup.css}">
+</head>
+<body>
+    <div class="signup-page">
+        <!-- 로고 -->
+        <div class="logo"></div>
+
+        <!-- 회원가입 제목 -->
+        <div class="signup-title">회원가입</div>
+
+        <!-- 라인 -->
+        <div class="line main-line"></div>
+        <div class="line accent-line"></div>
+        <div class="line basicinfo-line"></div>
+        <div class="line plusinfo-line"></div>
+
+        <!-- 필수 입력란 안내 -->
+        <div class="required">는 필수 입력란입니다.</div>
+        <div class="required-asterisk">*</div>
+        
+        <!-- 기본 정보 섹션 -->
+        <div class="basic-info">기본정보</div>
+
+        <!-- 프로필 문구 -->
+        <div class="profile-sidetext">프로필 사진은 선택사항입니다.</div>
+		
+		<!-- 폼 시작 부분 -->
+		<form action="/signup" method="post" enctype="multipart/form-data">
+		
+		<!-- 프로필 사진 -->
+        <div class="profile-photo" onclick="document.getElementById('file-upload-1').click()">
+            <span class="ic--baseline-upload"></span>
+            <div class="profile-text">프로필 사진</div>
+            <input type="file" id="file-upload-1" accept="image/*" style="display: none;" onchange="previewImage(event, 'profile-preview-1', 'profile-photo-1')" />
+        </div>
+        <img id="profile-preview-1" class="profile-preview" alt="Users 프로필 미리보기" />
+		
+        <!-- 입력 필드 -->
+        <div class="input-container">
+            <!-- 아이디 -->
+            <div class="input-group">
+                <label for="id">아이디<span class="stash--asterisk-duotone"></span></label>
+                <input
+                    type="text"
+                    id="id"
+                    name="id"
+                    placeholder="영소문자, 숫자 (4~16자)"
+                    required
+                    title="아이디를 입력하세요."
+                    oninput="validateId()"
+                />
+                <button type="button" class="check-button" onclick="checkDuplicateId()">중복확인</button>
+                <!-- 오류 메시지 -->
+                <p id="id-error" class="error-message" style="display: none; color: red;">아이디 입력이 올바르지 않습니다.</p>
+                <p id="id-duplicate-error" class="error-message" style="display: none; color: red;">이미 사용 중인 아이디입니다.</p>
+    			<p id="id-available" class="error-message" style="display: none; color: green;">사용 가능한 아이디입니다.</p>
+            </div>
+            
+            
+            <!-- 비밀번호 -->
+            <div class="input-group">
+                <label for="pwd">비밀번호<span class="stash--asterisk-duotone"></span></label>
+                <input type="password" id="pwd" placeholder="영어 대소문자 구별, 숫자 (4~24자)" required title="비밀번호를 입력하세요.">
+            </div>
+            
+            <!-- 비밀번호 확인-->
+            <div class="input-group">
+                <label for="pwd_confirm">비밀번호 확인<span class="stash--asterisk-duotone"></span></label>
+                <input type="password" id="pwd_confirm" placeholder="위의 비밀번호와 동일하게 입력해주세요.">
+            </div>
+			
+			<!-- 비밀번호 확인 메시지 -->
+			<div class="password-message" id="password-message"></div>
+			
+            <!-- 이름-->
+            <div class="input-group">
+                <label for="name">이름<span class="stash--asterisk-duotone"></span></label>
+                <input type="text" id="name" required>
+            </div>
+    
+            <!-- 생년월일 -->
+            <div class="input-group">
+                <label for="birthdate">생년월일<span class="stash--asterisk-duotone"></span></label>
+                <input type="text" id="birthdate" placeholder="연도, 월, 일 순으로 8자리 입력해주세요." required>
+            </div>
+
+            <!-- 닉네임 -->
+            <div class="input-group">
+                <label for="nickname">닉네임<span class="stash--asterisk-duotone"></span></label>
+                <input type="text" id="nickname" placeholder="한글, 영어, 숫자 (4~16자)" required>
+                <button class="check-button">중복확인</button>
+            </div>
+
+            <!-- 이메일 -->
+            <div class="input-group">
+                <label for="email">이메일<span class="stash--asterisk-duotone"></span></label>
+                <input type="text" id="email" placeholder="이메일 형식에 맞게 입력해주세요." required>
+                <button class="check-button">중복확인</button>
+            </div>
+        </div>
+   		
+        <!-- 기본 정보 섹션 -->
+        <div class="plus-info">마이펫 추가정보</div>
+
+        <!-- 선택 입력란 안내 -->
+        <div class="options">선택사항입니다.</div>
+
+        <!-- 프로필 문구 -->
+        <div class="profile-sidetext2">프로필 사진은 선택사항입니다.</div>
+
+    	<!-- 반려동물 프로필 사진 -->
+    	<div class="profile-photo2" onclick="document.getElementById('file-upload-2').click()">
+        	<span class="ic--baseline-upload"></span>
+        	<div class="profile-text">프로필 사진</div>
+        	<input type="file" id="file-upload-2" accept="image/*" style="display: none;" onchange="previewImage(event, 'profile-preview-2', 'profile-photo-2')" />
+    	</div>
+    	<img id="profile-preview-2" class="profile-preview2" alt="마이펫 프로필 미리보기" />
+
+   		<!-- 입력 필드 -->
+   		<div class="input-container">
+        	<!-- 마이펫 종류 -->
+        	<div class="input-group2">
+        		<label for="mypet-sort">마이펫 종류</label>
+            	<select id="mypet-sort" name="mypet-sort">
+              		<option value="dog">강아지</option>
+                	<option value="cat">고양이</option>
+                	<option value="small-animal">소동물</option>
+            	</select>
+        	</div>
+
+        	<!-- 품종 -->
+        	<div class="input-group2">
+           		<label for="breed">품종</label>
+          		<input type="text" id="breed">
+        	</div>
+
+        	<!-- 이름-->
+        	<div class="input-group2">
+          		<label for="name">이름<span class="stash--asterisk-duotone"></span></label>
+            	<input type="text" id="name">
+        	</div>
+
+        	<!-- 생년월일 -->
+        	<div class="input-group2">
+            	<label for="birthdate">생년월일</label>
+            	<input type="text" id="birthdate" placeholder="연도, 월, 일 순으로 8자리 입력해주세요.">
+        	</div>
+
+        	<!-- 닉네임 -->
+        	<div class="input-group2">
+            	<label for="weight">무게</label>
+            	<input type="text" id="weight">
+        	</div>
+    	</div>
+    
+      	<!-- 하단 회원가입 버튼 -->
+      	<div class="signup-box">
+         	<input type="submit" value="회원가입">
+     	</div>
+		</form>
+		
+        <!-- 하단 취소 버튼 -->
+      	<div class="cancel-box">
+            <a href="main_login" style="text-decoration: none; color: inherit;"><input type="submit" value="취소"></a>
+        </div>
+    </div>
+    
+    <!-- JavaScript 코드 -->
+    <script>
+        function previewImage(event, previewId, photoId) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const preview = document.getElementById(previewId);
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+
+                    // 프로필 박스 숨기기
+                    document.getElementById(photoId).style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+     	// 페이지 로드 시 오류 메시지를 숨기는 함수
+        document.addEventListener("DOMContentLoaded", function () {
+            const errorMessage = document.getElementById("id-error");
+            errorMessage.style.display = "none"; // 초기 화면에서는 숨김
+        });
+
+     	
+     	
+        // 실시간으로 아이디 유효성 검사를 수행하는 함수
+        function validateId() {
+            const idInput = document.getElementById("id");
+            const errorMessage = document.getElementById("id-error");
+            const idPattern = /^[a-z0-9]{4,16}$/; // 영소문자와 숫자, 4~16자 조건
+
+            // 입력값이 없으면 오류 메시지를 숨김
+            if (idInput.value === "") {
+                errorMessage.style.display = "none";
+                return;
+            }
+
+            // 입력값이 조건에 맞지 않으면 오류 메시지 표시
+            if (!idPattern.test(idInput.value)) {
+                errorMessage.style.display = "block";
+            } else {
+                errorMessage.style.display = "none"; // 조건이 맞으면 숨김
+            }
+            
+        }
+
+        
+        // 실시간으로 아이디 유효성 검사
+        function validateId() {
+            const idInput = document.getElementById("id").value.trim();
+            const errorMessage = document.getElementById("id-error");
+            const duplicateErrorMessage = document.getElementById("id-duplicate-error");
+            const availableMessage = document.getElementById("id-available");
+
+            const idPattern = /^[a-z0-9]{4,16}$/; // 영소문자와 숫자, 4~16자 조건
+
+            // 유효성 검사 메시지 초기화
+            duplicateErrorMessage.style.display = "none";
+            availableMessage.style.display = "none";
+
+            if (!idInput || idPattern.test(idInput)) {
+                errorMessage.style.display = "none"; // 유효한 입력이면 숨김
+            } else {
+                errorMessage.style.display = "block"; // 유효하지 않은 입력이면 표시
+            }
+        }
+
+        function checkDuplicateId() {
+            const idInput = document.getElementById("id").value.trim();
+            const errorMessage = document.getElementById("id-error");
+            const duplicateErrorMessage = document.getElementById("id-duplicate-error");
+            const availableMessage = document.getElementById("id-available");
+
+            // 아이디 유효성 검사
+            const idPattern = /^[a-z0-9]{4,16}$/;
+            if (!idPattern.test(idInput)) {
+                errorMessage.style.display = "block"; // 유효하지 않은 입력
+                duplicateErrorMessage.style.display = "none";
+                availableMessage.style.display = "none";
+                return;
+            }
+
+            // 유효성 검사 통과 시 메시지 초기화
+            errorMessage.style.display = "none";
+
+            // AJAX 요청을 통해 서버와 통신
+            fetch(`/checkId?usersId=${encodeURIComponent(idInput)}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    // 중복 확인 결과 처리
+                    if (data.exists) {
+                        duplicateErrorMessage.style.display = "block"; // 중복된 아이디
+                        availableMessage.style.display = "none";
+                    } else {
+                        duplicateErrorMessage.style.display = "none";
+                        availableMessage.style.display = "block"; // 사용 가능한 아이디
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error during duplicate check:", error);
+                    alert("중복 확인 중 오류가 발생했습니다. 다시 시도해주세요.");
+                });
+        }
+
+
+     // 비밀번호 확인 로직
+        document.getElementById("pwd_confirm").addEventListener("input", function () {
+            const password = document.getElementById("pwd").value;
+            const confirmPassword = this.value;
+            const message = document.getElementById("password-message");
+
+            if (confirmPassword === "") {
+                message.textContent = ""; // 입력란이 비어있을 때 메시지를 지움
+            } else if (password === confirmPassword) {
+                message.textContent = "비밀번호와 일치합니다.";
+                message.style.color = "green"; // 일치하면 초록색 표시
+            } else {
+                message.textContent = "비밀번호와 일치하지 않습니다.";
+                message.style.color = "red"; // 일치하지 않으면 빨간색 표시
+            }
+        });
+     
+    </script>
+    
+</body>
+</html>

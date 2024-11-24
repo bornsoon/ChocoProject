@@ -3,10 +3,12 @@ package com.choco.attach.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.choco.attach.dao.AttachRepository;
 import com.choco.attach.model.Attach;
 
+@Service
 public class BasicAttachService implements AttachService {
 
 	@Autowired
