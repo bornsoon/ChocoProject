@@ -1,6 +1,5 @@
 package com.choco.board.controller;
 
-import java.sql.Blob;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,8 @@ import com.choco.attach.model.Attach;
 import com.choco.attach.service.AttachService;
 import com.choco.board.model.Board;
 import com.choco.board.service.BoardService;
+import com.choco.reply.model.Reply;
+import com.choco.reply.service.ReplyService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,7 +31,12 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
 	AttachService attachService;
+	
+	@Autowired
+	ReplyService replyService;
 	
 	@GetMapping(value={"", "/"})
 	public String boardList(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
@@ -42,7 +48,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/category/{boardCategory}")
-	public String BoardListByCategory(@PathVariable("boardCategory") String boardCategory, Model model, RedirectAttributes redirectAttributes) {
+	public String boardListByCategory(@PathVariable("boardCategory") String boardCategory, Model model, RedirectAttributes redirectAttributes) {
 		List<Board> boardList = boardService.getBoardList(boardCategory);
 		model.addAttribute("boardList", boardList);	
 		model.addAttribute("boardCategory", boardCategory);	
@@ -54,6 +60,12 @@ public class BoardController {
 	public String getBoardInfo(@PathVariable("boardId") int boardId, Model model) {
 		Board board = boardService.getBoardInfo(boardId);
 		model.addAttribute("board", board);
+		List<Reply> replyList = replyService.getReplyByBoardId(boardId);
+		Reply reply = new Reply();
+		reply.setBoardId(boardId);
+		log.info("보드:" + reply.getBoardId());
+		model.addAttribute("replyList", replyList);
+		model.addAttribute("reply", reply);
 		
 		return "thymeleaf/choco/board/board_info";
 	}
@@ -83,14 +95,12 @@ public class BoardController {
 				attach.setBoardId(boardId);
 				attach.setAttachName(file.getOriginalFilename());
 				attach.setAttachFile(file.getBytes());
-				log.info("파일바이트: " + file.getBytes());
-				log.info(attach.toString());
 				attachService.insertAttach(attach);
-				log.info("파일insert");
 			}
 			log.info("게시글 등록 성공");
 		}
 		catch(Exception ex) {
+			ex.printStackTrace();
 			log.error("게시글 등록 오류: ", ex.getMessage());
 		}
 		return "redirect:/board";

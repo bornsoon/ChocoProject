@@ -1,0 +1,134 @@
+/* 공통 스타일 */
+/* 전체 페이지 스타일 */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #FFFFFF;
+}
+
+.find-id-page {
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+    margin: 0 auto;
+}
+
+/* 로고 */
+.logo {
+    position: absolute;
+    width: 82px;
+    height: 68px;
+    left: 942px;
+    top: 56px;
+    background: url('/images/mycutepet.png') no-repeat center;
+    background-size: contain;
+}
+
+/* 제목 및 설명 */
+.title {
+    position: absolute;
+    left: 350px;
+    top: 80px;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    color: #000000;
+}
+
+.subtitle {
+    position: absolute;
+    left: 350px;
+    top: 135px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    color: #000000;
+}
+
+/* 구분선 */
+.line {
+    position: absolute;
+    left: 350px;
+    border: 0;
+    height: 0;
+}
+
+.main-line {
+    width: 670px;
+    top: 113px;
+    border: 3px solid #E6E6E6;
+}
+
+.accent-line {
+    width: 145px;
+    top: 113px;
+    border: 3px solid #000000;
+}
+
+/* 입력 필드 컨테이너 */
+.input-container {
+    left: 350px;
+    top: 259px;
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+}
+
+/* 입력 그룹 (라벨과 입력란 배치) */
+.input-group {
+    position:relative;
+    width: 670px;
+    left: 350px;
+    top: 260px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 라벨과 입력란 간 간격 */
+}
+
+/* 입력 필드의 스타일 */
+.input-group label {
+    font-size: 22px;
+    color: #000000;
+    width: 140px; /* 라벨의 고정 너비 */
+    text-align: left; /* 텍스트를 오른쪽 정렬 */
+}
+
+.input-group input {
+    flex: 1; /* 남은 공간을 입력란이 차지 */
+    padding: 10px;
+    border: 1px solid #868E96;
+    border-radius: 3px;
+    font-size: 20px;
+}
+
+/* 힌트 텍스트 */
+.input-group input::placeholder {
+    font-size: 20px;
+    color: #868E96;
+}
+
+/* 버튼 스타일 */
+.findid-btn {
+    position: absolute;
+    width: 269px;
+    height: 62px;
+    left: 585px;
+    top: 624px;
+    background: #000000;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 25px;
+    color: #FCD11E;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: backgroud 0.3s ease, color 0.3s ease; /* 색상 전환 애니메이션 */
+}
+
+/* 마우스 호버 상태 */
+.findid-btn:hover {
+    background: #FCD11E; /* 마우스 위에 올렸을 때 배경색 */
+    color: #000000; /* 마우스 위에 올렸을 때 글자색 */
+}

@@ -26,14 +26,14 @@
 	</update>
 
 	<!-- userId의 댓글 조회 --> 
-	<select id="getRepliesByUserId" parameterType="String" resultType="com.choco.reply.model.Reply">
+	<select id="getReplyByUserId" parameterType="String" resultType="com.choco.reply.model.Reply">
 	    SELECT * 
 	    FROM reply 
-	    WHERE users_id = #{userId}
+	    WHERE users_id = #{usersId}
 	</select>
 	
 	<!-- boardId의 댓글 조회 --> 
-	<select id="getRepliesByBoardId" parameterType="int" resultType="com.choco.reply.model.Reply">
+	<select id="getReplyByBoardId" parameterType="int" resultType="com.choco.reply.model.Reply">
 	    SELECT * 
 	    FROM reply 
 	    WHERE board_id = #{boardId}

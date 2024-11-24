@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter
-@ToString
+@ToString(exclude= {"attachFile"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Board {
@@ -17,5 +17,6 @@ public class Board {
 	private String boardDate;
 	private String usersId;
 	private String boardCategory;
-	private int HeartSum; // 도메인에는 존재하지 않지만 컬럼이지만 DTO로 추가
+	private int heartSum; // 도메인에는 존재하지 않지만 컬럼이지만 DTO로 추가
+	private byte[] attachFile;
 }

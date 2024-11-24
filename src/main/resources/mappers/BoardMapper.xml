@@ -3,18 +3,33 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.choco.board.dao.BoardRepository">
 
-	<select id="getBoardList" parameterType="String" resultType="com.choco.board.model.Board">
-		SELECT DISTINCT B.BOARD_ID,
-		       BOARD_TITLE, 
-		       SUBSTR(TO_CHAR(BOARD_CONTENT), 1, 50) AS BOARD_CONTENT, 
-		       TO_CHAR(REPLACE(SUBSTR(BOARD_DATE,1,8), '/', '.')) AS BOARD_DATE,
-		       B.USERS_ID,
-		       COUNT(HEART_ID) OVER(PARTITION BY B.BOARD_ID) AS HEART_SUM
-		FROM BOARD B 
-		LEFT JOIN ATTACH A
-		ON B.BOARD_ID = A.BOARD_ID
-		LEFT JOIN HEART H
-		ON B.BOARD_ID = H.HEART_ID
+	<resultMap id="boardMap" type="com.choco.board.model.Board">
+		<result column="BOARD_ID" property="boardId"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_CONTENT" property="boardContent"/>
+		<result column="BOARD_DATE" property="boardDate"/>
+		<result column="BOARD_CATEGORY" property="boardCategory"/>
+		<result column="USERS_ID" property="usersId"/>
+		<result column="HEART_SUM" property="heartSum"/>
+	    <result column="ATTACH_FILE" property="attachFile" jdbcType="BLOB" javaType="[B"/>
+	</resultMap>
+	
+	<select id="getBoardList" parameterType="String" resultMap="boardMap">
+		SELECT 
+		    MAIN.*,
+		    A.ATTACH_FILE AS ATTACH_FILE
+		FROM (
+		    SELECT DISTINCT B.BOARD_ID,
+		           BOARD_TITLE,
+		           DBMS_LOB.SUBSTR(BOARD_CONTENT, 100, 1) AS BOARD_CONTENT,
+		           TO_CHAR(REPLACE(SUBSTR(BOARD_DATE,1,8), '/', '.')) AS BOARD_DATE,
+		           BOARD_CATEGORY,
+		           B.USERS_ID,
+		           COUNT(HEART_ID) OVER(PARTITION BY B.BOARD_ID) AS HEART_SUM
+		    FROM BOARD B 
+		    LEFT JOIN HEART H ON B.BOARD_ID = H.HEART_ID
+		) MAIN
+		LEFT JOIN ATTACH A ON MAIN.BOARD_ID = A.BOARD_ID
 		<if test = "boardCategory != null">
 			WHERE BOARD_CATEGORY = #{boardCategory} 
 		</if>
