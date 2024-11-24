@@ -1,146 +1,12 @@
- /* 계산기 선택창 콘텐츠 영역 스타일 */
- .calc-content-wrapper {
-   flex: 1; /* 나머지 공간을 차지하도록 설정 */
-   display: flex;
-   flex-direction: column; /* 세로 방향으로 배치 */
-   align-items: center;
-   margin: 100px 0 0 0; /* 상하, 좌우 여백 */
+/* 계산기 선택창 콘텐츠 영역 스타일 */
+.calc-content-wrapper {
+  flex: 1; /* 나머지 공간을 차지하도록 설정 */
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 배치 */
+  align-items: center;
+  margin: 100px 0 0 0; /* 상하, 좌우 여백 */
  }
 
-<<<<<<< HEAD
- /* calc-img 이미지 스타일 */
-  .calc-img img {
-    max-width: 100%; /* 이미지 너비를 전체의 100%로 제한 */
-    padding: 15px 0 0 0; /* 상하, 좌우 여백 */
-    border-bottom: 1px solid #e0e0e0; 
-  }
-
-
-/* 콘텐츠 래퍼 */
-.content-wrapper {
-  display: flex;
-  flex: 1;
-}
-
-  /* 배너 스타일 */
-  .banner {
-    max-width: 15%; /* 최대 너비 설정 */
-    margin: 100px 50px ; /* 상하, 좌우 여백 */
-  }
-  .banner img {
-    width: 100%; /* 이미지를 배너 컨테이너에 맞춤 */
-    height: auto; /* 비율 유지 */
-    cursor: pointer; /* 클릭 가능 표시 */
-  }
-
-  /* 메인 콘텐츠 영역 스타일 */
-    .main-content-wrapper {
-      flex: 1; /* 나머지 공간을 차지하도록 설정 */
-      display: flex;
-      flex-direction: column; /* 세로 방향으로 배치 */
-      align-items: center;
-      margin: 30px 0 80px 0; /* 상하, 좌우 여백 */
-    }
-     .main-content-wrapper h4 { /* calc에서는 필요 없음! */
-      text-align: center;
-      font-size: 15px; /* h4 크기 */
-      font-weight: bold;
-      position: relative;
-      display: inline-block;
-      padding: 10px 20px;
-      border: 1px solid #e0e0e0; /* 회색 테두리 */
-      border-radius: 20px; /* 둥근 모서리 */
-      background-color: #ffffff; /* 흰색 배경 */
-      color: #000000; /* 검은색 텍스트 */
-    }
-    /* 게시글 컨테이너 */
-    .calc-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 가로 2개 */
-      gap: 80px 80px; /* 카드 간 간격 */
-      width: 100%;
-      max-width: 800px; /* 최대 너비 설정 */
-      justify-content: center; /* 중앙 정렬 */
-      margin: 0 auto; /* 상하, 좌우 여백 */
-    }
-    /* 게시글 카드 스타일 */
-    .post-card {
-      width: 100%;
-      max-width: 350px; /* 카드 최대 너비 */
-      background-color: #ffffff;
-      border: 1px solid #FCD11E;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      padding: 20px; /* 속성과 테두리 사이의 간격 설정, 배경색의 영향 함께 받음 */
-      transition: transform 0.2s ease-in-out;
-      cursor: pointer; /* 클릭 가능 표시 */
-    }
-    .post-card img {
-      width: 100%;
-      height: auto; 
-      background-color: #f0f0f0; 
-      border-radius: 10px;
-      margin-bottom: 15px;
-    }  
-    .post-card h3 {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .post-card p {
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
-    .post-card .post-date {
-      color: #999999;
-      font-size: 12px;
-    }
-    .post-card a {
-      display: block;
-      font-size: 14px;
-      color: #FCD11E;
-      text-decoration: none;
-      margin-top: 10px;
-      text-align: right;
-    }
-    .post-card:hover {
-      transform: scale(1.05); /* 카드 확대 */
-    }
-
-/* 푸터 스타일 */
-footer {
-  background-color: #000000;
-  color: white;
-  padding: 5px 0;
-  width: 100%;
-  margin-top: auto; /* Flexbox에서 푸터를 아래로 밀어냄 */
-  }
-   .footer-container {
-   display: flex;
-   justify-content: flex-start; /* 좌우 정렬 */
-   align-items: center; /* 세로 중앙 정렬 */
-   max-width: 1200px; /* 최대 너비 */
-   margin: 0 auto; /* 중앙 정렬 */
-   padding: 0 20px; /* 좌우 여백 */
-   gap: 40px
-  }
-.footer-logo img {
-  height: 50px; /* 로고 이미지 높이 */
-  padding: 0 8px; 
-  }
-   .footer-info {
-   margin-bottom: 1px;
-   text-align: left; /* 왼쪽 정렬 */
-   }
-   .footer-info h4 {
-   font-weight: bold;
-   line-height: 0;
-  }
-   .footer-info p {
-   margin: 2px 0; /* 텍스트 간격 설정 */
-   line-height: 1; /* 줄 간격 */
-  }
-=======
 /* 계산기 선택창 컨테이너 */
 .calc-container {
   display: grid;
@@ -152,7 +18,7 @@ footer {
   margin: 0 auto; /* 상하, 좌우 여백 */
 }
       
-   /* 계산기 선택창 블럭 스타일 */
+/* 계산기 선택창 블럭 스타일 */
 .calc-block {
   justify-content: center;
   width: 100%;
@@ -357,4 +223,3 @@ gap: 50px; /* 텍스트 간 간격 */
   font-weight: bold;
   color: #333;
 }
->>>>>>> 0c08b281e1d9e3253a246645d1b3733a7f31aafe
