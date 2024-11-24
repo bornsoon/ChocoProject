@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter
-@ToString
+@ToString(exclude= {"attachFile"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Board {

@@ -47,4 +47,5 @@ public class HomeController {
     @GetMapping("/calc/recommend-calorie")
     public String calc_calorie() {
         return "thymeleaf/choco/calc/calc_recommend_calorie";
+    }
 }

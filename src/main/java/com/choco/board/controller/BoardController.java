@@ -41,7 +41,6 @@ public class BoardController {
 	@GetMapping(value={"", "/"})
 	public String boardList(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		List<Board> boardList = boardService.getBoardList();
-		log.info("blob: " + boardList.get(0).getAttachFile().toString());
 		model.addAttribute("boardList", boardList);	
 		session.setAttribute("usersId", "lhl576");
 
