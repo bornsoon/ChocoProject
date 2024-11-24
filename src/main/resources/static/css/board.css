@@ -181,11 +181,11 @@ input[type="radio"]:checked + .sort-label::before {
 }
 .board-description {
   font-size: 15px;
-  margin-top: 1px;
+  margin-top: 10px;
 }
 .board-footer {
   position: relative;
-  bottom: -20px;
+  bottom: -15px;
   display: flex;
   align-items: center;
   gap: 40px;
