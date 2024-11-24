@@ -19,7 +19,7 @@
   border-bottom: 1px solid #e0e0e0; /* 하단 아웃라인 */
 }
 .scale:hover {
-  scale: 110%; 
+  transform: scale(1.1); 
 }
 /* 게시글 카테고리, 글쓰기 버튼 */
 .board-btn {

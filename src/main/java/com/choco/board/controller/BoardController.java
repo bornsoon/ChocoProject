@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,11 +79,12 @@ public class BoardController {
 	}
 	
 	@PostMapping("/create")
-	public String createBoard(Board board, HttpServletRequest request,
+	public String createBoard(@ModelAttribute Board board, HttpServletRequest request,
+			                  @RequestParam("boardCategory") String boardCategory,
 							  @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 		HttpSession session = request.getSession();
-		String usersId = (String)session.getAttribute("usersId");;
-		
+		String usersId = (String)session.getAttribute("usersId");
+		board.setBoardCategory(boardCategory);
 		// !!!!파일 작업은 꼭 try로 감싸주기!!!!
 		try {
 			board.setUsersId(usersId);

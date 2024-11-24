@@ -9,7 +9,7 @@
 
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/home.css}" />
-	<link rel="stylesheet" th:href="@{/css/board-new.css}" />
+	<link rel="stylesheet" th:href="@{/css/board-form.css}" />
 </th:block>
 
 <th:block layout:fragment="wrapper">	
@@ -24,73 +24,48 @@
   <div th:replace="~{/thymeleaf/choco/include::banner}"></div>
     <!-- 메인 콘텐츠 -->
   <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
-	<div style="width:80%;">
-		<form action="/board/create" method="post" enctype="multipart/form-data" oninput="markFormAsDirty()" th:object="${board}">
-		    <div>
-			    <select class="form-select" th:field="*{boardCategory}" required>
-			        <option value="dog">강아지</option>
-			        <option value="cat">고양이</option>
-			        <option value="other">소동물</option>
-			    </select>
-			</div>
-			
-			<div class="mb-3">
-		  	    <label for="validationTextarea">제목</label>
-		        <input type="text" th:field="*{boardTitle}" placeholder="제목을 입력해주세요." required />
-		    </div>
-		  
-			<div class="mb-3">
-		  	    <label for="validationTextarea">내용</label>
-		        <textarea th:field="*{boardContent}" placeholder="내용을 입력하세요." required></textarea>
-		    </div>
-	
-		    <div class="mb-3">
-		        <input type="file" name="file" multiple>
-		    </div>
 		
-		    <div class="mb-3">
-		        <button class="btn btn-primary" type="submit">등록</button>
-		    </div> 
-		</form>
-		
-		
+    <form action="/board/create" method="post" enctype="multipart/form-data" th:object="${board}">
 	  <div class="postbtn-container">
-      <!-- 카테고리 버튼 -->
+       <!-- 카테고리 버튼 -->
        <h4>카테고리</h4>
        <div class="btn-box">
-         <button onclick="location.href='/board/category/dog'" class="category-btn">강아지</button>
-         <button onclick="location.href='/board/category/cat'" class="category-btn">고양이</button>
-         <button onclick="location.href='/board/category/other'" class="category-btn">소동물</button>
-       </div>  
+	    <input type="radio" id="dog" name="boardCategory" th:value="dog" class="category-radio">
+	    <label for="dog" class="category-btn">강아지</label>
+		
+	    <input type="radio" id="cat" name="boardCategory" th:value="cat" class="category-radio">
+	    <label for="cat" class="category-btn">고양이</label>
+		
+	    <input type="radio" id="other" name="boardCategory" th:value="other" class="category-radio">
+	    <label for="other" class="category-btn">소동물</label>
+	   </div> 
       </div>
 	  <!-- 제목 입력 -->
 	  <div class="form-group">
         <div class="form-title">
           <label for="title">제목 작성</label>
-          <input type="text" id="title" name="title" placeholder="제목을 입력하세요." required>
+          <input type="text" th:field="*{boardTitle}" placeholder="제목을 입력하세요." required>
         </div>
 
     <!-- 내용 입력 -->
         <div class="form-content">
           <label for="content">글 내용 작성</label>
-          <textarea id="content" name="content" rows="30" placeholder="내용을 입력하세요."></textarea>
+          <textarea th:field="*{boardContent}" rows="30" placeholder="내용을 입력하세요."></textarea>
         </div>
 
     <!-- 파일 첨부 -->
         <div class="file-upload">
           <label for="file">파일 첨부</label>
           <div class="file-input-wrapper">
-            <input type="text" id="file-display" placeholder="파일을 선택해주세요." readonly>
-            <button for="file" class="file-button">파일 선택</button>
+            <input type="text"  placeholder="파일을 선택해주세요." readonly>
+            <label for="file" class="file-button">파일 선택</label>
             <input type="file" id="file" name="file">
           </div>
         </div>
 
 	    <!-- 작성 완료 버튼 -->
-	    <button class="submit-btn">작성 완료</button>
-	  </div>
-		
-		
+	    <button class="submit-btn" type="submit">작성 완료</button>
+	  </div>		
     </div>
   </div>
 </div>
