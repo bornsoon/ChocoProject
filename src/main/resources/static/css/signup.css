@@ -244,11 +244,23 @@ body {
     font-size: 20px;
 }
 
+/* 입력 그룹 내부 오류 메시지 */
+.error-message {
+    margin: 5px 0 0 0; /* 입력 필드 바로 아래에 위치 */
+    color: red;
+    font-size: 14px;
+    display: none; /* 기본적으로 숨김 */
+    position: absolute;
+    left: 212px; /* 입력 필드와 같은 시작 위치 */
+    top: 40px; /* 입력 필드 아래로 약간 내려감 */
+}
+
 /* 힌트 텍스트 */
 .input-group input::placeholder {
     font-size: 20px;
     color: #868E96;
 }
+
 
 /* Input Fields */
 .input-field {
@@ -264,16 +276,9 @@ body {
     color: #868E96;
 }
 
-/* 입력 그룹 내부 오류 메시지 */
-.input-group .error-message {
-    margin: 5px 0 0 0; /* 입력 필드 바로 아래에 위치 */
-    color: red;
-    font-size: 14px;
-    display: none; /* 기본적으로 숨김 */
-    position: absolute;
-    left: 215px; /* 입력 필드와 같은 시작 위치 */
-    top: 43px; /* 입력 필드 아래로 약간 내려감 */
-}
+
+
+
 
 /* 중복확인 버튼 */
 .check-button {
@@ -416,7 +421,7 @@ body {
 }
 
 /* 취소 버튼 */
-.cancel-box input[type="submit"] {
+.cancel-box input[type="reset"] {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -436,7 +441,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.cancel-box input[type="submit"]:hover {
+.cancel-box input[type="reset"]:hover {
     background-color: #000000;
     color: #FFFFFF;
 }

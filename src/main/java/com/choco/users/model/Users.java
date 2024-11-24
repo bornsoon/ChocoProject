@@ -1,5 +1,7 @@
 package com.choco.users.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,8 @@ public class Users {
 	private String usersEmail;
 	private String usersNickname;
 	private String usersBirthdate;
-	private byte[] usersProfile;
+	private MultipartFile usersProfile;
+	private byte[] usersProfileBytes;
 	
 	public String getUsersId() {
 		return usersId;

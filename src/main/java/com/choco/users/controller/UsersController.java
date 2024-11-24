@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.choco.pet.Service.PetService;
+import com.choco.pet.model.Pet;
+import com.choco.users.dao.UsersRepository;
 import com.choco.users.model.Users;
 import com.choco.users.service.UsersService;
 
@@ -28,7 +31,14 @@ import lombok.extern.slf4j.Slf4j;
 public class UsersController {
 
 	@Autowired
+	PetService petService;
+	
+	@Autowired
 	UsersService usersService;
+	
+	@Autowired
+	UsersRepository usersRepository;
+	
 
 	@PostMapping("/findid")
 	public String findId(@RequestParam("usersName") String usersName,
@@ -39,6 +49,7 @@ public class UsersController {
 		if (findId != null) {
 			model.addAttribute("findId", findId);
 			return "thymeleaf/choco/users/findid2";
+			
 		} else {
 			redirectAttrs.addFlashAttribute("message", "입력하신 정보로 아이디를 찾을 수 없습니다.");
 			return "redirect:/findid";
@@ -54,6 +65,7 @@ public class UsersController {
 		if (findPwd != null) {
 			model.addAttribute("findPwd", findPwd);
 			return "thymeleaf/choco/users/findpwd2";
+			
 		} else {
 			redirectAttrs.addFlashAttribute("message", "입력하신 정보로 비밀번호를 찾을 수 없습니다.");
 			return "redirect:/findpwd";
@@ -61,76 +73,121 @@ public class UsersController {
 	}
 	
 
+	@GetMapping("/main_login")
+	public String loginUsers(Model model) {	
+		return "thymeleaf/choco/users/main_login";
+	}
+	
 	@PostMapping("/main_login")
 	public String loginUsers(@RequestParam("usersId") String usersId, @RequestParam("usersPwd") String usersPwd, 
 			               HttpSession session, RedirectAttributes redirectAttrs) {	
-		
+		log.info("main_login");
 		Users users = usersService.loginUsers(usersId, usersPwd);
 				
 		if (users != null) {
-			session.setMaxInactiveInterval(600); //10분
-			session.setAttribute("userid", usersId);
+			session.setMaxInactiveInterval(3600); //10분
+			session.setAttribute("usersId", usersId);
 			
+<<<<<<< Updated upstream
 			// return "redirect:/main_login";
 			return "thymeleaf/choco/users/findpwd2";
+=======
+			return "redirect:/home";
+>>>>>>> Stashed changes
 		}
 		else {
 			session.invalidate();
 			redirectAttrs.addFlashAttribute("message", "아이디 또는 패스워드가 잘못되었습니다.");
 			
+<<<<<<< Updated upstream
 			return "thymeleaf/choco/users/findpwd2";
 			// return "redirect:/main_login";
+=======
+			return "redirect:/main_login";
+>>>>>>> Stashed changes
 		}
 		
 	}
 	
-	/*
-	@GetMapping("/check-duplicate")
-    public @ResponseBody <Map<String, Boolean>> checkId(@RequestParam("usersId") String usersId) {
-        boolean exists = usersService.checkId(usersId);
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {	
+		session.invalidate();
+		return "redirect:/home";
+	}
+	
+	@GetMapping("/mypage")
+	public String mypage(Model model) {	
+		return "thymeleaf/choco/mypage";
+	}
+	
+	
+	@GetMapping("/checkId")
+	@ResponseBody
+    public ResponseEntity<Map<String, Boolean>> checkId(@RequestParam("usersId") String usersId) {
+		boolean exists = usersService.checkId(usersId); // 서비스에서 중복 여부 확인
         Map<String, Boolean> response = new HashMap<>();
         response.put("exists", exists);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response); // JSON 응답 반환
     }
-    */
 	
-	
+	@GetMapping("/signup")
+	public String insertUsersAndPet() {
+		return "thymeleaf/choco/users/signup";
+	}
 	
 	@PostMapping("/signup")
-	public String insertUsers(Users users, RedirectAttributes redirectAttributes) {
+	public String insertUsersAndPet(Users users, Pet pet, Model model, RedirectAttributes redirectAttrs) {
+		
+		log.info("회원가입 try 진입");
 		
 		try {
-			usersService.insertUsers(users);
-			redirectAttributes.addFlashAttribute("message", 
-					users.getUsersName()+"님 회원가입이 완료되었습니다.");
+			
+			int petId = petService.createPetId();
+			pet.setPetId(petId);
+			
+			// 파일 데이터를 byte[]로 변환
+	        if (users.getUsersProfile() != null && !users.getUsersProfile().isEmpty()
+	        		&& pet.getPetProfile() != null && !pet.getPetProfile().isEmpty()) {
+	        	
+	        	users.setUsersProfileBytes(users.getUsersProfile().getBytes());
+	        	pet.setPetProfileBytes(pet.getPetProfile().getBytes());
+	        }
+	        
+	        pet.setUsersId(users.getUsersId());
+	        
+			log.info("try문에서 getBytes() 지나옴");
+			
+			usersService.insertUsersAndPet(users, pet);
+			log.info("insertUsersAndPet 지나옴");
+			
+			redirectAttrs.addFlashAttribute("message", users.getUsersName()+"님 회원가입이 완료되었습니다.");
+			
+			return "redirect:/main_login";
 			
 		}
-		catch(RuntimeException e) {
-			redirectAttributes.addFlashAttribute("message", e.getMessage());
+		
+		catch(Exception e) {
+			redirectAttrs.addFlashAttribute("errorMessage", "회원가입 정보가 일치하지 않습니다. 다시 입력해주세요. (" + e.getMessage() +")");
+			
+			return "redirect:/signup";
 		}
+<<<<<<< Updated upstream
 		
 		return "redirect:/main_login";
+=======
+>>>>>>> Stashed changes
 	}
 	
 	
-	
-	
-	
-	@GetMapping("/users")
-	public String users(Model model) {
+	@GetMapping("idCheck")
+	public boolean idCheck(@RequestParam(value="inputId") String inputId) {
 		
-		model.addAttribute("count", usersService.getUsersCount());
+		boolean isChecked = usersRepository.getIdCheck(inputId);
 		
-		return "thymeleaf/choco/users/users";
+		return isChecked;
 	}
 	
-	@GetMapping("/main_login")
-	public String users2(Model model) {
-		
-		model.addAttribute("count", usersService.getUsersCount());
-		
-		return "thymeleaf/choco/users/main_login";
-	}
+	
 	
 	@GetMapping("/findid")
 	public String users3(Model model) {
@@ -148,13 +205,8 @@ public class UsersController {
 		return "thymeleaf/choco/users/findpwd";
 	}
 	
-	@GetMapping("/signup")
-	public String users5(Model model) {
-		
-		model.addAttribute("count", usersService.getUsersCount());
-		
-		return "thymeleaf/choco/users/signup";
-	}
+	
+	
 	
 	
 	@GetMapping("/users/{usersId}")

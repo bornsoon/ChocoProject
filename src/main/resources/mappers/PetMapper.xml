@@ -5,10 +5,13 @@
 
 	<insert id="insertPet" parameterType="com.choco.pet.model.Pet">
 		INSERT INTO PET (
-			PET_PROFILE, PET_BREED, PET_BIRTHDATE, PET_NAME, PET_WEIGHT)
-		VALUES (
-			#{petProfile}, #{petBreed}, #{petBirthdate}, #{petName}, #{petWeight})
+			PET_ID, PET_PROFILE, PET_BREED, PET_NAME, PET_BIRTHDATE, PET_WEIGHT, USERS_ID)
+		VALUES (#{petId}, #{petProfileBytes}, #{petBreed}, #{petName}, #{petBirthdate}, TO_NUMBER(#{petWeight}, '999.99'), #{usersId})
 	</insert>
 
+	<select id="createPetId" resultType="int">
+		SELECT PET_SEQ.NEXTVAL + 10
+		FROM DUAL
+	</select>
 
 </mapper>
