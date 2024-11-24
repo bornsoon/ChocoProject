@@ -90,8 +90,7 @@ public class UsersController {
 			session.invalidate();
 			redirectAttrs.addFlashAttribute("message", "아이디 또는 패스워드가 잘못되었습니다.");
 			
-			return "thymeleaf/choco/users/findpwd2";
-			// return "redirect:/main_login";
+			return "redirect:/main_login";
 		}
 		
 	}

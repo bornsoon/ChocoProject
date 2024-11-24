@@ -3,12 +3,15 @@ package com.choco.interceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
+@Slf4j
 public class LoginCheckInterceptor implements HandlerInterceptor {
 
 	@Override
@@ -18,10 +21,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		String usersId = (String)session.getAttribute("usersId");
 		
-//        if (usersId == null) {
-//            response.sendRedirect("./main_login");
-//            return false;
-//        }
+        if (usersId == null) {
+            response.sendRedirect("./main_login");
+            return false;
+        }
 	
 		return true;
 	}
