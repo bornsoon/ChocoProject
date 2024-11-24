@@ -7,6 +7,11 @@
 	<title>MYCUTEPET | BOARD FORM</title>
 </th:block>
 
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/home.css}" />
+	<link rel="stylesheet" th:href="@{/css/board-new.css}" />
+</th:block>
+
 <th:block layout:fragment="wrapper">	
   <!-- 메인 이미지 -->
   <div class="main-img">
@@ -47,6 +52,45 @@
 		        <button class="btn btn-primary" type="submit">등록</button>
 		    </div> 
 		</form>
+		
+		
+	  <div class="postbtn-container">
+      <!-- 카테고리 버튼 -->
+       <h4>카테고리</h4>
+       <div class="btn-box">
+         <button onclick="location.href='/board/category/dog'" class="category-btn">강아지</button>
+         <button onclick="location.href='/board/category/cat'" class="category-btn">고양이</button>
+         <button onclick="location.href='/board/category/other'" class="category-btn">소동물</button>
+       </div>  
+      </div>
+	  <!-- 제목 입력 -->
+	  <div class="form-group">
+        <div class="form-title">
+          <label for="title">제목 작성</label>
+          <input type="text" id="title" name="title" placeholder="제목을 입력하세요." required>
+        </div>
+
+    <!-- 내용 입력 -->
+        <div class="form-content">
+          <label for="content">글 내용 작성</label>
+          <textarea id="content" name="content" rows="30" placeholder="내용을 입력하세요."></textarea>
+        </div>
+
+    <!-- 파일 첨부 -->
+        <div class="file-upload">
+          <label for="file">파일 첨부</label>
+          <div class="file-input-wrapper">
+            <input type="text" id="file-display" placeholder="파일을 선택해주세요." readonly>
+            <button for="file" class="file-button">파일 선택</button>
+            <input type="file" id="file" name="file">
+          </div>
+        </div>
+
+	    <!-- 작성 완료 버튼 -->
+	    <button class="submit-btn">작성 완료</button>
+	  </div>
+		
+		
     </div>
   </div>
 </div>
