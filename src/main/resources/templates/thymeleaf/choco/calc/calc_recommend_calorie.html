@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>반려동물 권장 칼로리 계산기</title>
+<html xmlns:th="http//www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/thymeleaf/choco/default_layout}">
+
+<th:block layout:fragment="title">
+	<title>반려동물 권장 칼로리 계산기</title>
+</th:block>
+
+<th:block layout:fragment="css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -29,8 +33,21 @@
       margin-top: 30px;
     }
   </style>
-</head>
-<body>
+  <link rel="stylesheet" th:href="@{/css/home.css}" />
+</th:block> 
+
+<th:block layout:fragment="wrapper">	
+  <!-- 메인 이미지 -->
+  <div class="calc-img">
+      <img src="/images/cal-img.png" alt="Pet Lovers" class="main-img" />
+  </div>
+
+  <!-- 콘텐츠 래퍼 -->
+  <div layout:fragment="content-wrapper" class="content-wrapper">
+  <!-- 배너 -->
+  <div th:replace="/thymeleaf/choco/include::banner"></div>
+    <!-- 메인 콘텐츠 -->
+    <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
   <h1>권장 칼로리 계산기</h1>
   <div>
     <img id="dog-image" src="dog.jpg" alt="강아지" />
@@ -50,7 +67,11 @@
   <div class="result">
     <p id="calorie-result"></p>
   </div>
-
-  <script src="calc_recommend_calorie.js"></script>
-</body>
+  </div>
+  </div>
+  
+  <th:block layout:fragment="script"> 
+    <script src="calc_recommend_calorie.js"></script>
+  </th:block>
+</th:block>
 </html>
