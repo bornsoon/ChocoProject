@@ -74,7 +74,7 @@ public class BoardController {
 		model.addAttribute("replyList", replyList);
 		model.addAttribute("reply", reply);
 		
-		return "thymeleaf/choco/board/board_info";
+		return "thymeleaf/choco/board/board_detail";
 	}
 	
 	@GetMapping("/create")
