@@ -14,15 +14,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
      let whoIsIt = true; // 현재 모드 (강아지: true, 고양이: false)
 
-     dogImage.addEventListener("click", () => {
-       whoIsIt = true;
-       setupCalculator(true);
-     });
+	 // 클릭한 이미지를 강조하는 함수
+	  function highlightSelectedImage(selectedImage) {
+	      // 모든 이미지를 초기화
+	      dogImage.classList.remove("selected");
+	      catImage.classList.remove("selected");
 
-     catImage.addEventListener("click", () => {
-       whoIsIt = false;
-       setupCalculator(false);
-     });
+	      // 선택된 이미지에 "selected" 클래스 추가
+	      selectedImage.classList.add("selected");
+	  }
+
+	  dogImage.addEventListener("click", () => {
+	      whoIsIt = true;
+	      highlightSelectedImage(dogImage); // 강아지 이미지 강조
+	      setupCalculator(true);
+	  });
+
+	  catImage.addEventListener("click", () => {
+	      whoIsIt = false;
+	      highlightSelectedImage(catImage); // 고양이 이미지 강조
+	      setupCalculator(false);
+	  });
+
 	 
 	   // 현재 URL 경로 확인
 	   const currentPath = window.location.pathname;
@@ -67,13 +80,22 @@ document.addEventListener("DOMContentLoaded", () => {
        resultSection.style.display = "block";
      });
 
-     function setupCalculator(isDog) {
-       inputsSection.style.display = "block";
-       resultSection.style.display = "none";
-       sizeContainer.style.display = isDog ? "block" : "none"; // 강아지 모드에서만 보임
-       birthInput.value = "";
-       ageResult.textContent = "";
-     }
+	 function setupCalculator(isDog) {
+	   // 입력 영역 및 결과 초기화
+	   inputsSection.style.display = "block";
+	   resultSection.style.display = "none";
+
+	   // 강아지 크기 선택 표시 여부
+	   sizeContainer.style.display = isDog ? "block" : "none";
+
+	   // "계산하기" 버튼 표시
+	   const calculateButtonContainer = document.querySelector(".calculate-button-container");
+	   calculateButtonContainer.style.display = "block";
+
+	   // 초기화
+	   birthInput.value = "";
+	   ageResult.textContent = "";
+	 }
 
      function calculateAgeInMonths(today, birthDate) {
        const yearDiff = today.getFullYear() - birthDate.getFullYear();
