@@ -23,6 +23,7 @@ public class HomeController {
 	public String home(Model model) {
 		List<Board> boardList = boardService.getBoardListByHeart(6);
 		model.addAttribute("boardList", boardList);
+		System.out.println(boardList);
 		
 		return "thymeleaf/choco/home";
 	}

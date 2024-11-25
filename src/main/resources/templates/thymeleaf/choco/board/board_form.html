@@ -25,18 +25,21 @@
     <!-- 메인 콘텐츠 -->
   <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
 		
-    <form action="/board/create" method="post" enctype="multipart/form-data" th:object="${board}">
+    <form th:action="${update != null ? '/board/update' : '/board/create'}"  method="post"
+            enctype="multipart/form-data" th:object="${board}">
 	  <div class="postbtn-container">
+	   <input type="hidden" th:filed="*{boardId}">
+	   <input type="hidden" th:filed="*{usersId}">
        <!-- 카테고리 버튼 -->
-       <h4>카테고리</h4>
+       <h3>카테고리</h3>
        <div class="btn-box">
-	    <input type="radio" id="dog" name="boardCategory" th:value="dog" class="category-radio">
+	    <input type="radio" id="dog" name="boardCategory" th:value="dog" class="category-radio" th:checked="${board.boardCategory=='dog'}" required>
 	    <label for="dog" class="category-btn">강아지</label>
 		
-	    <input type="radio" id="cat" name="boardCategory" th:value="cat" class="category-radio">
+	    <input type="radio" id="cat" name="boardCategory" th:value="cat" th:checkd="${board.boardCategory=='cat'}" class="category-radio">
 	    <label for="cat" class="category-btn">고양이</label>
 		
-	    <input type="radio" id="other" name="boardCategory" th:value="other" class="category-radio">
+	    <input type="radio" id="other" name="boardCategory" th:value="other" th:checked="${board.boardCategory=='other'}" class="category-radio">
 	    <label for="other" class="category-btn">소동물</label>
 	   </div> 
       </div>
@@ -57,18 +60,28 @@
         <div class="file-upload">
           <label for="file">파일 첨부</label>
           <div class="file-input-wrapper">
-            <input type="text"  placeholder="파일을 선택해주세요." readonly>
+            <input type="text" id="fileName" placeholder="파일을 선택해주세요." readonly>
             <label for="file" class="file-button">파일 선택</label>
-            <input type="file" id="file" name="file">
+            <input type="file" id="file" name="file" onchange="updateFileName()" multiple>
           </div>
         </div>
 
 	    <!-- 작성 완료 버튼 -->
-	    <button class="submit-btn" type="submit">작성 완료</button>
+	    <button class="submit-btn" type="submit" th:text="${update!=null?'수정 완료':'작성 완료'} "></button>
 	  </div>		
     </div>
   </div>
-</div>
-      
+</th:block>
+<th:block layout:fragment="script">
+ <script>
+   function updateFileName() {
+     const fileInput = document.getElementById('file');
+     const fileNameInput = document.getElementById('fileName');
+    
+     if (fileInput.files.length > 0) {
+       fileNameInput.value = fileInput.files[0].name;
+     }
+   }
+  </script>
 </th:block>
 </html>

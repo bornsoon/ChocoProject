@@ -96,14 +96,15 @@ header {
 .content-wrapper {
   display: flex;
   flex: 1;
-  margin: 0 80px 0 0;
+  width: 1500px;
+  margin: 0 auto;
 }
 
 /* 배너 스타일 */
 .banner {
-  width: 190px;
+  width: 200px;
   margin: 100px 50px ; /* 상하, 좌우 여백 */
-  flex-shrink: 0; /* 배너가 줄어들지 않도록 설정 */
+/*   flex-shrink: 0; 배너가 줄어들지 않도록 설정 */
 }
 .banner img {
   width: 100%;
@@ -117,8 +118,9 @@ header {
   display: flex;
   flex-direction: column; /* 세로 방향으로 배치 */
   align-items: center;
-  margin: 30px 0 80px 0; /* 상하, 좌우 여백 */
+  margin: 30px 50px 80px 50px; /* 상하, 좌우 여백 */
   overflow: hidden; /* 넘치는 콘텐츠를 숨김 */
+  max-width: 1200px;
 }
  .main-content-wrapper h4 {
   text-align: center;

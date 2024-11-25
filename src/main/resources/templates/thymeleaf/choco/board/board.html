@@ -25,7 +25,7 @@
     <!-- 메인 콘텐츠 -->
    <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
 
-    <h4>주접 게시판</h4>
+    <h2>주접 게시판</h2>
     <div class="board-container">	
       <!-- 게시글 버튼 -->
       <div class="btn-box" th:with="category=${boardCategory}">
@@ -40,9 +40,9 @@
          <!-- 정렬 버튼 -->
          <div class="board-top-box">
           <div class="sort-options">
-           <input type="radio" id="latest" name="sort" value="latest" checked  onchange="this.form.submit()">
+           <input type="radio" id="latest" name="sort" value="latest" onchange="this.form.submit()" th:checked="${sort=='latest' || sort==null}">
            <label for="latest" class="sort-label">최신 순</label>
-           <input type="radio" id="popular" name="sort" value="popular" onchange="this.form.submit()">
+           <input type="radio" id="popular" name="sort" value="popular" onchange="this.form.submit()" th:checked="${sort=='popular'}">
            <label for="popular" class="sort-label">인기 순</label>
           </div>
       	  <!-- 검색창 -->

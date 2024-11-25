@@ -40,11 +40,17 @@ public class BoardController {
 	ReplyService replyService;
 	
 	@GetMapping(value={"", "/"})
-	public String boardList(Model model, 
+	public String boardList(Model model, @RequestParam(value = "sort", required = false) String sort,
 			                HttpSession session, RedirectAttributes redirectAttributes) {
-		List<Board> boardList = boardService.getBoardList();
-		model.addAttribute("boardList", boardList);
-
+		if (sort == null || sort.equals("latest")) {
+			List<Board> boardList = boardService.getBoardList();
+			model.addAttribute("boardList", boardList);
+		} else if (sort.equals("popular")) {
+			List<Board> boardList = boardService.getBoardListByHeart();
+			model.addAttribute("boardList", boardList);
+		}
+		model.addAttribute("sort", sort);
+		
 		return "thymeleaf/choco/board/board";
 	}
 	
@@ -112,16 +118,41 @@ public class BoardController {
 	public String updateBoard(@RequestParam("boardId") int boardId,  Model model,
 			                  HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		Board board = boardService.getBoardInfo(boardId);
+		List<Attach> attachList = attachService.getAttachList(boardId);
 		String usersId = board.getUsersId();
 		HttpSession session = request.getSession();
 		String sessionId = (String)session.getAttribute("usersId");
 		if (sessionId.equals(usersId)) {
 			boardService.deleteBoard(boardId);
 			model.addAttribute("board", board);
+			model.addAttribute("attachList", attachList);
+			model.addAttribute("update", true);
 			return "thymeleaf/choco/board/board_form";
 		} else {
 			return "redirect:/board";
 		}
+	}
+	
+	@PostMapping("/update")
+	public String createBoard(@ModelAttribute Board board, HttpServletRequest request,
+							  @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+		try {
+			boardService.updateBoard(board);
+			if (file != null && !file.isEmpty()) {	
+				log.info("파일명: " + file.getOriginalFilename()); 
+				Attach attach = new Attach();
+				attach.setBoardId(board.getBoardId());
+				attach.setAttachName(file.getOriginalFilename());
+				attach.setAttachFile(file.getBytes());
+				attachService.insertAttach(attach);
+			}
+			log.info("게시글 수정 성공");
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+			log.error("게시글 수정 오류: ", ex.getMessage());
+		}
+		return "redirect:/board";
 	}
 	
 	@GetMapping("/delete")

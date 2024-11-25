@@ -7,6 +7,7 @@ import com.choco.board.model.Board;
 public interface BoardService {
 	List<Board> getBoardList();
 	List<Board> getBoardList(String boardCategory);
+	List<Board> getBoardListByHeart();
 	List<Board> getBoardListByHeart(int rank);
 	List<Board> getBoardListByUsersId(String usersId);
 	Board getBoardInfo(int boardId);
