@@ -13,6 +13,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginCheckInterceptor())
 		        .addPathPatterns("/*")
-		        .excludePathPatterns("/", "/home", "/board", "/signup", "/findid", "/findid2", "/findpwd", "/findpwd2", "/main_login");
+		        .excludePathPatterns("/", "/home", "/signup", "/findid", "/findid2", "/findpwd", "/findpwd2", "/main_login");
     }
 }
