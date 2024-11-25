@@ -133,9 +133,4 @@ document.addEventListener("DOMContentLoaded", () => {
        const additionalHumanAge = Math.round(extraMonths * 0.3333);
        return 24 + additionalHumanAge;
      }
-<<<<<<< Updated upstream
-   });
-=======
-   });
-
->>>>>>> Stashed changes
+   });s
