@@ -19,11 +19,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
 		HttpSession session = request.getSession();
 		String usersId = (String)session.getAttribute("usersId");
-<<<<<<< Updated upstream
-		
-=======
 		log.info(usersId);
->>>>>>> Stashed changes
         if (usersId == null) {
             response.sendRedirect("./main_login");
             return false;

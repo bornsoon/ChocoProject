@@ -11,10 +11,9 @@ public interface UsersService {
 	
 	void insertUsersAndPet(Users users, Pet pet);
 	
-	List<String> getIdList();
-	boolean getIdCheck(String inputId);
+	List<String> getAllUsersIds();
 	
-	boolean checkId(String usersId);
+	String IdCheck(String usersId);
 	
 	Users loginUsers(String usersId, String usersPwd);
 	String findId(String usersName, String usersNickname, String usersBirthdate);

@@ -205,27 +205,44 @@ header {
     align-items: center;
     justify-content: center;
     text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* 스케일 애니메이션 효과 */
 }
+
+.info-box:hover, .activity-box:hover {
+	transform: scale(1.1);
+}
+
+
 
 .info-box {
     top: 200px;
-    left: 447px;
+    left: 150px;
 }
 
 .activity-box {
     top: 200px;
-    left: 920px;
+    left: 630px;
 }
 
 /* 박스 안의 이미지 */
-.info-image, .activity-image {
-    width: 150px;
+.info-image {
+    width: 270px;
     height: auto;
     margin-bottom: 20px;
 }
 
+.activity-image {
+	width: 310px;
+    height: auto;
+    margin-bottom: 20px;
+    margin-left:20px;
+}
+
 /* 박스 안의 텍스트 */
 .info-text, .activity-text {
+	position: absolute;
+	top: 300px;
     font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-weight: 600;

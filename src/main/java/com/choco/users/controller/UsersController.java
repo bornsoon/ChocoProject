@@ -1,5 +1,6 @@
 package com.choco.users.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,26 +86,16 @@ public class UsersController {
 		Users users = usersService.loginUsers(usersId, usersPwd);
 				
 		if (users != null) {
-			session.setMaxInactiveInterval(3600); //10분
+			session.setMaxInactiveInterval(120); //10분
 			session.setAttribute("usersId", usersId);
 			
-<<<<<<< Updated upstream
-			// return "redirect:/main_login";
-			return "thymeleaf/choco/users/findpwd2";
-=======
 			return "redirect:/home";
->>>>>>> Stashed changes
 		}
 		else {
 			session.invalidate();
 			redirectAttrs.addFlashAttribute("message", "아이디 또는 패스워드가 잘못되었습니다.");
 			
-<<<<<<< Updated upstream
-			return "thymeleaf/choco/users/findpwd2";
-			// return "redirect:/main_login";
-=======
 			return "redirect:/main_login";
->>>>>>> Stashed changes
 		}
 		
 	}
@@ -121,15 +112,6 @@ public class UsersController {
 	}
 	
 	
-	@GetMapping("/checkId")
-	@ResponseBody
-    public ResponseEntity<Map<String, Boolean>> checkId(@RequestParam("usersId") String usersId) {
-		boolean exists = usersService.checkId(usersId); // 서비스에서 중복 여부 확인
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("exists", exists);
-        return ResponseEntity.ok(response); // JSON 응답 반환
-    }
-	
 	@GetMapping("/signup")
 	public String insertUsersAndPet() {
 		return "thymeleaf/choco/users/signup";
@@ -142,12 +124,9 @@ public class UsersController {
 		
 		try {
 			
-			int petId = petService.createPetId();
-			pet.setPetId(petId);
-			
 			// 파일 데이터를 byte[]로 변환
 	        if (users.getUsersProfile() != null && !users.getUsersProfile().isEmpty()
-	        		&& pet.getPetProfile() != null && !pet.getPetProfile().isEmpty()) {
+	        		|| pet.getPetProfile() != null && !pet.getPetProfile().isEmpty()) {
 	        	
 	        	users.setUsersProfileBytes(users.getUsersProfile().getBytes());
 	        	pet.setPetProfileBytes(pet.getPetProfile().getBytes());
@@ -155,7 +134,14 @@ public class UsersController {
 	        
 	        pet.setUsersId(users.getUsersId());
 	        
+	        int petId = petService.createPetId();
+			pet.setPetId(petId);
+	        
 			log.info("try문에서 getBytes() 지나옴");
+			log.info("Birthdate: " + users.getUsersBirthdate());
+			log.info("Profile Bytes: " + Arrays.toString(users.getUsersProfileBytes()));
+			log.info("Users: " + users.toString());
+			
 			
 			usersService.insertUsersAndPet(users, pet);
 			log.info("insertUsersAndPet 지나옴");
@@ -171,22 +157,22 @@ public class UsersController {
 			
 			return "redirect:/signup";
 		}
-<<<<<<< Updated upstream
-		
-		return "redirect:/main_login";
-=======
->>>>>>> Stashed changes
 	}
 	
 	
-	@GetMapping("idCheck")
-	public boolean idCheck(@RequestParam(value="inputId") String inputId) {
+	@GetMapping("IdCheck.do")
+	public String Idcheck(String usersId) {
+		System.out.println("id: " + usersId);
 		
-		boolean isChecked = usersRepository.getIdCheck(inputId);
-		
-		return isChecked;
+		return usersService.Idcheck(usersId);
 	}
 	
+	
+	
+	@GetMapping("/getAllUsersIds")
+    public List<String> getAllUsersIds() {
+        return usersService.getAllUsersIds(); // USERS_ID 리스트 반환
+    }
 	
 	
 	@GetMapping("/findid")

@@ -50,19 +50,28 @@
                     type="text"
                     id="id"
                     name="usersId"
-                    placeholder="영소문자, 숫자 (4~16자)"
+                    placeholder="영소문자, 숫자 (4~10자)"
                     required
                     oninput="validateId()"
                 />
-                <!-- <button type="button" class="check-button" id='checkBtn'>중복확인</button>  -->
+                <button type="button" class="check-button" id='checkBtn' onclick="idCheck()">중복확인</button>
                 <p id="id-error" class="error-message">아이디 입력이 옳지 않습니다.</p>
+                <p id="id-error2" class="error-message">이미 사용 중인 아이디입니다.</p>
             </div>
             
             
             <!-- 비밀번호 -->
             <div class="input-group">
                 <label for="pwd">비밀번호<span class="stash--asterisk-duotone"></span></label>
-                <input type="password" id="pwd" name="usersPwd" placeholder="영어 대소문자 구별, 숫자 (4~24자)" required title="비밀번호를 입력하세요.">
+                <input
+                type="password"
+                id="pwd"
+                name="usersPwd"
+                placeholder="영어 대소문자 구별, 숫자 (4~12자)"
+                required
+                oninput="validatePwd()"
+                />
+                <p id="pwd-error" class="error-message">비밀번호 입력이 옳지 않습니다.</p>
             </div>
             
             <!-- 비밀번호 확인-->
@@ -89,15 +98,29 @@
             <!-- 닉네임 -->
             <div class="input-group">
                 <label for="nickname">닉네임<span class="stash--asterisk-duotone"></span></label>
-                <input type="text" id="nickname" name="usersNickname" placeholder="한글, 영어, 숫자 (4~16자)" required>
+                <input type="text"
+                id="nickname"
+                name="usersNickname"
+                placeholder="한글, 영어, 숫자 (3~8자)"
+                required
+                oninput="validateNickname()"
+                />
                 <!-- <button class="check-button">중복확인</button>  -->
+                <p id="nickname-error" class="error-message">닉네임 입력이 옳지 않습니다.</p>
             </div>
 
             <!-- 이메일 -->
             <div class="input-group">
                 <label for="email">이메일<span class="stash--asterisk-duotone"></span></label>
-                <input type="text" id="email" name="usersEmail" placeholder="이메일 형식에 맞게 입력해주세요." required>
+                <input type="text"
+                id="email"
+                name="usersEmail"
+                placeholder="이메일 형식 (user@example.com)"
+                required
+                oninput="validateEmail()"
+                />
                 <!-- <button class="check-button">중복확인</button>  -->
+                <p id="email-error" class="error-message">이메일 입력이 옳지 않습니다.</p>
             </div>
         </div>
    		
@@ -197,28 +220,159 @@
         });
 
      	
+     	
+     	
+     	// USERS_ID 리스트를 저장할 변수
+        let usersIdList = [];
+
+        // 페이지 로드 시 USERS_ID 리스트를 가져옴
+        document.addEventListener("DOMContentLoaded", function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "/getAllUsersIds", true); // 서버로부터 USERS_ID 리스트 가져오기
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    usersIdList = JSON.parse(xhr.responseText); // JSON 데이터를 리스트에 저장
+                }
+            };
+            xhr.send();
+            console.log("Hello, World!");
+        });
+     	
         // 실시간으로 아이디 유효성 검사를 수행하는 함수
         function validateId() {
             const idInput = document.getElementById("id");
             const errorMessage = document.getElementById("id-error");
-            const idPattern = /^[a-z0-9]{4,16}$/; // 영소문자와 숫자, 4~16자 조건
+            const errorMessage2 = document.getElementById("id-error2");
+            const idPattern = /^[a-z0-9]{4,10}$/; // 영소문자와 숫자, 4~10자 조건
 
             // 입력값이 없으면 오류 메시지를 숨김
             if (idInput.value === "") {
                 errorMessage.style.display = "none";
                 return;
             }
-
-            // 입력값이 조건에 맞지 않으면 오류 메시지 표시
+			
+            
+         	// 입력값이 조건에 맞지 않으면 오류 메시지 표시
+            if (!idPattern.test(idInput.value)) {
+                errorMessage.style.display = "block";
+            } else {
+            	errorMessage.style.display = "none";
+            	return;
+            }
+         	
+         	// 중복된 아이디면 오류 메시지 표시
+            if (usersIdList.includes(idInput.value)) {
+                errorMessage2.style.display = "block";
+            } else {
+                errorMessage2.style.display = "none"; // 조건이 맞고 중복이 없으면 숨김
+            }
+         
+            
+            /*
+         	// 입력값이 조건에 맞지 않으면 오류 메시지 표시
             if (!idPattern.test(idInput.value)) {
                 errorMessage.style.display = "block";
             } else {
                 errorMessage.style.display = "none"; // 조건이 맞으면 숨김
             }
             
+            if (usersIdList.includes(idInput.value)) {
+                errorMessage.style.display = "block";
+                errorMessage.textContent = "이미 사용 중인 아이디입니다.";
+            } else {
+                errorMessage.style.display = "사용 가능한 아이디입니다."; // 조건이 맞고 중복이 없으면 숨김
+            }
+          	*/
+            
+            
+        }
+        
+        function idCheck() {
+        	<!-- 1. 사용자가 입력한 id값 가져오기 -->
+        	let id=$('input[name=usersId]').eq('0').val();
+        	console.log(id);
+        	
+        	<!-- 2. Ajax 비동기통신으로 id 중복확인 -->
+        	$.ajax({
+        		url: 'idCheck.do', // 데이터 전송주소
+        		data: { // 전송할 데이터
+        			id: usersId
+        		},
+        		type: "get", // 데이터 전송방식(get/post)
+        		dataType: "text",
+        		success: function(res) {
+        			console.log(res);
+        			$('#idCheck').empty();
+        			$('#idCheck').append(res);
+        			$('#idCheck').css('color', 'red');
+        		},
+        		error: function() {
+        			alert("Ajax 통신 실패")
+        		}
+        	})
         }
      	
-     	
+        
+        
+     // 실시간으로 비밀번호 유효성 검사를 수행하는 함수
+        function validatePwd() {
+            const pwdInput = document.getElementById("pwd");
+            const errorMessage = document.getElementById("pwd-error");
+            const pwdPattern = /^[a-zA-Z0-9]{4,12}$/;
+
+            // 입력값이 없으면 오류 메시지를 숨김
+            if (pwdInput.value === "") {
+                errorMessage.style.display = "none";
+                return;
+            }
+
+            // 입력값이 조건에 맞지 않으면 오류 메시지 표시
+            if (!pwdPattern.test(pwdInput.value)) {
+                errorMessage.style.display = "block";
+            } else {
+                errorMessage.style.display = "none"; // 조건이 맞으면 숨김
+            }
+        }
+     
+        // 실시간으로 닉네임 유효성 검사를 수행하는 함수
+        function validateNickname() {
+            const nicknameInput = document.getElementById("nickname");
+            const errorMessage = document.getElementById("nickname-error");
+            const nicknamePattern = /^[가-힣a-zA-Z0-9]{3,8}$/;
+
+            // 입력값이 없으면 오류 메시지를 숨김
+            if (nicknameInput.value === "") {
+                errorMessage.style.display = "none";
+                return;
+            }
+
+            // 입력값이 조건에 맞지 않으면 오류 메시지 표시
+            if (!nicknamePattern.test(nicknameInput.value)) {
+                errorMessage.style.display = "block";
+            } else {
+                errorMessage.style.display = "none"; // 조건이 맞으면 숨김
+            }
+        }
+        
+        // 실시간으로 이메일 유효성 검사를 수행하는 함수
+        function validateEmail() {
+            const emailInput = document.getElementById("email");
+            const errorMessage = document.getElementById("email-error");
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            // 입력값이 없으면 오류 메시지를 숨김
+            if (emailInput.value === "") {
+                errorMessage.style.display = "none";
+                return;
+            }
+
+            // 입력값이 조건에 맞지 않으면 오류 메시지 표시
+            if (!emailPattern.test(emailInput.value)) {
+                errorMessage.style.display = "block";
+            } else {
+                errorMessage.style.display = "none"; // 조건이 맞으면 숨김
+            }
+        }
        
 		
         

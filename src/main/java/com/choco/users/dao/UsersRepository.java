@@ -26,7 +26,6 @@ public interface UsersRepository{
 	
 	List<Users> getUsersList();
 	List<String> getIdList();
-	boolean getIdCheck(String inputId);
 	
-	boolean checkId(String usersId);
+	
 }
