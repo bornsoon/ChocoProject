@@ -36,22 +36,22 @@
         <button onclick="location.href='/board/create'" class="board-btn write scale">글쓰기</button>
       </div>  
       
-      <!-- 검색창 -->
-      <div class="board-top-box">
-        <div class="sort-options">
-         <input type="radio" id="latest" name="sort" value="latest">
-         <label for="latest" class="sort-label">최신 순</label>
-         <input type="radio" id="popular" name="sort" value="popular" checked>
-         <label for="popular" class="sort-label">인기 순</label>
-        </div>
-        <!-- 정렬 버튼 -->
-        <div class="search-box">
-         <form action="" method="get">
-          <input class="search-txt" type="text" name="" placeholder="search">
-          <button class="search-btn" type="submit"><img src="/images/search.png" alt="검색" /></button>
-         </form>
-	    </div>
-      </div>
+       <form action="" method="get">
+         <!-- 정렬 버튼 -->
+         <div class="board-top-box">
+          <div class="sort-options">
+           <input type="radio" id="latest" name="sort" value="latest" checked  onchange="this.form.submit()">
+           <label for="latest" class="sort-label">최신 순</label>
+           <input type="radio" id="popular" name="sort" value="popular" onchange="this.form.submit()">
+           <label for="popular" class="sort-label">인기 순</label>
+          </div>
+      	  <!-- 검색창 -->
+          <div class="search-box">
+           <input class="search-txt" type="text" name="" placeholder="search">
+           <button class="search-btn" type="submit"><img src="/images/search.png" alt="검색" /></button>
+	      </div>
+         </div>
+       </form>
        
       <!-- 게시글 리스트 -->
       <div class="board-list-container">

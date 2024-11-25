@@ -40,7 +40,8 @@ public class BoardController {
 	ReplyService replyService;
 	
 	@GetMapping(value={"", "/"})
-	public String boardList(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+	public String boardList(Model model, 
+			                HttpSession session, RedirectAttributes redirectAttributes) {
 		List<Board> boardList = boardService.getBoardList();
 		model.addAttribute("boardList", boardList);
 

@@ -23,9 +23,6 @@ public class HomeController {
 	public String home(Model model) {
 		List<Board> boardList = boardService.getBoardListByHeart(6);
 		model.addAttribute("boardList", boardList);
-		log.info("11111");
-		System.out.println("1" + boardList.get(0).getAttachFile());
-		System.out.println(boardList.get(5).getAttachFile());
 		
 		return "thymeleaf/choco/home";
 	}
