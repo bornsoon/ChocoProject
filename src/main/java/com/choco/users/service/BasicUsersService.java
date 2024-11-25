@@ -53,18 +53,21 @@ public class BasicUsersService implements UsersService {
 	}
 	
 	@Override
-	public List<String> getIdList() {
-		List<String> idList = usersRepository.getIdList();
+	public String IdCheck(String usersId) {
+		String result = usersRepository.IdCheck(usersId);
 		
-		return idList;
+		System.out.println("result: " + result);
+		
+		if(result==null) result = "사용 가능한 아이디입니다.";
+		else result = "이미 사용 중인 아이디입니다.";
+		
+		return result;
 	}
 	
 	@Override
-	public boolean getIdCheck(String inputId) {
-		boolean idCheck = usersRepository.getIdCheck(inputId);
-		
-		return idCheck;
-	}
+	public List<String> getAllUsersIds() {
+        return usersRepository.getIdList(); // USERS_ID 리스트 가져오기
+    }
 	
 	
 	@Override
