@@ -4,7 +4,12 @@
 	layout:decorate="~{/thymeleaf/choco/default_layout}">
 
 <th:block layout:fragment="title">
-	<title>MYCUTEPET | BOARD DETAIL</title>
+	<title>MYCUTEPET | BOARD FORM</title>
+</th:block>
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/home.css}" />
+	<link rel="stylesheet" th:href="@{/css/board-form.css}" />
 </th:block>
 
 <th:block layout:fragment="wrapper">	
@@ -18,54 +23,60 @@
   <!-- 배너 -->
   <div th:replace="~{/thymeleaf/choco/include::banner}"></div>
     <!-- 메인 콘텐츠 -->
-    <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
-      <h4>오늘의 주접왕</h4> <br>
-      <div class="post-container">
-        <!-- 각 게시글 카드 -->
-        <div class="post-card">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드1</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
-        </div>
-        <div class="post-card">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드 2</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
-        </div>
-        <div class="post-card">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드3</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
-        </div>
-        <div class="post-card">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드4</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
-        </div>
-        <div class="post-card">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드5</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
-        </div>
-        <div class="post-card">
-          <img src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3>카드6</h3>
-          <p>내용 없음</p>
-          <p class="post-date">날짜 없음</p>
-          <a href="post.html">Read more</a>
-        </div>
+  <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
+		
+    <form th:action="${update != null ? '/board/update' : '/board/create'}"  method="post"
+            enctype="multipart/form-data" th:object="${board}">
+	  <div class="postbtn-container">
+	   <input type="hidden" th:filed="*{boardId}">
+	   <input type="hidden" th:filed="*{usersId}">
+       <!-- 카테고리 버튼 -->
+       <h3>카테고리</h3>
+       <div class="btn-box">
+	    <button class="category-btn">강아지</button>
+        <button class="category-btn">고양이</button>
+        <button class="category-btn">소동물</button>
+	   </div> 
       </div>
-     </div>
+	  <!-- 제목 입력 -->
+	  <div class="form-group">
+        <div class="form-title">
+          <label for="title">제목 작성</label>
+          <input type="text" th:field="*{boardTitle}" placeholder="제목을 입력하세요." required>
+        </div>
+
+    <!-- 내용 입력 -->
+        <div class="form-content">
+          <label for="content">글 내용 작성</label>
+          <textarea th:field="*{boardContent}" rows="30" placeholder="내용을 입력하세요."></textarea>
+        </div>
+
+    <!-- 파일 첨부 -->
+        <div class="file-upload">
+          <label for="file">파일 첨부</label>
+          <div class="file-input-wrapper">
+            <input type="text" id="fileName" placeholder="파일을 선택해주세요." readonly>
+            <label for="file" class="file-button">파일 선택</label>
+            <input type="file" id="file" name="file" onchange="updateFileName()" multiple>
+          </div>
+        </div>
+
+	    <!-- 작성 완료 버튼 -->
+	    <button class="submit-btn" type="submit" th:text="${update!=null?'수정 완료':'작성 완료'} "></button>
+	  </div>		
     </div>
+  </div>
+</th:block>
+<th:block layout:fragment="script">
+ <script>
+   function updateFileName() {
+     const fileInput = document.getElementById('file');
+     const fileNameInput = document.getElementById('fileName');
+    
+     if (fileInput.files.length > 0) {
+       fileNameInput.value = fileInput.files[0].name;
+     }
+   }
+  </script>
 </th:block>
 </html>

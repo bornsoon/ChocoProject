@@ -1,3 +1,10 @@
+ .postbtn-container > h3 {
+  border: none;
+  text-align: left;
+  width: 100%;
+  padding-left: 15px;
+ }
+
 /* 기본 스타일 */
 .category-radio {
   display: none; /* 기본 radio 버튼은 숨기기 */

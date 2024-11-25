@@ -18,6 +18,11 @@ public class BasicBoardService implements BoardService {
 	public List<Board> getBoardList() {
 		return boardRepository.getBoardList();
 	}
+
+	@Override
+	public List<Board> getBoardListByHeart() {
+		return boardRepository.getBoardListByHeart();
+	}
 	
 	@Override
 	public List<Board> getBoardListByHeart(int rank) {
