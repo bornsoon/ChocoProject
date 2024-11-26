@@ -20,10 +20,10 @@
 		FETCH FIRST ROW ONLY
 	</select> -->
 	
-	<select id="getAttachList" parameterType="int" resultType="com.choco.attach.model.Attach">
+	<select id="getAttachFile" parameterType="int" resultType="com.choco.attach.model.Attach">
 		SELECT ATTACH_NAME
 		FROM ATTACH
-		WHERE BOARD_ID=#{boardId}
+		WHERE BOARD_ID = #{boardId}
 	</select>	
 	
 	<insert id="insertAttach" parameterType="com.choco.attach.model.Attach">
@@ -32,9 +32,16 @@
 		    ATTACH_SEQ.nextval, #{attachName}, #{boardId})
 			<!-- ATTACH_SEQ.nextval, #{attachName}, #{attachFile, jdbcType=BLOB}, #{boardId}) -->
 	</insert>
+	
+	<update id="updateAttach" parameterType="com.choco.attach.model.Attach">
+		UPDATE ATTACH
+		SET ATTACH_NAME = #{attachName}
+		WHERE BOARD_ID = #{boardId}
+			<!-- ATTACH_SEQ.nextval, #{attachName}, #{attachFile, jdbcType=BLOB}, #{boardId}) -->
+	</update>
 		
 	<delete id="deleteAttach" parameterType="int">
 		DELETE FROM ATTACH 
-		WHERE BOARD_ID=#{boardId}
+		WHERE BOARD_ID = #{boardId}
 	</delete>
 </mapper>

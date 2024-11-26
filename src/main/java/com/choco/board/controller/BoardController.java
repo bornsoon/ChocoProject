@@ -56,7 +56,7 @@ public class BoardController {
 		} else if (sort.equals("popular")) {
 			List<Board> boardList = boardService.getBoardListByHeart();
 			model.addAttribute("boardList", boardList);
-		}
+		}   
 		model.addAttribute("sort", sort);
 		
 		return "thymeleaf/choco/board/board";
@@ -83,7 +83,7 @@ public class BoardController {
 		String sessionId = (String)session.getAttribute("usersId");
 		
 		List<Reply> replyList = replyService.getReplyByBoardId(boardId);
-		List<Attach> attachList = attachService.getAttachList(boardId);
+		Attach attach = attachService.getAttachFile(boardId);
 		int heartSum = heartService.getHeartCount(boardId);
 		int heartId = boardId;
 		int heartCheck = heartService.checkHeart(heartId, sessionId);
@@ -93,7 +93,7 @@ public class BoardController {
 		log.info("보드:" + reply.getBoardId());
 		model.addAttribute("replyList", replyList);
 		model.addAttribute("reply", reply);
-		model.addAttribute(attachList);
+		model.addAttribute("attach", attach);
 		model.addAttribute("heartSum", heartSum);
 		model.addAttribute("heartCheck", heartCheck);
 		
@@ -128,10 +128,10 @@ public class BoardController {
 				attach.setAttachName(file.getOriginalFilename());
 				String attachDir = "C:/labs_web/workspace/ChocoProject/src/main/resources/static/attach/" + attachName;
 				file.transferTo(new File(attachDir));
-				log.info("게시글 등록 중");
 //				attach.setAttachFile(file.getBytes());
 				attachService.insertAttach(attach);
 			}
+			redirectAttributes.addFlashAttribute("message", "게시글이 등록되었습니다.");
 			log.info("게시글 등록 성공");
 		}
 		catch(Exception ex) {
@@ -142,17 +142,17 @@ public class BoardController {
 	}
 	
 	@GetMapping("/update")
-	public String updateBoard(@RequestParam("boardId") int boardId,  Model model,
+	public String updateBoard(@RequestParam("boardId") int boardId, Model model,
 			                  HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		Board board = boardService.getBoardInfo(boardId);
-		List<Attach> attachList = attachService.getAttachList(boardId);
+		//List<Attach> attachList = attachService.getAttachList(boardId);
+		//Attach attach = attachService.getAttachFile(boardId);
 		String usersId = board.getUsersId();
 		HttpSession session = request.getSession();
 		String sessionId = (String)session.getAttribute("usersId");
 		if (sessionId.equals(usersId)) {
-			boardService.deleteBoard(boardId);
 			model.addAttribute("board", board);
-			model.addAttribute("attachList", attachList);
+			//model.addAttribute("attach", attach);
 			model.addAttribute("update", true);
 			return "thymeleaf/choco/board/board_form";
 		} else {
@@ -161,20 +161,20 @@ public class BoardController {
 	}
 	
 	@PostMapping("/update")
-	public String createBoard(@ModelAttribute Board board, HttpServletRequest request,
+	public String createBoard(@ModelAttribute Board board, HttpServletRequest request, //@ModelAttribute Attach attach,
 							  @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 		try {
 			boardService.updateBoard(board);
 			if (file != null && !file.isEmpty()) {	
-				log.info("파일명: " + file.getOriginalFilename()); 
 				Attach attach = new Attach();
 				attach.setBoardId(board.getBoardId());
 				String attachName = file.getOriginalFilename();
 				attach.setAttachName(file.getOriginalFilename());
-				String attachDir = "/static/images/upload/" + attachName;
+				attachService.updateAttach(attach);
+				String attachDir = "C:/labs_web/workspace/ChocoProject/src/main/resources/static/attach/" + attachName;
 				file.transferTo(new File(attachDir));
-				attachService.insertAttach(attach);
 			}
+			redirectAttributes.addFlashAttribute("message", "게시글이 수정되었습니다.");
 			log.info("게시글 수정 성공");
 		}
 		catch(Exception ex) {
@@ -185,7 +185,8 @@ public class BoardController {
 	}
 	
 	@GetMapping("/delete")
-	public String deleteBoard(@RequestParam("boardId") int boardId, HttpServletRequest request) {
+	public String deleteBoard(@RequestParam("boardId") int boardId, HttpServletRequest request,
+			                  RedirectAttributes redirectAttributes) {
 		HttpSession session = request.getSession();
 		String sessionId = (String)session.getAttribute("usersId");
 		Board board = boardService.getBoardInfo(boardId);
@@ -193,6 +194,7 @@ public class BoardController {
 		if (sessionId.equals(usersId)) {
 			boardService.deleteBoard(boardId);
 		}
+		redirectAttributes.addFlashAttribute("message", "게시글이 삭제되었습니다.");
 		return "redirect:/board";
 	}
 

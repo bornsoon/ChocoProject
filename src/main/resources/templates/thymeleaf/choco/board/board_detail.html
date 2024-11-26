@@ -50,7 +50,7 @@
     <!-- 게시글 내용 -->
      <div class="boarddetail-content">
         <p th:utext="*{boardContent}">게시글 내용</p>
-        <div class="attached-file" th:each="attach: ${attachList}">
+        <div class="attached-file">
             <img th:src="'/attach/' + ${attach.attachName}" alt="첨부이미지" />
         </div>
      </div>

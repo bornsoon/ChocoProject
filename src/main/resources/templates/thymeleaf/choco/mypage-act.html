@@ -1,110 +1,86 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MYCUTEPET | MYPAGE-ACT</title>
-    <link rel="stylesheet" href="mypage-act.css"> <!-- CSS 파일 연결 -->
-    <script src="https://kit.fontawesome.com/f4214a91db.js" crossorigin="anonymous"></script>
-</head>
-<body>
-  <!-- 헤더 -->
-    <header>
-      <div class="header-container">
-       <div class="logo">
-        <img src="mycutepet-logo.png" alt="MYCUTEPET 로고" />
-        <span>MYCUTEPET</span>
-       </div>
-      <nav class="nav-links">
-        </h4><a href="#home">홈</a>
-        <a href="#board">주접 게시판</a>
-        <a href="#calculator">건강 계산기</a>
-      </nav>
-      <button class="login-button">로그인</button>
-      </div>
-      </header>
+<html xmlns:th="http//www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/thymeleaf/choco/default_layout}">
 
+<th:block layout:fragment="title">
+	<title>MYCUTEPET | BOARD</title>
+</th:block>
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/home.css}" />
+	<link rel="stylesheet" th:href="@{/css/board.css}" />
+	<link rel="stylesheet" th:href="@{/css/mypage-act.css}" />
+</th:block> 
+
+<th:block layout:fragment="wrapper">
   <!-- 메인 이미지 -->
   <div class="main-img">
-      <img src="post-img.png" alt="Pet Lovers" class="main-img" />
+      <img src="/images/board-img.png" alt="Pet Lovers" class="main-img" />
   </div>
 
   <!-- 콘텐츠 래퍼 -->
-  <div class="content-wrapper">
+  <div layout:fragment="content-wrapper" class="content-wrapper">
   <!-- 배너 -->
-  <div class="banner">
-    <a href="https://pethroom.com" target="_blank">
-    <img src="banner.png" alt="페쓰룸 광고";/></a>
-  </div>
-
-
+  <div th:replace="~{/thymeleaf/choco/include::banner}"></div>
     <!-- 메인 콘텐츠 -->
-    <div class="main-content-wrapper">
-    <div class="postbtn-container">
-      <h4>마이 페이지</h4>
+   <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
+
+    <div class="board-container">	
+    <h2>주접 게시판</h2>
       <!-- 게시글 버튼 -->
-      <div class="btn-box">
-      <button onclick="location.href='/mypage/act/' "class="category-btn">나의 주접 글</button>
-      <button onclick="location.href='/mypage/act/' "class="category-btn">나의 주접 댓글</button>
-      <button onclick="location.href='/board/category/cat' "class="category-btn">나의 좋아요</button>
-      </div>   
-    </div><p>
+      <div class="act-btn-box">
+        <button onclick="location.href='/mypage-act'" th:class="${act==true?'act-btn active scale':'act-btn scale'}">나의 주접 글</button>
+        <button onclick="location.href='/mypage-act/heart'" th:class="${act==false?'act-btn active scale':'act-btn scale'}">나의 좋아요</button>
+      </div>  
+      
+       <form action="" method="get">
+         <!-- 정렬 버튼 -->
+         <div class="board-top-box">
+          <div class="sort-options">
+           <input type="radio" id="latest" name="sort" value="latest" onchange="this.form.submit()" th:checked="${sort=='latest' || sort==null}">
+           <label for="latest" class="sort-label">최신 순</label>
+           <input type="radio" id="popular" name="sort" value="popular" onchange="this.form.submit()" th:checked="${sort=='popular'}">
+           <label for="popular" class="sort-label">인기 순</label>
+          </div>
+      	  <!-- 검색창 -->
+          <div class="search-box">
+           <input class="search-txt" type="text" name="" placeholder="search">
+           <button class="search-btn" type="submit"><img src="/images/search.png" alt="검색" /></button>
+	      </div>
+         </div>
+       </form>
+       
       <!-- 게시글 리스트 -->
       <div class="board-list-container">
-      <!-- 정렬, 검색창-->
-      <div class="sort-search-btn">
-      <div class="sort-options">
-        <input type="radio" id="latest" name="sort" value="latest">
-        <label for="latest" class="sort-label">최신 순</label>
-        <input type="radio" id="popular" name="sort" value="popular" checked>
-        <label for="popular" class="sort-label">인기 순</label>
-        </div> 
-      <form class="search-box" action="" method="get">
-        <input class="search-txt" type="text" name="" placeholder="search">
-        <button class="search-btn" type="submit">
-          <img src="search.png" alt="검색" />
-        </button>
-      </form>  
-    </div>
-      <!-- 게시글1-->
-        <div class="board-item">
-          <a href=""board-detail.html" class="board-link">
+       <!-- 게시글1-->
+       <div class="board-item" th:each="board: ${boardList}">
+         <a th:href="@{/board/{Id}(Id=${board.boardId})}" class="board-link">
           <div class="board-content">
-              <div class="board-header">
-                  <h2 class="board-title">우리집 강아지는 정말 귀여워</h2>
-                  <p class="board-author">by. 새싹은 힘들어</p>
-              </div>
-              <p class="board-description">
-                  인간적으로 동동이는 정말 귀엽다. 이세상 모든 사람이 알았으면 좋겠다.
-              </p>
-              <div class="board-footer">
-                  <span class="board-date">24.11.20.</span>
-                  <span class="board-likes"> ❤️ : 10</span>
-                  <span class="badge"><img src="king.svg" alt="주접왕" /></span>
-              </div>
-            </div>
-            <div class="board-image">
-              <img src="cardimgtest.png" alt="게시글 이미지" />
-            </div>
+           <div class="board-header">
+               <h2 class="board-title" th:utext="${board.boardTitle}"></h2>
+               <p class="board-author" th:utext="' by. ' + ${board.usersId}"></p>
+           </div>
+           <p class="board-description" th:utext="${board.boardContent}"></p>
+           <div class="board-footer">
+               <span class="board-date" th:utext="${board.boardDate}"></span>
+               <span class="board-likes" th:utext="'❤️ : ' + ${board.heartSum}"></span>
+               <img src="/images/king.svg" alt="주접왕" />
+           </div>
           </div>
-      </div> 
-        </div>
-      </div>
-
- 
-  <!-- 푸터 -->
-    <footer>
-    <div class="footer-container">
-      <div class="footer-logo">
-        <img src="mycutepet-whitelogo.png" alt="MYCUTEPT Logo">
-      </div>
-      <div class="footer-info">
-        <h4>ChocoCode Company</h4> 
-        <p><h6>78, Gosanja-ro 32-gil, Dongdaemun-gu, <u>Seoul</u>, Republic of Korea </p>
-        <p>ChocoCode@saesac.com</p></h6>
-      </div>
+          <div class="board-image">
+           <img th:src="${board.attachName != null ?'/attach/' + board.attachName :'/images/cardimgtest.png'}" alt="게시글 이미지" />
+          </div>
+         </a>
+       </div>
+      </div>      
     </div>
-   </footer>
-  
-</body>
+   </div>
+  </div>
+</th:block>
+<th:block layout:fragment="script">
+	<script th:if="${message}" th:inline="javascript">
+			alert([[${message}]]);
+	</script>
+</th:block>
 </html>

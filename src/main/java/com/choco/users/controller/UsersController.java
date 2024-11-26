@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.choco.board.model.Board;
+import com.choco.board.service.BoardService;
 import com.choco.pet.Service.PetService;
 import com.choco.pet.model.Pet;
 import com.choco.users.model.Users;
 import com.choco.users.service.UsersService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +40,9 @@ public class UsersController {
 	
 	@Autowired
 	UsersService usersService;
+	
+	@Autowired
+	BoardService boardService;
 
 	@PostMapping("/findid")
 	public String findId(@RequestParam("usersName") String usersName,
@@ -121,8 +127,22 @@ public class UsersController {
 	}
 	
 	@GetMapping("/mypage-act")
-	public String mypageact(Model model) {
-		
+	public String mypageact(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String usersId = (String)session.getAttribute("usersId");
+		List<Board> boardList = boardService.getBoardListByUsersId(usersId);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("act", true);
+		return "thymeleaf/choco/mypage-act";
+	}
+	
+	@GetMapping("/mypage-act/heart")
+	public String mypageactHeart(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String sessionId = (String)session.getAttribute("usersId");
+		List<Board> boardList = boardService.getBoardList();
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("act", false);
 		return "thymeleaf/choco/mypage-act";
 	}
 	
