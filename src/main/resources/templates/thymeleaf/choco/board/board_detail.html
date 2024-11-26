@@ -58,7 +58,7 @@
      <!-- 수정/삭제 버튼-->
       <div class="update-delete-container" th:if="${board.usersId == session.usersId}">
         <button class="update-btn" th:onclick="|location.href='@{update(boardId=${boardId})}'|">수정</button>
-        <button class="delete-btn" th:onclick="|location.href='@{delete(boardId=${boardId})}'|">삭제</button>
+        <button class="delete-btn" th:onclick="|if(confirm('정말로 삭제하시겠습니까?')) { location.href='@{delete(boardId=${boardId})}';}|">삭제</button>
       </div>
 
        <!-- 좋아요 버튼-->
