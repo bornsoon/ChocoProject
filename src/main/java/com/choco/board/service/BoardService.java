@@ -10,6 +10,7 @@ public interface BoardService {
 	List<Board> getBoardListByHeart();
 	List<Board> getBoardListByHeart(int rank);
 	List<Board> getBoardListByUsersId(String usersId);
+	List<Board> getBoardListByUsersHeart(String usersId);
 	Board getBoardInfo(int boardId);
 	int createBoardId();
 	void createBoard(Board board);

@@ -139,8 +139,8 @@ public class UsersController {
 	@GetMapping("/mypage-act/heart")
 	public String mypageactHeart(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		String sessionId = (String)session.getAttribute("usersId");
-		List<Board> boardList = boardService.getBoardList();
+		String usersId = (String)session.getAttribute("usersId");
+		List<Board> boardList = boardService.getBoardListByUsersHeart(usersId);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("act", false);
 		return "thymeleaf/choco/mypage-act";

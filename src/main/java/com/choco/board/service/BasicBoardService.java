@@ -35,6 +35,11 @@ public class BasicBoardService implements BoardService {
 	}
 	
 	@Override
+	public List<Board> getBoardListByUsersHeart(String usersId) {
+		return boardRepository.getBoardListByUsersHeart(usersId);
+	}
+	
+	@Override
 	public List<Board> getBoardList(String boardCategory) {
 		return boardRepository.getBoardList(boardCategory);
 	}

@@ -14,6 +14,7 @@ public interface BoardRepository {
 	List<Board> getBoardListByHeart();
 	List<Board> getBoardListByHeart(int rank);
 	List<Board> getBoardListByUsersId(@Param("usersId") String usersId);
+	List<Board> getBoardListByUsersHeart(@Param("usersId") String usersId);
 	Board getBoardInfo(int boardId);
 	int createBoardId();
 	void createBoard(Board board);

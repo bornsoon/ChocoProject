@@ -19,13 +19,13 @@
     <!-- 특정 사용자가 특정 게시물 또는 댓글에 좋아요 추가 -->
       <insert id="insertHeart" parameterType="com.choco.heart.model.Heart">
         INSERT INTO HEART (
-        heart_id, users_id,)
+        heart_id, users_id)
         VALUES (
         #{heartId}, #{usersId})
       </insert>
       
     <!-- 특정 사용자가 특정 게시물 또는 댓글에 좋아요 삭제 -->
-      <delete id="deleteHeart" parameterType="com.choco.heart.model.Heart">
+      <delete id="deleteHeart" parameterType="hashmap">
         DELETE FROM HEART
         WHERE HEART_ID=#{heartId} AND USERS_ID=#{usersId}
       </delete>
