@@ -8,4 +8,7 @@ import com.choco.pet.model.Pet;
 public interface PetRepository {
 	void insertPet(Pet pet);
 	int createPetId();
+	Pet getPetInfo(String usersId);
+	void revisePet(Pet pet);
+	void deletePet(String usersId);
 }

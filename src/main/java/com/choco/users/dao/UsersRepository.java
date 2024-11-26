@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import com.choco.users.model.Users;
 
 
+
+
 @Mapper
 public interface UsersRepository{
 	
@@ -27,5 +29,13 @@ public interface UsersRepository{
 	List<Users> getUsersList();
 	List<String> getIdList();
 	
-	boolean checkId(String usersId);
+	String IdCheck(String usersId);
+	String NicknameCheck(String usersNickname);
+	String EmailCheck(String usersEmail);
+	
+	Users getUsersInfo(String usersId);
+	void reviseUsers(Users users);
+	String getUsersId(String usersId);
+	
+	void deleteUsers(String usersId);
 }

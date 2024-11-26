@@ -1,6 +1,8 @@
 package com.choco.users.controller;
 
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choco.pet.Service.PetService;
 import com.choco.pet.model.Pet;
-import com.choco.users.dao.UsersRepository;
 import com.choco.users.model.Users;
 import com.choco.users.service.UsersService;
 
@@ -36,10 +37,6 @@ public class UsersController {
 	
 	@Autowired
 	UsersService usersService;
-	
-	@Autowired
-	UsersRepository usersRepository;
-	
 
 	@PostMapping("/findid")
 	public String findId(@RequestParam("usersName") String usersName,
@@ -79,6 +76,8 @@ public class UsersController {
 		return "thymeleaf/choco/users/main_login";
 	}
 	
+	
+	
 	@PostMapping("/main_login")
 	public String loginUsers(@RequestParam("usersId") String usersId, @RequestParam("usersPwd") String usersPwd, 
 			               HttpSession session, RedirectAttributes redirectAttrs) {	
@@ -106,11 +105,26 @@ public class UsersController {
 		return "redirect:/home";
 	}
 	
+	/*@GetMapping("/mypage/{usersId}")
+	public String mypage(@PathVariable("usersId") String usersId, Model model) {
+	
+		model.addAttribute("usersId", usersService.getUsersId(usersId));
+		
+		return "thymeleaf/choco/mypage";
+	}*/
+	
+	
 	@GetMapping("/mypage")
-	public String mypage(Model model) {	
+	public String mypage(Model model) {
+		
 		return "thymeleaf/choco/mypage";
 	}
 	
+	@GetMapping("/mypage-act")
+	public String mypageact(Model model) {
+		
+		return "thymeleaf/choco/mypage-act";
+	}
 	
 	@GetMapping("/signup")
 	public String insertUsersAndPet() {
@@ -125,11 +139,15 @@ public class UsersController {
 		try {
 			
 			// 파일 데이터를 byte[]로 변환
-	        if (users.getUsersProfile() != null && !users.getUsersProfile().isEmpty()
-	        		|| pet.getPetProfile() != null && !pet.getPetProfile().isEmpty()) {
-	        	
-	        	users.setUsersProfileBytes(users.getUsersProfile().getBytes());
-	        	pet.setPetProfileBytes(pet.getPetProfile().getBytes());
+			// 이미지 처리 로직
+	        if (users.getUsersProfile() != null && !users.getUsersProfile().isEmpty()) {
+	            users.setUsersProfileBytes(users.getUsersProfile().getBytes());
+	            log.info("사용자 프로필 이미지 처리 완료");
+	        }
+	        
+	        if (pet.getPetProfile() != null && !pet.getPetProfile().isEmpty()) {
+	            pet.setPetProfileBytes(pet.getPetProfile().getBytes());
+	            log.info("펫 프로필 이미지 처리 완료");
 	        }
 	        
 	        pet.setUsersId(users.getUsersId());
@@ -160,14 +178,29 @@ public class UsersController {
 	}
 	
 	
-	@GetMapping("IdCheck.do")
-	public String Idcheck(String usersId) {
+	@GetMapping("/signup/IdCheck")
+	@ResponseBody
+	public String IdCheck(@RequestParam("id") String usersId) {
 		System.out.println("id: " + usersId);
 		
-		return usersService.Idcheck(usersId);
+		return usersService.IdCheck(usersId);
 	}
 	
+	@GetMapping("/signup/NicknameCheck")
+	@ResponseBody
+	public String NicknameCheck(@RequestParam("nickname") String usersNickname) {
+		System.out.println("nickname: " + usersNickname);
+		
+		return usersService.NicknameCheck(usersNickname);
+	}
 	
+	@GetMapping("/signup/EmailCheck")
+	@ResponseBody
+	public String EmailCheck(@RequestParam("email") String usersEmail) {
+		System.out.println("email: " + usersEmail);
+		
+		return usersService.EmailCheck(usersEmail);
+	}
 	
 	@GetMapping("/getAllUsersIds")
     public List<String> getAllUsersIds() {
@@ -192,7 +225,102 @@ public class UsersController {
 	}
 	
 	
+	@GetMapping("/revise")
+	public String reviseUsersAndPet(HttpSession session, Model model) {
+	    String usersId = (String) session.getAttribute("usersId");
+	    
+	    if (usersId == null) {
+	        return "redirect:/main_login";
+	    }
+	    
+	    try {
+	    	Users users = usersService.getUsersInfo(usersId);
+	    	model.addAttribute("usersList", users);
+	    
+	    	// 사용자 프로필 이미지 처리
+	    	if (users.getUsersProfileBytes() != null) {
+	    		String usersProfileBase64 = Base64.getEncoder().encodeToString(users.getUsersProfileBytes());
+	    		model.addAttribute("usersProfileImage", "data:image/jpeg;base64," + usersProfileBase64);
+	    	}
+	    	
+	    	Pet pet = petService.getPetInfo(usersId);
+	    	model.addAttribute("petList", pet);
+	    	
+	    	// 펫 프로필 이미지 처리
+	    	if (pet != null && pet.getPetProfileBytes() != null) {
+	    		String petProfileBase64 = Base64.getEncoder().encodeToString(pet.getPetProfileBytes());
+	    		model.addAttribute("petProfileImage", "data:image/jpeg;base64," + petProfileBase64);
+	    	}
+	    	
+	    	return "thymeleaf/choco/users/revise";
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    	return "redirect:/error";
+	    }
+	    
+	    
+	    
+	}
 	
+	@PostMapping("/revise")
+	public String reviseUsersAndPet(HttpSession session, Users users, Pet pet, Model model,
+	        RedirectAttributes redirectAttrs) throws IOException {
+	    
+		try {
+	        log.info("회원정보 수정 시작");
+	        
+	        // 이미지 처리 로직
+	        if (users.getUsersProfile() != null && !users.getUsersProfile().isEmpty()) {
+	            users.setUsersProfileBytes(users.getUsersProfile().getBytes());
+	            log.info("사용자 프로필 이미지 처리 완료");
+	        }
+	        
+	        if (pet.getPetProfile() != null && !pet.getPetProfile().isEmpty()) {
+	            pet.setPetProfileBytes(pet.getPetProfile().getBytes());
+	            log.info("펫 프로필 이미지 처리 완료");
+	        }
+	        
+	        log.info("회원정보 수정 서비스 호출 전");
+	        usersService.reviseUsersAndPet(users, pet);
+	        log.info("회원정보 수정 서비스 호출 완료");
+	        
+	        
+	        log.info("회원이름 출력: " + users.getUsersName());
+	        redirectAttrs.addFlashAttribute("message", users.getUsersName()+"님의 정보가 수정되었습니다.");
+	        log.info("회원정보 수정 완료 메시지 설정");
+	        
+	        return "redirect:/mypage";
+	        
+	        
+	    } catch(Exception e) {
+	        log.error("회원정보 수정 중 오류 발생: ", e);
+	        redirectAttrs.addFlashAttribute("errorMessage", "회원수정 정보가 올바르지 않습니다. 다시 입력해주세요. (" + e.getMessage() +")");
+	        
+		    return "redirect:/revise";
+	    }
+	    
+	    
+	}
+	
+	@GetMapping("/delete")
+	public String withdrawUser(HttpSession session, RedirectAttributes redirectAttrs) {
+	    String usersId = (String) session.getAttribute("usersId");
+	    
+	    if (usersId == null) {
+	        return "redirect:/main_login";
+	    }
+	    
+	    try {
+	        usersService.deleteUsersAndPet(usersId);
+	        session.invalidate(); // 세션 삭제
+	        redirectAttrs.addFlashAttribute("message", "회원탈퇴가 완료되었습니다.");
+	        return "redirect:/home";
+	        
+	    } catch (Exception e) {
+	        redirectAttrs.addFlashAttribute("errorMessage2", "회원탈퇴 처리 중 오류가 발생했습니다.");
+	        return "redirect:/revise";
+	    }
+	}
 	
 	
 	@GetMapping("/users/{usersId}")
