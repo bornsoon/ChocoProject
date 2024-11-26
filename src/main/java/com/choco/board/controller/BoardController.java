@@ -1,6 +1,9 @@
 package com.choco.board.controller;
 
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,7 @@ import com.choco.attach.model.Attach;
 import com.choco.attach.service.AttachService;
 import com.choco.board.model.Board;
 import com.choco.board.service.BoardService;
+import com.choco.heart.service.HeartService;
 import com.choco.reply.model.Reply;
 import com.choco.reply.service.ReplyService;
 
@@ -39,9 +43,13 @@ public class BoardController {
 	@Autowired
 	ReplyService replyService;
 	
+	@Autowired
+	HeartService heartService;
+	
 	@GetMapping(value={"", "/"})
 	public String boardList(Model model, @RequestParam(value = "sort", required = false) String sort,
 			                HttpSession session, RedirectAttributes redirectAttributes) {
+		
 		if (sort == null || sort.equals("latest")) {
 			List<Board> boardList = boardService.getBoardList();
 			model.addAttribute("boardList", boardList);
@@ -55,7 +63,9 @@ public class BoardController {
 	}
 	
 	@GetMapping("/category/{boardCategory}")
-	public String boardListByCategory(@PathVariable("boardCategory") String boardCategory, Model model, RedirectAttributes redirectAttributes) {
+	public String boardListByCategory(@PathVariable("boardCategory") String boardCategory, Model model,
+			                          RedirectAttributes redirectAttributes) {
+		
 		List<Board> boardList = boardService.getBoardList(boardCategory);
 		model.addAttribute("boardList", boardList);	
 		model.addAttribute("boardCategory", boardCategory);	
@@ -64,15 +74,28 @@ public class BoardController {
 	}
 	
 	@GetMapping("/{boardId}")
-	public String getBoardInfo(@PathVariable("boardId") int boardId, Model model) {
+	public String getBoardInfo(@PathVariable("boardId") int boardId,
+			                   HttpServletRequest request, Model model) {
+		
 		Board board = boardService.getBoardInfo(boardId);
 		model.addAttribute("board", board);
+		HttpSession session = request.getSession();
+		String sessionId = (String)session.getAttribute("usersId");
+		
 		List<Reply> replyList = replyService.getReplyByBoardId(boardId);
+		List<Attach> attachList = attachService.getAttachList(boardId);
+		int heartSum = heartService.getHeartCount(boardId);
+		int heartId = boardId;
+		int heartCheck = heartService.checkHeart(heartId, sessionId);
+		
 		Reply reply = new Reply();
 		reply.setBoardId(boardId);
 		log.info("보드:" + reply.getBoardId());
 		model.addAttribute("replyList", replyList);
 		model.addAttribute("reply", reply);
+		model.addAttribute(attachList);
+		model.addAttribute("heartSum", heartSum);
+		model.addAttribute("heartCheck", heartCheck);
 		
 		return "thymeleaf/choco/board/board_detail";
 	}
@@ -101,8 +124,12 @@ public class BoardController {
 				log.info("파일명: " + file.getOriginalFilename());  
 				Attach attach = new Attach();
 				attach.setBoardId(boardId);
+				String attachName = file.getOriginalFilename();
 				attach.setAttachName(file.getOriginalFilename());
-				attach.setAttachFile(file.getBytes());
+				String attachDir = "C:/labs_web/workspace/ChocoProject/src/main/resources/static/attach/" + attachName;
+				file.transferTo(new File(attachDir));
+				log.info("게시글 등록 중");
+//				attach.setAttachFile(file.getBytes());
 				attachService.insertAttach(attach);
 			}
 			log.info("게시글 등록 성공");
@@ -142,8 +169,10 @@ public class BoardController {
 				log.info("파일명: " + file.getOriginalFilename()); 
 				Attach attach = new Attach();
 				attach.setBoardId(board.getBoardId());
+				String attachName = file.getOriginalFilename();
 				attach.setAttachName(file.getOriginalFilename());
-				attach.setAttachFile(file.getBytes());
+				String attachDir = "/static/images/upload/" + attachName;
+				file.transferTo(new File(attachDir));
 				attachService.insertAttach(attach);
 			}
 			log.info("게시글 수정 성공");

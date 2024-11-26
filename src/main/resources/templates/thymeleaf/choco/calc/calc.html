@@ -15,7 +15,7 @@
 <th:block layout:fragment="wrapper">	
   <!-- 메인 이미지 -->
   <div class="calc-img">
-      <img src="/images/cal-img.png" alt="Pet Lovers" class="calc-img" />
+      <img src="/images/cal-img.png" alt="Pet Lovers" class="main-img" />
   </div>
 
   <!-- 콘텐츠 래퍼 -->
@@ -23,7 +23,7 @@
   <!-- 배너 -->
   <div th:replace="/thymeleaf/choco/include::banner"></div>
     <!-- 메인 콘텐츠 -->
-    <div layout:fragment="calc-content-wrapper" class="calc-content-wrapper">
+    <div layout:fragment="main-content-wrapper" class="calc-content-wrapper">
       <div class="calc-container">
 
         <div class="calc-block" onclick="location.href='/calc/age'"> 

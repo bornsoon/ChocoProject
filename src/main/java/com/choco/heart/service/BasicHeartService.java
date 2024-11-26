@@ -14,8 +14,8 @@ public class BasicHeartService implements HeartService {
     HeartRepository heartRepository;
 
     @Override
-    public int checkHeart(int boardId, String sessionId) {
-			  return heartRepository.checkHeart(boardId, sessionId);
+    public int checkHeart(int heartId, String sessionId) {
+			  return heartRepository.checkHeart(heartId, sessionId);
 		}
         
     @Override

@@ -16,4 +16,6 @@ public class Reply {
 	private String replyDate;
 	private String usersId;
 	private int boardId;
+	private int heartSum;
+//	private String nickname;
 }

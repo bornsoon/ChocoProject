@@ -5,14 +5,20 @@
 	
 	<!-- 댓글 목록 -->
 	<select id="getReplyList" resultType="com.choco.reply.model.Reply">
-		SELECT * FROM reply
+		SELECT TO_CHAR(REPLACE(SUBSTR(REPLY_DATE,1,8), '/', '.')) AS REPLY_DATE
+		       REPLY_CONTENT,
+		       <!-- NVL(U.USERS_NICKNAME, R.USERS_ID), -->
+		       COUNT(HEART_ID) OVER(PARTITION BY R.REPLY_ID) AS HEART_SUM
+		FROM REPLY
+		JOIN HEART H ON R.REPLY_ID = H.HEART_ID
+		<!-- JOIN USERS U ON R.USERS_ID = U.USERS_ID -->
 		<!--  최신순 정렬 --> 
 		ORDER BY REPLY_DATE DESC 
 	</select>
 	
 	<!-- 댓글 등록 -->
 	<insert id="createReply" parameterType="com.choco.reply.model.Reply">
-		INSERT INTO Reply (
+		INSERT INTO REPLY (
 			REPLY_ID, REPLY_DATE, REPLY_CONTENT, USERS_ID, BOARD_ID)
 		VALUES (
 			BR_SEQ.nextval, CURRENT_TIMESTAMP, #{replyContent}, #{usersId}, #{boardId})
@@ -20,7 +26,7 @@
 	
 	<!-- 댓글 수정 -->
 	<update id="updateReply" parameterType="com.choco.reply.model.Reply">
-		UPDATE reply
+		UPDATE REPLY
 		SET REPLY_CONTENT = #{replyContent}, REPLY_DATE = CURRENT_TIMESTAMP
 		WHERE REPLY_ID = #{replyId}
 	</update>
@@ -28,14 +34,21 @@
 	<!-- userId의 댓글 조회 --> 
 	<select id="getReplyByUserId" parameterType="String" resultType="com.choco.reply.model.Reply">
 	    SELECT * 
-	    FROM reply 
-	    WHERE users_id = #{usersId}
+	    FROM REPLY
+	    WHERE USER_ID = #{usersId}
 	</select>
 	
 	<!-- boardId의 댓글 조회 --> 
-	<select id="getReplyByBoardId" parameterType="int" resultType="com.choco.reply.model.Reply">
-	    SELECT * 
-	    FROM reply 
-	    WHERE board_id = #{boardId}
+	<select id="getReplyByBoardId" parameterType="int" resultType="com.choco.reply.model.Reply">  
+	    SELECT TO_CHAR(REPLACE(SUBSTR(REPLY_DATE,1,8), '/', '.')) AS REPLY_DATE,
+		       REPLY_CONTENT,
+		       R.USERS_ID AS USERS_ID,
+		       <!-- NVL(U.USERS_NICKNAME, R.USERS_ID) AS NICKNAME, -->
+		       COUNT(HEART_ID) OVER(PARTITION BY R.REPLY_ID) AS HEART_SUM
+		FROM REPLY R
+		LEFT JOIN HEART H ON R.REPLY_ID = H.HEART_ID
+		<!-- JOIN USERS U ON R.USERS_ID = U.USERS_ID -->
+        WHERE R.BOARD_ID = #{boardId}
+		ORDER BY REPLY_DATE DESC
 	</select>
 </mapper>

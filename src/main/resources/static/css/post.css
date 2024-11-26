@@ -22,11 +22,15 @@
   cursor: pointer; /* 클릭 가능 표시 */
 }
 .post-card img {
-  width: 100%;
-  height: auto; 
+  position: relative;
+  left: 50%;
+  width: 350px;
+  height: 270px; 
   background-color: #f0f0f0; 
   border-radius: 10px;
   margin-bottom: 15px;
+  object-fit: cover;
+  transform: translate(-50%, 0%);
 }  
 .post-card h3 {
   font-size: 18px;

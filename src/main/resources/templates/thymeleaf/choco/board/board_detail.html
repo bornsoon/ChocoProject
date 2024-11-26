@@ -10,6 +10,7 @@
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/home.css}" />
 	<link rel="stylesheet" th:href="@{/css/board-form.css}" />
+	<link rel="stylesheet" th:href="@{/css/board-detail.css}" />
 </th:block>
 
 <th:block layout:fragment="wrapper">	
@@ -25,58 +26,76 @@
     <!-- 메인 콘텐츠 -->
   <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
 		
-    <form th:action="${update != null ? '/board/update' : '/board/create'}"  method="post"
-            enctype="multipart/form-data" th:object="${board}">
+   <div class="boarddetail-container" th:object="${board}">
 	  <div class="postbtn-container">
-	   <input type="hidden" th:filed="*{boardId}">
-	   <input type="hidden" th:filed="*{usersId}">
        <!-- 카테고리 버튼 -->
        <h3>카테고리</h3>
-       <div class="btn-box">
-	    <button class="category-btn">강아지</button>
-        <button class="category-btn">고양이</button>
-        <button class="category-btn">소동물</button>
+       <div class="btn-box no-hover">
+	    <button th:class="${board.boardCategory=='dog'?'category-btn active':'category-btn no-hover'}">강아지</button>
+        <button th:class="${board.boardCategory=='cat'?'category-btn active':'category-btn'}">고양이</button>
+        <button th:class="${board.boardCategory=='other'?'category-btn active':'category-btn'}">소동물</button>
 	   </div> 
       </div>
-	  <!-- 제목 입력 -->
-	  <div class="form-group">
-        <div class="form-title">
-          <label for="title">제목 작성</label>
-          <input type="text" th:field="*{boardTitle}" placeholder="제목을 입력하세요." required>
-        </div>
+        
+    <!-- 게시글 제목 -->
+     <div class="boarddetail-title">
+        <h2 th:utext="*{boardTitle}">우리집 강아지 귀여워</h2>
+     <div class="boarddetail-info">
+        <span class="boarddetail-author" th:utext="'📝 ' + *{usersId}"></span>
+        <span class="boarddetail-date" th:utext="'🗓️ ' + *{boardDate}"></span>
+        <span class="reply-date" th:utext="'❤️: ' + ${heartSum}"></span>        
+     </div>
+     </div>
 
-    <!-- 내용 입력 -->
-        <div class="form-content">
-          <label for="content">글 내용 작성</label>
-          <textarea th:field="*{boardContent}" rows="30" placeholder="내용을 입력하세요."></textarea>
+    <!-- 게시글 내용 -->
+     <div class="boarddetail-content">
+        <p th:utext="*{boardContent}">게시글 내용</p>
+        <div class="attached-file" th:each="attach: ${attachList}">
+            <img th:src="'/attach/' + ${attach.attachName}" alt="첨부이미지" />
         </div>
+     </div>
 
-    <!-- 파일 첨부 -->
-        <div class="file-upload">
-          <label for="file">파일 첨부</label>
-          <div class="file-input-wrapper">
-            <input type="text" id="fileName" placeholder="파일을 선택해주세요." readonly>
-            <label for="file" class="file-button">파일 선택</label>
-            <input type="file" id="file" name="file" onchange="updateFileName()" multiple>
-          </div>
-        </div>
+     <!-- 수정/삭제 버튼-->
+      <div class="update-delete-container" th:if="${board.usersId == session.usersId}">
+        <button class="update-btn" th:onclick="|location.href='@{update(boardId=${boardId})}'|">수정</button>
+        <button class="delete-btn" th:onclick="|location.href='@{delete(boardId=${boardId})}'|">삭제</button>
+      </div>
 
-	    <!-- 작성 완료 버튼 -->
-	    <button class="submit-btn" type="submit" th:text="${update!=null?'수정 완료':'작성 완료'} "></button>
-	  </div>		
-    </div>
+       <!-- 좋아요 버튼-->
+       <button th:text="${checkHeart == 1 ? '❤️' : '💛'}" class="heart-btn"
+               th:onclick="|locatuib.href='@{/heart/insert(heartId=${boardId})}|"></button> 
+        
+	  <!-- 댓글 -->
+	  <div class="reply-section">
+	        <h3>주접 동료의 댓글</h3>
+	   <form action="/reply/create" method="post" th:object="${reply}" accept-charset="UTF-8">     
+	    <input type="hidden" th:field="*{boardId}"/>
+	    <div class="reply-write">
+	        <textarea th:field="*{replyContent}" placeholder="댓글을 작성해주세요" rows="3" required></textarea>
+	        <button class="reply-btn" type="submit">작성 완료</button>
+	    </div>
+	   </form>
+	    <div class = "reply-list" th:each="reply: ${replyList}">
+	      <input type="hidden" th:field="${reply.replyId}"/>
+	      <div class="reply-content">
+	       <div class="reply-text" th:utext="${reply.replyContent}"></div>
+	       <div class="reply-info">
+	         <span class="reply-user" th:utext="'📝 ' + ${reply.usersId}"></span>
+	         <span class="reply-date" th:utext="'🗓️ ' + ${reply.replyDate}"></span>
+	         <span class="reply-date" th:utext="'❤️: ' + ${reply.heartSum}"></span>
+	         <!-- 수정/삭제 버튼-->
+             <div class="update-delete-container" th:if="${reply.usersId == session.usersId}">
+               <button class="update-btn" th:onclick="|location.href='@{/reply/update(replyId=${reply.replyId})}'|">수정</button>
+               <button class="delete-btn" th:onclick="|location.href='@{/reply/delete(replyId=${reply.replyId})}'|">삭제</button>
+             </div>
+	       </div>
+	      </div>
+	      <button class="reply-heart-btn">💛</button>
+	    </div>
+	   </div>
+   </div>
   </div>
-</th:block>
-<th:block layout:fragment="script">
- <script>
-   function updateFileName() {
-     const fileInput = document.getElementById('file');
-     const fileNameInput = document.getElementById('fileName');
-    
-     if (fileInput.files.length > 0) {
-       fileNameInput.value = fileInput.files[0].name;
-     }
-   }
-  </script>
+  </div>
+
 </th:block>
 </html>

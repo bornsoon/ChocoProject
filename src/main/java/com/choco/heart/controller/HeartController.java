@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.choco.heart.model.Heart;
 import com.choco.heart.service.HeartService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,10 +39,10 @@ public class HeartController {
 }
 
 	@PostMapping("/insert")
-	public String insertHeart(@RequestParam("boardId") int boardId, HttpSession session, RedirectAttributes redirectAttributes) {
+	public String insertHeart(@RequestParam("heartId") int heartId, HttpSession session, RedirectAttributes redirectAttributes) {
         String sessionId = (String) session.getAttribute("usersId"); // 세션에서 사용자 ID 가져오기
         Heart heart = new Heart();
-        heart.setHeartId(boardId);
+        heart.setHeartId(heartId);
         heart.setUsersId(sessionId);
         
         try {

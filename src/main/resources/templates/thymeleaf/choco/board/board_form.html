@@ -33,14 +33,14 @@
        <!-- 카테고리 버튼 -->
        <h3>카테고리</h3>
        <div class="btn-box">
-	    <input type="radio" id="dog" name="boardCategory" th:value="dog" class="category-radio" th:checked="${board.boardCategory=='dog'}" required>
-	    <label for="dog" class="category-btn">강아지</label>
+	    <input type="radio" id="dog" name="boardCategory" th:value="dog" class="category-radio" th:checked="${boardCategory=='dog'}" required>
+	    <label for="dog" class="category-btn hover">강아지</label>
 		
-	    <input type="radio" id="cat" name="boardCategory" th:value="cat" th:checkd="${board.boardCategory=='cat'}" class="category-radio">
-	    <label for="cat" class="category-btn">고양이</label>
+	    <input type="radio" id="cat" name="boardCategory" th:value="cat" class="category-radio" th:checkd="${boardCategory=='cat'}">
+	    <label for="cat" class="category-btn hover">고양이</label>
 		
-	    <input type="radio" id="other" name="boardCategory" th:value="other" th:checked="${board.boardCategory=='other'}" class="category-radio">
-	    <label for="other" class="category-btn">소동물</label>
+	    <input type="radio" id="other" name="boardCategory" th:value="other" class="category-radio" th:checked="${boardCategory=='other'}">
+	    <label for="other" class="category-btn hover">소동물</label>
 	   </div> 
       </div>
 	  <!-- 제목 입력 -->
@@ -71,7 +71,7 @@
 	  </div>		
     </div>
   </div>
-</th:block>
+
 <th:block layout:fragment="script">
  <script>
    function updateFileName() {

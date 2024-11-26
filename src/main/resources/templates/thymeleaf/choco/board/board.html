@@ -25,8 +25,8 @@
     <!-- 메인 콘텐츠 -->
    <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
 
-    <h2>주접 게시판</h2>
     <div class="board-container">	
+    <h2>주접 게시판</h2>
       <!-- 게시글 버튼 -->
       <div class="btn-box" th:with="category=${boardCategory}">
         <button onclick="location.href='/board'" th:class="${category==null?'board-btn active scale':'board-btn scale'}">전체</button>
@@ -67,11 +67,11 @@
            <div class="board-footer">
                <span class="board-date" th:utext="${board.boardDate}"></span>
                <span class="board-likes" th:utext="'❤️ : ' + ${board.heartSum}"></span>
-               <span><img src="/images/king.svg" alt="주접왕" /></span>
+               <img src="/images/king.svg" alt="주접왕" />
            </div>
           </div>
           <div class="board-image">
-           <img src="/images/cardimgtest.png" alt="게시글 이미지" />
+           <img th:src="${board.attachName != null ?'/attach/' + board.attachName:'/images/cardimgtest.png'}" alt="게시글 이미지" />
           </div>
          </a>
        </div>

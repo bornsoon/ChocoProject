@@ -86,7 +86,7 @@ public class UsersController {
 		Users users = usersService.loginUsers(usersId, usersPwd);
 				
 		if (users != null) {
-			session.setMaxInactiveInterval(120); //10분
+			session.setMaxInactiveInterval(1200); //10분
 			session.setAttribute("usersId", usersId);
 			
 			return "redirect:/home";

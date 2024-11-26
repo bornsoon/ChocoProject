@@ -3,6 +3,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.choco.attach.dao.AttachRepository">
 
+<!-- 	<resultMap id="attachMap" type="com.choco.attach.model.Attach">
+		<result column="ATTACH_ID" property="attachId"/>
+		<result column="ATTACH_NAME" property="attachName"/>
+	    <result column="ATTACH_FILE" property="attachFile" jdbcType="BLOB" javaType="[B"/>
+	</resultMap> -->
+	
 <!-- 	<select id="getOneAttachImg" parameterType="int" resultType="com.choco.attach.model.Attach">
 		SELECT ATTACH_ID,
 		       ATTACH_NAME, 
@@ -15,7 +21,7 @@
 	</select> -->
 	
 	<select id="getAttachList" parameterType="int" resultType="com.choco.attach.model.Attach">
-		SELECT *
+		SELECT ATTACH_NAME
 		FROM ATTACH
 		WHERE BOARD_ID=#{boardId}
 	</select>	
@@ -23,7 +29,8 @@
 	<insert id="insertAttach" parameterType="com.choco.attach.model.Attach">
 		INSERT INTO ATTACH
 		VALUES (
-			ATTACH_SEQ.nextval, #{attachName}, #{attachFile, jdbcType=BLOB}, #{boardId})
+		    ATTACH_SEQ.nextval, #{attachName}, #{boardId})
+			<!-- ATTACH_SEQ.nextval, #{attachName}, #{attachFile, jdbcType=BLOB}, #{boardId}) -->
 	</insert>
 		
 	<delete id="deleteAttach" parameterType="int">

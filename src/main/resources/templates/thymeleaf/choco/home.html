@@ -29,8 +29,8 @@
         <!-- 각 게시글 카드 -->
         <div class="post-card" th:each="board: ${boardList}"
         	th:onclick="|location.href='/board/${board.boardId}'|">
-          <img th:utext="${board.attachFile}" src="/images/cardimgtest.png" alt="임시 이미지">
-          <h3 th:utext="${board.boardTitle}"></h3>
+          <img th:src="${board.attachName != null ?'/attach/' + board.attachName:'/images/cardimgtest.png'}" alt="임시 이미지">
+          <h3 th:utext="${board.attachName}"></h3>
           <p th:utext="${board.boardContent}"></p>
           <p class="post-date" th:utext="${board.boardDate}"></p>
           <span>
