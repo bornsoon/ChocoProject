@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choco.board.service.BoardService;
@@ -70,9 +71,9 @@ public class ReplyController {
 	}
 	
 	// 댓글 삭제
-	@PostMapping("/delete")
-	public String deleteReply(@RequestBody int replyId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-
+	@GetMapping("/delete")
+	public String deleteReply(@RequestParam("replyId") int replyId, @RequestParam("boardId") int boardId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		log.info("댓글 ");
 	    try {
 	        replyService.deleteReply(replyId); // replyId로 삭제
 	        log.info("댓글 삭제 성공");
@@ -80,7 +81,7 @@ public class ReplyController {
 	        log.error("댓글 삭제 실패: {}", ex.getMessage());
 	    }
 
-	    return "redirect:/board/{boardId}"; // 댓글 삭제 후 게시글로 리다이렉트
+	    return "redirect:/board/" + boardId; // 댓글 삭제 후 게시글로 리다이렉트
 	}
 	
     @GetMapping("/user/{usersId}")

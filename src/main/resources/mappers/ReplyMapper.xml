@@ -26,10 +26,16 @@
 	
 	<!-- 댓글 수정 -->
 	<update id="updateReply" parameterType="com.choco.reply.model.Reply">
-		UPDATE REPLY
+		UPDATE EPLY
 		SET REPLY_CONTENT = #{replyContent}, REPLY_DATE = CURRENT_TIMESTAMP
 		WHERE REPLY_ID = #{replyId}
 	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM REPLY
+		WHERE REPLY_ID = #{replyId}
+	</delete>
 
 	<!-- userId의 댓글 조회 --> 
 	<select id="getReplyByUserId" parameterType="String" resultType="com.choco.reply.model.Reply">
