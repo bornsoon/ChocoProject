@@ -4,7 +4,7 @@
  <!-- 헤더 -->
     <header th:fragment="header">
       <div class="header-container">
-       <div class="logo">
+       <div class="logo" onclick="location.href='/'" style="cursor: pointer">
         <img src="/images/mycutepet-logo.png" alt="MYCUTEPET 로고" />
         <span>MYCUTEPET</span>
        </div>
@@ -16,6 +16,7 @@
        <div>
         <button class="login-button" onclick="location.href='/main_login'" th:if="${session.usersId == null}">로그인 </button>
         <button class="login-button" onclick="location.href='/mypage'" th:if="${session.usersId != null}">마이페이지</button> 
+      </div>
       </div>
      </header>
      

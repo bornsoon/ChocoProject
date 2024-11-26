@@ -58,7 +58,6 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 약간의 그림자 */
-  margin-top: 50px;
   font-size: 35px;
   cursor: pointer;
  }
@@ -71,7 +70,6 @@
 
 /* 댓글 */
 .reply-section {
-  margin-top: 60px;
   width: 892px;
 }
 .reply-write {

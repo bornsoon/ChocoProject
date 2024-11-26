@@ -72,15 +72,11 @@ public class ReplyController {
 	// 댓글 삭제
 	@PostMapping("/delete")
 	public String deleteReply(@RequestBody int replyId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		HttpSession session = request.getSession();
-		String usersId = (String)session.getAttribute("usersId");;
 
 	    try {
 	        replyService.deleteReply(replyId); // replyId로 삭제
-	        redirectAttributes.addFlashAttribute("message", usersId + "님의 댓글이 삭제되었습니다.");
-	        log.info("댓글 삭제 성공: usersId = {}", usersId);
+	        log.info("댓글 삭제 성공");
 	    } catch (Exception ex) {
-	        redirectAttributes.addFlashAttribute("message", ex.getMessage());
 	        log.error("댓글 삭제 실패: {}", ex.getMessage());
 	    }
 
