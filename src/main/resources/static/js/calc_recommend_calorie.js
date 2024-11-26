@@ -6,9 +6,47 @@ document.addEventListener("DOMContentLoaded", () => {
   const calculateButton = document.getElementById("calculate-button");
   const calorieResult = document.getElementById("calorie-result");
   const inputsSection = document.querySelector(".inputs");
+  const sizeContainer = document.getElementById("size-container");
   const resultSection = document.querySelector(".result");
+  const calcAgeButton = document.querySelector(".calc-age-button");
+  const calcRecommendCalorieButton = document.querySelector(".calc-recommend-calorie-button");
 
   let whoIsIt = true; // 선택한 동물 (강아지: true, 고양이: false)
+  
+  // 클릭한 이미지를 강조하는 함수
+   function highlightSelectedImage(selectedImage) {
+       // 모든 이미지를 초기화
+       dogImage.classList.remove("selected");
+       catImage.classList.remove("selected");
+
+       // 선택된 이미지에 "selected" 클래스 추가
+       selectedImage.classList.add("selected");
+   }
+
+   dogImage.addEventListener("click", () => {
+       whoIsIt = true;
+       highlightSelectedImage(dogImage); // 강아지 이미지 강조
+       setupCalculator(true);
+   });
+
+   catImage.addEventListener("click", () => {
+       whoIsIt = false;
+       highlightSelectedImage(catImage); // 고양이 이미지 강조
+       setupCalculator(false);
+   });
+
+
+    // 현재 URL 경로 확인
+    const currentPath = window.location.pathname;
+
+    // 초기 상태 설정
+    if (currentPath === "/calc/age") {
+      calcAgeButton.classList.remove("disabled-button");
+      calcRecommendCalorieButton.classList.add("disabled-button");
+    } else if (currentPath === "/calc/recommend-calorie") {
+      calcRecommendCalorieButton.classList.remove("disabled-button");
+      calcAgeButton.classList.add("disabled-button");
+    }
 
   // 강아지와 고양이 상태별 상수값
   const dogFactors = {
@@ -42,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
   calculateButton.addEventListener("click", () => {
     const weight = parseFloat(weightInput.value);
     const selectedFactor = parseFloat(statusSelect.value);
+	
 
     if (isNaN(weight) || weight <= 0) {
       alert("몸무게를 올바르게 입력하세요.");
@@ -49,21 +88,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 권장 칼로리 계산 공식
-    const baseCalorie = (weight * 30) + 70;
+    const baseCalorie = weight * 30 + 70;
     const recommendedCalorie = baseCalorie * selectedFactor;
+	
 
-    calorieResult.textContent = `${whoIsIt ? "강아지" : "고양이"}의 하루 권장 칼로리는 ${recommendedCalorie.toFixed(2)} kcal, 기본 에너지 요구량은 ${baseCalorie.toFixed(2)} kcal 입니다.`;
-    resultSection.style.display = "block";
+    calorieResult.innerHTML = `
+		 하루 권장 칼로리는 ${recommendedCalorie.toFixed(2)} kcal,` + `<br>` + 
+		`기본 에너지 요구량은 ${baseCalorie.toFixed(2)} kcal 입니다.
+		`;
+    
+	resultSection.style.display = "block";
   });
 
   // 계산기 설정
   function setupCalculator(isDogSelection) {
     whoIsIt = isDogSelection;
+
+    // 입력 및 결과 영역 초기화
     inputsSection.style.display = "block";
+    sizeContainer.style.display = "block";
     resultSection.style.display = "none";
+	
+	const calculateButtonContainer = document.querySelector(".calculate-button-container");
+	calculateButtonContainer.style.display = "block"; // 계산하기 버튼 표시
+
+	weightInput.value = "";
+	calorieResult.textContent = "";
+
 
     // 상태 옵션 초기화
-    statusSelect.innerHTML = "";
+    statusSelect.innerHTML = ""; // 기존 옵션 제거
     const factors = whoIsIt ? dogFactors : catFactors;
 
     for (const [key, value] of Object.entries(factors)) {

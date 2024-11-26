@@ -19,7 +19,7 @@
   </div>
 
   <!-- 콘텐츠 래퍼 -->
-  <div layout:fragment="content-wrapper" class="content-wrapper">
+  <div layout:fragment="main-content-wrapper" class="content-wrapper">
   <!-- 배너 -->
   <div th:replace="/thymeleaf/choco/include::banner"></div>
     <!-- 메인 콘텐츠 -->
@@ -28,11 +28,19 @@
 
         <div class="calc-block" onclick="location.href='/calc/age'"> 
           <div class="text-button">나이 계산기</div>
-          <img src="/images/calc-age.png" alt="나이계산기 이미지"> <!-- 찾아서 넣기 -->
+          <img src="/images/calc-age.png" alt="나이계산기 이미지"> 
+          <p class=instruction>
+          나의 PET의 나이를<br>
+          사람 나이로 알아볼 수 있어요
+          </p>
         </div>
         <div class="calc-block" onclick="location.href='/calc/recommend-calorie'">
           <div class="text-button">권장 칼로리 계산기</div>
-          <img src="/images/calc-recommend-calorie.png" alt="권장칼로리계산기 이미지"> <!-- 찾아서 넣기 -->
+          <img src="/images/calc-recommend-calorie.png" alt="권장칼로리계산기 이미지"> 
+          <p class=instruction>
+          나의 PET의 권장 칼로리를<br>
+          몸무게와 상태에 따라 알아볼 수 있어요
+          </p>
         </div>
         
       </div>
