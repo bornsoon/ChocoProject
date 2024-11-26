@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			// 생년월일이 4~8자리인 경우 처리
 			year = parseInt(birth.substring(0, 4)); // 연도 추출
 			month = birth.length >= 6 ? parseInt(birth.substring(4, 6)) : 6; // 월은 6자리가 아니면 기본값 6
-			day = birth.length === 8 ? parseInt(birth.substring(6, 8)) : 1; // 일은 8자리가 아니면 기본값 1
+			day = birth.length === 8 ? parseInt(birth.substring(6, 8)) : 15; // 일은 8자리가 아니면 기본값 1
 
 
        const birthDate = new Date(year, month - 1, day);
@@ -133,4 +133,4 @@ document.addEventListener("DOMContentLoaded", () => {
        const additionalHumanAge = Math.round(extraMonths * 0.3333);
        return 24 + additionalHumanAge;
      }
-   });s
+   });
