@@ -62,10 +62,10 @@
       </div>
 
        <!-- 좋아요 버튼-->
-       <button th:if="${heartCheck == 1}" class="heart-btn"
-               th:onclick="|location.href='@{/heart/insert(heartId=${boardId})}'|">❤️</button> 
        <button th:if="${heartCheck == 0}" class="heart-btn"
-               th:onclick="|location.href='@{/heart/delete(heartId=${boardId})}'|">💛</button>                
+               th:onclick="|location.href='@{/heart/insert(heartId=${boardId})}'|">💛</button> 
+       <button th:if="${heartCheck == 1}" class="heart-btn"
+               th:onclick="|location.href='@{/heart/delete(heartId=${boardId})}'|">❤️</button>                
         
 	  <!-- 댓글 -->
 	  <div class="reply-section">

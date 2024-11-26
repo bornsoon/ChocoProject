@@ -1,6 +1,8 @@
 package com.choco.heart.service;
 
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +31,8 @@ public class BasicHeartService implements HeartService {
     }
     
     @Override
-    public void deleteHeart(int heartId, String usersId) {
-		    heartRepository.deleteHeart(heartId, usersId);
+    public void deleteHeart(Map<String, Object> heartMap) {
+		    heartRepository.deleteHeart(heartMap);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.choco.heart.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,5 +14,5 @@ public interface HeartRepository {
 				   @Param("sessionId") String sessionId); 
     int getHeartCount(@Param("heartId") int heartId); // 특정 게시물/댓글 좋아요 개수 반환
     void insertHeart(Heart heart); // 좋아요 추가
-    void deleteHeart(@Param("heartId") int heartId, @Param("usersId") String usersId); // 좋아요 삭제
+    void deleteHeart(Map<String, Object> heartMap); // 좋아요 삭제
 }

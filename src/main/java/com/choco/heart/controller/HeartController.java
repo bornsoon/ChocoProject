@@ -1,5 +1,8 @@
 package com.choco.heart.controller;
 
+import java.util.Map;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -26,8 +29,7 @@ public class HeartController {
 	HeartService heartService;
 
 	@GetMapping("/insert")
-	public void insertHeart(@RequestParam("heartId") int heartId, HttpSession session, 
-			                  HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	public String insertHeart(@RequestParam("heartId") int heartId, HttpSession session, RedirectAttributes redirectAttributes) {
         String sessionId = (String) session.getAttribute("usersId"); // 세션에서 사용자 ID 가져오기
         Heart heart = new Heart();
         heart.setHeartId(heartId);
@@ -38,17 +40,23 @@ public class HeartController {
         } catch (RuntimeException e) {
             log.error("좋아요 추가 중 오류 발생: {}", e.getMessage());
         }
+        return "redirect:/board/" + heartId;
     }
 	
 	@GetMapping("/delete")
-	public void deleteHeart(@RequestParam("heartId") int heartId, HttpSession session) {
+	public String deleteHeart(@RequestParam("heartId") int heartId, HttpSession session) {
 		String sessionId = (String) session.getAttribute("usersId");
-		Map<String, Object> heartMap = new HashMap<String, Object>();
-		map.put("heartId", heartId);
-		map.put("usersId", session);
-		
-		heartService.deleteHeart(heartMap);
-	}
+		Map<String, Object> heartMap = new HashMap<String, Object>();
+		heartMap.put("heartId", heartId);
+		heartMap.put("usersId", sessionId);
+		try {
+			heartService.deleteHeart(heartMap);
+			log.info("좋아요 삭제 성공");
+        } catch (RuntimeException e) {
+            log.error("좋아요 삭제 중 오류 발생: {}", e.getMessage());
+        }
+		return "redirect:/board/" + heartId;
+    }
         
     @GetMapping("/count")
     public String getHeartCount(@RequestParam("boardId") int boardId, Model model) {
