@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyCutePet | 회원가입</title>
-    <link rel="stylesheet" th:href="@{/css/signup.css}">
+    <title>MyCutePet | 회원수정</title>
+    <link rel="stylesheet" th:href="@{/css/revise.css}">
 </head>
 <body>
     <div class="signup-page">
@@ -12,7 +12,7 @@
         <div class="logo"></div>
 
         <!-- 회원가입 제목 -->
-        <div class="signup-title">회원가입</div>
+        <div class="signup-title">회원수정</div>
 
         <!-- 라인 -->
         <div class="line main-line"></div>
@@ -31,15 +31,35 @@
         <div class="profile-sidetext">프로필 사진은 선택사항입니다.</div>
 		
 		<!-- 폼 시작 부분 -->
-		<form action="/signup" method="post" enctype="multipart/form-data">
+		<form action="./revise" method="post" th:object="${usersList}" enctype="multipart/form-data">
 		
-		<!-- 프로필 사진 -->
-        <div class="profile-photo" onclick="document.getElementById('file-upload-1').click()">
-            <span class="ic--baseline-upload"></span>
-            <div class="profile-text">프로필 사진</div>
-            <input type="file" id="file-upload-1" name="usersProfile" accept="image/*" style="display: none;" onchange="previewImage(event, 'profile-preview-1', 'profile-photo-1')" />
-        </div>
-        <img id="profile-preview-1" class="profile-preview" alt="Users 프로필 미리보기" />
+		<!-- 프로필 사진 영역 -->
+		<div class="profile-container">
+    		<!-- 프로필 사진 업로드 박스 -->
+    		<div class="profile-photo" onclick="document.getElementById('file-upload-1').click()">
+        		<span class="ic--baseline-upload"></span>
+        		<div class="profile-text">프로필 사진</div>
+    		</div>
+    
+    		<!-- 파일 입력 필드 -->
+    		<input type="file"
+           		id="file-upload-1"
+           		name="usersProfile"
+           		accept="image/*"
+           		style="display: none;"
+           		onchange="previewImage(this, 'profile-preview-1')" />
+           
+    		<!-- 이미지 미리보기 -->
+    		<img id="profile-preview-1"
+         		class="profile-preview"
+         		th:if="${usersProfileImage != null}"
+         		th:src="${usersProfileImage}"
+        		style="display: none;"
+         		onclick="document.getElementById('file-upload-1').click()" />
+		</div>
+
+<!-- 반려동물 프로필 사진 영역도 동일한 방식으로 수정 -->
+
 		
         <!-- 입력 필드 -->
         <div class="input-container">
@@ -53,9 +73,11 @@
                     placeholder="영소문자, 숫자 (4~10자)"
                     required
                     oninput="validateId()"
+                    th:field="*{usersId}"
+                    th:readonly="true"
                 />
-                <button type="button" class="check-button" onclick="idCheck()">중복확인</button>
-                <p id="id-error" class="error-message">아이디 입력이 옳지 않습니다.</p>
+                <!-- <button type="button" class="check-button" onclick="idCheck()">중복확인</button>
+                <p id="id-error" class="error-message">아이디 입력이 옳지 않습니다.</p>  -->
             </div>
             
             
@@ -63,12 +85,13 @@
             <div class="input-group">
                 <label for="pwd">비밀번호<span class="stash--asterisk-duotone"></span></label>
                 <input
-                type="password"
-                id="pwd"
-                name="usersPwd"
-                placeholder="영어 대소문자 구별, 숫자, 특수문자 (4~12자)"
-                required
-                oninput="validatePwd()"
+                	type="password"
+                	id="pwd"
+                	name="usersPwd"
+                	placeholder="영어 대소문자 구별, 숫자, 특수문자 (4~12자)"
+                	required
+                	oninput="validatePwd()"
+                	th:field="*{usersPwd}"
                 />
                 <p id="pwd-error" class="error-message">비밀번호 입력이 옳지 않습니다.</p>
             </div>
@@ -85,25 +108,28 @@
             <!-- 이름-->
             <div class="input-group">
                 <label for="name">이름<span class="stash--asterisk-duotone"></span></label>
-                <input type="text" id="name" name="usersName" required>
+                <input type="text" id="name" name="usersName" required th:field="*{usersName}" th:readonly="true">
             </div>
     
             <!-- 생년월일 -->
             <div class="input-group">
                 <label for="birthdate">생년월일<span class="stash--asterisk-duotone"></span></label>
-                <input type="text" id="birthdate" name="usersBirthdate" placeholder="연도, 월, 일 순으로 8자리 입력해주세요." required>
+                <input type="text" id="birthdate" name="usersBirthdate" placeholder="연도, 월, 일 순으로 8자리 입력해주세요." required
+                th:field="*{usersBirthdate}" th:readonly="true">
             </div>
 
             <!-- 닉네임 -->
             <div class="input-group">
                 <label for="nickname">닉네임<span class="stash--asterisk-duotone"></span></label>
-                <input type="text"
-                id="nickname"
-                name="usersNickname"
-                placeholder="한글, 영어, 숫자 (3~8자)"
-                required
-                oninput="validateNickname()"
-                />
+                <input
+                	type="text"
+                	id="nickname"
+                	name="usersNickname"
+                	placeholder="한글, 영어, 숫자 (3~8자)"
+                	required
+                	oninput="validateNickname()"
+                	th:field="*{usersNickname}"
+                >
                 <button type="button" class="check-button" onclick="nicknameCheck()">중복확인</button>
                 <p id="nickname-error" class="error-message">닉네임 입력이 옳지 않습니다.</p>
             </div>
@@ -117,11 +143,22 @@
                 placeholder="이메일 형식 (user@example.com)"
                 required
                 oninput="validateEmail()"
+                th:field="*{usersEmail}"
+                th:readonly="true"
                 />
-                <button type="button" class="check-button" onclick="emailCheck()">중복확인</button>
-                <p id="email-error" class="error-message">이메일 입력이 옳지 않습니다.</p>
+                <!-- <button type="button" class="check-button" onclick="emailCheck()">중복확인</button>
+                <p id="email-error" class="error-message">이메일 입력이 옳지 않습니다.</p> -->
             </div>
         </div>
+   		
+   		<!-- 중앙 회원탈퇴 버튼 -->
+		<div class="withdrawal-container">
+    		<button type="button" class="withdrawal-btn" onclick="confirmWithdrawal()">회원탈퇴  &gt;</button>
+		</div>
+
+
+
+   		
    		
         <!-- 기본 정보 섹션 -->
         <div class="plus-info">마이펫 추가정보</div>
@@ -131,14 +168,33 @@
 
         <!-- 프로필 문구 -->
         <div class="profile-sidetext2">프로필 사진은 선택사항입니다.</div>
-
-    	<!-- 반려동물 프로필 사진 -->
-    	<div class="profile-photo2" onclick="document.getElementById('file-upload-2').click()">
-        	<span class="ic--baseline-upload"></span>
-        	<div class="profile-text">프로필 사진</div>
-        	<input type="file" id="file-upload-2" name="petProfile" accept="image/*" style="display: none;" onchange="previewImage(event, 'profile-preview-2', 'profile-photo-2')" />
-    	</div>
-    	<img id="profile-preview-2" class="profile-preview2" alt="마이펫 프로필 미리보기" />
+		
+		
+		<!-- 프로필 사진 영역 -->
+		<div class="profile-container2">
+    		<!-- 프로필 사진 업로드 박스 -->
+    		<div class="profile-photo2" onclick="document.getElementById('file-upload-2').click()">
+        		<span class="ic--baseline-upload"></span>
+        		<div class="profile-text">프로필 사진</div>
+    		</div>
+    
+    		<!-- 파일 입력 필드 -->
+    		<input type="file"
+           		id="file-upload-2"
+           		name="petProfile"
+           		accept="image/*"
+           		style="display: none;"
+           		onchange="previewImage(this, 'profile-preview-2')" />
+           
+    		<!-- 이미지 미리보기 -->
+    		<img id="profile-preview-2"
+         		class="profile-preview2"
+         		th:if="${petProfileImage != null}"
+         		th:src="${petProfileImage}"
+        		style="display: none;"
+         		onclick="document.getElementById('file-upload-2').click()" />
+		</div>
+		
 
    		<!-- 입력 필드 -->
    		<div class="input-container">
@@ -155,41 +211,69 @@
         	<!-- 품종 -->
         	<div class="input-group2">
            		<label for="breed">품종</label>
-          		<input type="text" id="breed" name="petBreed">
+          		<input type="text"
+          			   id="breed"
+          			   name="petBreed"
+          			   th:value="${petList != null ? petList.petBreed : ''}"
+          		>
         	</div>
 
         	<!-- 이름-->
         	<div class="input-group2">
           		<label for="name">이름<span class="stash--asterisk-duotone"></span></label>
-            	<input type="text" id="name" name="petName">
+            	<input type="text"
+            		   id="name"
+            		   name="petName"
+            		   th:value="${petList != null ? petList.petName : ''}"
+            	>
         	</div>
 
         	<!-- 생년월일 -->
         	<div class="input-group2">
             	<label for="birthdate">생년월일</label>
-            	<input type="text" id="birthdate" name="petBirthdate" placeholder="연도만 입력해주세요.">
+            	<input type="text"
+            		   id="birthdate"
+            		   name="petBirthdate"
+            		   placeholder="연도만 입력해주세요."
+            		   th:value="${petList != null ? petList.petBirthdate : ''}"
+            	>
         	</div>
 
         	<!-- 무게 -->
         	<div class="input-group2">
             	<label for="weight">무게</label>
-            	<input type="text" id="weight" name="petWeight">
+            	<input type="text"
+            		   id="weight"
+            	       name="petWeight"
+            	       th:value="${petList != null ? petList.petWeight : ''}"
+            	>
         	</div>
     	</div>
     
       	<!-- 하단 회원가입 버튼 -->
       	<div class="signup-box">
-         	<input type="submit" value="회원가입">
+         	<input type="submit" value="수정">
      	</div>
 		</form>
 		
         <!-- 하단 취소 버튼 -->
       	<div class="cancel-box">
-            <a href="main_login" style="text-decoration: none; color: inherit;"><input type="reset" value="취소"></a>
+            <a href="mypage" style="text-decoration: none; color: inherit;"><input type="reset" value="취소"></a>
         </div>
         
     </div>
+
+	<script th:if="${message}" th:inline="javascript">
+		alert([[${message}]]);
+	</script>
     
+    <script th:if="${errorMessage}" th:inline="javascript">
+        alert([[${errorMessage}]]);
+    </script>
+    
+    <script th:if="${errorMessage2}" th:inline="javascript">
+        alert([[${errorMessage2}]]);
+    </script>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
@@ -284,14 +368,13 @@
 	}
     </script>
     
-    <script th:if="${errorMessage}" th:inline="javascript">
-        alert([[${errorMessage}]]);
-    </script>
     
     
     
     <!-- JavaScript 코드 -->
+   	<!-- 이미지 불러오는 JavaScript 코드  -->
     <script>
+    <!-- 
         function previewImage(event, previewId, photoId) {
             const file = event.target.files[0];
             if (file) {
@@ -307,6 +390,73 @@
                 reader.readAsDataURL(file);
             }
         }
+    -->
+    
+    function previewImage(input, previewId) {
+        let preview = document.getElementById(previewId); // const를 let으로 변경
+        const uploadBox = previewId === 'profile-preview-1' 
+            ? document.querySelector('.profile-photo')
+            : document.querySelector('.profile-photo2');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                // 이미지 미리보기가 없으면 새로 생성
+                if (!preview) {
+                    const newPreview = document.createElement('img');
+                    newPreview.id = previewId;
+                    newPreview.className = previewId === 'profile-preview-1' ? 'profile-preview' : 'profile-preview2';
+                    newPreview.style.cursor = 'pointer';
+                    newPreview.onclick = function() {
+                        document.getElementById(input.id).click();
+                    };
+                    input.parentElement.appendChild(newPreview);
+                    preview = newPreview; // 여기서 재할당이 필요하므로 let으로 선언된 변수 사용
+                }
+                
+                // 이미지 소스 설정 및 표시
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                
+                // 업로드 박스 숨기기
+                if (uploadBox) {
+                    uploadBox.style.display = 'none';
+                }
+            };
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // 페이지 로드 시 이미지 체크
+    document.addEventListener('DOMContentLoaded', function() {
+        const preview1 = document.getElementById('profile-preview-1');
+        const preview2 = document.getElementById('profile-preview-2');
+        const uploadBox1 = document.querySelector('.profile-photo');
+        const uploadBox2 = document.querySelector('.profile-photo2');
+        
+        // 첫 번째 프로필 이미지 체크
+        if (preview1 && preview1.src && preview1.src !== window.location.href) {
+            preview1.style.display = 'block';
+            if (uploadBox1) uploadBox1.style.display = 'none';
+        }
+        
+        // 두 번째 프로필 이미지 체크
+        if (preview2 && preview2.src && preview2.src !== window.location.href) {
+            preview2.style.display = 'block';
+            if (uploadBox2) uploadBox2.style.display = 'none';
+        }
+    });
+    
+    
+    function confirmWithdrawal() {
+        if (confirm('정말 탈퇴하시겠습니까? 모든 정보가 삭제됩니다.')) {
+            window.location.href = '/delete';  // 실제 탈퇴 처리 URL로 변경해주세요
+        }
+    }
+    
+    
         
      	// 페이지 로드 시 오류 메시지를 숨기는 함수
         document.addEventListener("DOMContentLoaded", function () {
@@ -315,23 +465,6 @@
         });
 
      	
-     	
-     	
-     	/* // USERS_ID 리스트를 저장할 변수
-        let usersIdList = [];
-
-        // 페이지 로드 시 USERS_ID 리스트를 가져옴
-        document.addEventListener("DOMContentLoaded", function () {
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "/getAllUsersIds", true); // 서버로부터 USERS_ID 리스트 가져오기
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    usersIdList = JSON.parse(xhr.responseText); // JSON 데이터를 리스트에 저장
-                }
-            };
-            xhr.send();
-            console.log("Hello, World!");
-        }); */
      	
         // 실시간으로 아이디 유효성 검사를 수행하는 함수
         function validateId() {

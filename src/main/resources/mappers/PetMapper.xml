@@ -5,13 +5,47 @@
 
 	<insert id="insertPet" parameterType="com.choco.pet.model.Pet">
 		INSERT INTO PET (
-			PET_ID, PET_PROFILE, PET_BREED, PET_NAME, PET_BIRTHDATE, PET_WEIGHT, USERS_ID)
-		VALUES (#{petId}, #{petProfileBytes}, #{petBreed}, #{petName}, #{petBirthdate}, TO_NUMBER(#{petWeight}, '999.99'), #{usersId})
+			<if test="petProfileBytes != null">
+				PET_PROFILE, 
+			</if>
+			PET_ID, PET_BREED, PET_NAME, PET_BIRTHDATE, PET_WEIGHT, USERS_ID)
+		VALUES (
+			<if test="petProfileBytes != null">
+				#{petProfileBytes}, 
+			</if>
+			#{petId}, #{petBreed}, #{petName}, #{petBirthdate}, TO_NUMBER(#{petWeight}, '999.99'), #{usersId})
 	</insert>
 
 	<select id="createPetId" resultType="int">
 		SELECT PET_SEQ.NEXTVAL + 10
 		FROM DUAL
 	</select>
-
+	
+	<select id="getPetInfo" parameterType="String" resultType="com.choco.pet.model.Pet">
+		SELECT 	PET_PROFILE 			AS 	petProfileBytes,
+				PET_ID 					AS 	petId,
+				PET_BREED 				AS 	petBreed,
+				PET_NAME 				AS 	petName,
+				PET_BIRTHDATE 			AS 	petBirthdate,
+				PET_WEIGHT				AS	petWeight,
+				USERS_ID				AS	usersId
+		FROM PET
+		WHERE USERS_ID = #{usersId}
+	</select>
+	
+	<update id="revisePet" parameterType="com.choco.pet.model.Pet">
+		UPDATE PET
+		SET PET_BREED = #{petBreed}, PET_NAME = #{petName},
+			PET_BIRTHDATE = #{petBirthdate}, PET_WEIGHT = TO_NUMBER(#{petWeight}, '999.99')
+			<if test="petProfileBytes != null">
+				, PET_PROFILE = #{petProfileBytes}
+			</if>
+		WHERE USERS_ID = #{usersId}
+	</update>
+	
+	<delete id="deletePet" parameterType="String">
+    	DELETE FROM PET 
+    	WHERE USERS_ID = #{usersId}
+	</delete>
+	
 </mapper>

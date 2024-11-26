@@ -55,5 +55,10 @@
       </div>
     </div>
   </div>
-</th:block>
+
+	<script th:if="${message}" th:inline="javascript">
+			alert([[${message}]]);
+	</script>
+	
+</th:block>	
 </html>

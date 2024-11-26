@@ -119,28 +119,7 @@ body {
     color: #595959;
 }
 
-/* 프로필 사진 */
-.profile-photo {
-    position: absolute;
-    width: 170px;
-    height: 178px;
-    left: 600px;
-    top: 286px;
-    background: #F1F1F1;
-    border: 1px solid #C0BBBB;
-    border-radius: 3px;
 
-    /* 아이템 중앙 정렬 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-}
-
-.profile-photo:hover {
-    background: #EAEAEA; /* 박스 hover 효과 */
-}
 
 .profile-text {
     display: flex;
@@ -160,53 +139,89 @@ body {
     color: #000000;
 }
 
-/* 프로필 미리보기 */
-.profile-preview {
-    position: absolute;
-    width: 172px;
-    height: 180px;
-    left: 600px;
-    top: 286px;
-    border-radius: 3px;
-    object-fit: cover; /* 이미지를 박스에 맞게 조정 */
-    display: none; /* 초기에는 보이지 않음 */
-}
-
-/* 반려동물 프로필 사진 */
-.profile-photo2 {
-    position: absolute;
+/* 프로필 컨테이너 추가 */
+.profile-container {
+    position: relative;
     width: 170px;
     height: 178px;
     left: 600px;
-    top: 1252px;
+    top: 288px;
+}
+
+/* 기존 프로필 사진 스타일 수정 */
+.profile-photo {
+    width: 100%;
+    height: 100%;
     background: #F1F1F1;
     border: 1px solid #C0BBBB;
     border-radius: 3px;
-
-    /* 아이템 중앙 정렬 */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 5px;
     cursor: pointer;
 }
 
-.profile-photo2:hover {
-    background: #EAEAEA; /* 박스 hover 효과 */
+/* 프로필 미리보기 이미지 스타일 */
+.profile-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid #C0BBBB;
+    border-radius: 3px;
+    transition: opacity 0.3s;
+    cursor: pointer;
 }
 
-/* 프로필 미리보기 */
+.profile-preview:hover {
+    opacity: 0.8;
+}
+
+/* 프로필 컨테이너 추가 */
+.profile-container2 {
+    position: relative;
+    width: 170px;
+    height: 178px;
+    left: 600px;
+    top: 590px;
+}
+
+/* 기존 반려동물 프로필 사진 스타일 수정 */
+.profile-photo2 {
+    width: 100%;
+    height: 100%;
+    background: #F1F1F1;
+    border: 1px solid #C0BBBB;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+/* 반려동물 프로필 미리보기 이미지 스타일 */
 .profile-preview2 {
     position: absolute;
-    width: 172px;
-    height: 180px;
-    left: 600px;
-    top: 1252px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid #C0BBBB;
     border-radius: 3px;
-    object-fit: cover; /* 이미지를 박스에 맞게 조정 */
-    display: none; /* 초기에는 보이지 않음 */
+    transition: opacity 0.3s;
+    cursor: pointer;
 }
 
+.profile-preview2:hover {
+	opacity: 0.8;
+}
 
 /* 입력 필드 컨테이너 */
 .input-container {
@@ -220,7 +235,7 @@ body {
     position: relative;
     width: 670px;
     left: 350px;
-    top: 500px;
+    top: 322px;
     display: flex;
     align-items: center;
     gap: 10px; /* 라벨과 입력란 간 간격 */
@@ -298,6 +313,26 @@ body {
     background: #EAEAEA;
 }
 
+
+/* 회원탈퇴 버튼 컨테이너 */
+.withdrawal-container {
+    position: absolute;
+    right: 405px;
+    top: 984px;
+}
+
+/* 회원탈퇴 버튼 스타일 */
+.withdrawal-btn {
+    padding: 8px 15px;
+    background: none;
+    border: none;
+    color: #868E96;
+    font-size: 18px;
+    font-weight: 549;
+    cursor: pointer;
+}
+
+
 /* 비밀번호 확인 메시지 스타일 */
 .password-message {
     width: 670px;
@@ -348,7 +383,7 @@ body {
     position: relative;
     width: 670px;
     left: 350px;
-    top: 980px;
+    top: 624px;
     display: flex;
     align-items: center;
     gap: 10px; /* 라벨과 입력란 간 간격 */

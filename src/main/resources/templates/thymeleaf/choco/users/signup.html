@@ -54,9 +54,8 @@
                     required
                     oninput="validateId()"
                 />
-                <button type="button" class="check-button" id='checkBtn' onclick="idCheck()">중복확인</button>
+                <button type="button" class="check-button" onclick="idCheck()">중복확인</button>
                 <p id="id-error" class="error-message">아이디 입력이 옳지 않습니다.</p>
-                <p id="id-error2" class="error-message">이미 사용 중인 아이디입니다.</p>
             </div>
             
             
@@ -67,7 +66,7 @@
                 type="password"
                 id="pwd"
                 name="usersPwd"
-                placeholder="영어 대소문자 구별, 숫자 (4~12자)"
+                placeholder="영어 대소문자 구별, 숫자, 특수문자 (4~12자)"
                 required
                 oninput="validatePwd()"
                 />
@@ -105,7 +104,7 @@
                 required
                 oninput="validateNickname()"
                 />
-                <!-- <button class="check-button">중복확인</button>  -->
+                <button type="button" class="check-button" onclick="nicknameCheck()">중복확인</button>
                 <p id="nickname-error" class="error-message">닉네임 입력이 옳지 않습니다.</p>
             </div>
 
@@ -119,7 +118,7 @@
                 required
                 oninput="validateEmail()"
                 />
-                <!-- <button class="check-button">중복확인</button>  -->
+                <button type="button" class="check-button" onclick="emailCheck()">중복확인</button>
                 <p id="email-error" class="error-message">이메일 입력이 옳지 않습니다.</p>
             </div>
         </div>
@@ -191,9 +190,105 @@
         
     </div>
     
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+    function idCheck() {
+		<!-- 1. 사용자가 입력한 id값 가져오기 -->
+		let id=$('input[name=usersId]').val();
+		console.log(id);
+	
+		<!-- 2. Ajax 비동기통신으로 id 중복확인 -->
+		$.ajax({
+			url: '/signup/IdCheck', // 데이터 전송주소
+			data: { // 전송할 데이터
+				id: id
+			},
+			type: "get", // 데이터 전송방식(get/post)
+			dataType: "text",
+			success: function(res) {
+				console.log(id);
+				console.log(res);
+				
+				if (res == "이미 사용 중인 아이디입니다.") {
+					alert("이미 사용 중인 아이디입니다.");
+				} else {
+					alert("사용 가능한 아이디입니다.");
+				}
+			},
+				
+			error: function() {
+				alert("아이디 중복 확인 중 문제가 발생했습니다.");
+			}
+		})
+	}
+    
+    function nicknameCheck() {
+		<!-- 1. 사용자가 입력한 nickname값 가져오기 -->
+		let nickname=$('input[name=usersNickname]').val();
+		console.log(nickname);
+	
+		<!-- 2. Ajax 비동기통신으로 id 중복확인 -->
+		$.ajax({
+			url: '/signup/NicknameCheck', // 데이터 전송주소
+			data: { // 전송할 데이터
+				nickname: nickname
+			},
+			type: "get", // 데이터 전송방식(get/post)
+			dataType: "text",
+			success: function(res) {
+				console.log(nickname);
+				console.log(res);
+				
+				if (res == "이미 사용 중인 닉네임입니다.") {
+					alert("이미 사용 중인 닉네임입니다.");
+				} else {
+					alert("사용 가능한 닉네임입니다.");
+				}
+			},
+				
+			error: function() {
+				alert("닉네임 중복 확인 중 문제가 발생했습니다.");
+			}
+		})
+	}
+    
+    function emailCheck() {
+		<!-- 1. 사용자가 입력한 nickname값 가져오기 -->
+		let email=$('input[name=usersEmail]').val();
+		console.log(email);
+	
+		<!-- 2. Ajax 비동기통신으로 id 중복확인 -->
+		$.ajax({
+			url: '/signup/EmailCheck', // 데이터 전송주소
+			data: { // 전송할 데이터
+				email: email
+			},
+			type: "get", // 데이터 전송방식(get/post)
+			dataType: "text",
+			success: function(res) {
+				console.log(email);
+				console.log(res);
+				
+				if (res == "이미 사용 중인 이메일입니다.") {
+					alert("이미 사용 중인 이메일입니다.");
+				} else {
+					alert("사용 가능한 이메일입니다.");
+				}
+			},
+				
+			error: function() {
+				alert("이메일 중복 확인 중 문제가 발생했습니다.");
+			}
+		})
+	}
+    </script>
+    
     <script th:if="${errorMessage}" th:inline="javascript">
         alert([[${errorMessage}]]);
     </script>
+    
+    
     
     <!-- JavaScript 코드 -->
     <script>
@@ -222,7 +317,7 @@
      	
      	
      	
-     	// USERS_ID 리스트를 저장할 변수
+     	/* // USERS_ID 리스트를 저장할 변수
         let usersIdList = [];
 
         // 페이지 로드 시 USERS_ID 리스트를 가져옴
@@ -236,15 +331,17 @@
             };
             xhr.send();
             console.log("Hello, World!");
-        });
+        }); */
      	
         // 실시간으로 아이디 유효성 검사를 수행하는 함수
         function validateId() {
             const idInput = document.getElementById("id");
             const errorMessage = document.getElementById("id-error");
-            const errorMessage2 = document.getElementById("id-error2");
+            // const errorMessage2 = document.getElementById("id-error2");
             const idPattern = /^[a-z0-9]{4,10}$/; // 영소문자와 숫자, 4~10자 조건
+		
 
+            
             // 입력값이 없으면 오류 메시지를 숨김
             if (idInput.value === "") {
                 errorMessage.style.display = "none";
@@ -257,14 +354,6 @@
                 errorMessage.style.display = "block";
             } else {
             	errorMessage.style.display = "none";
-            	return;
-            }
-         	
-         	// 중복된 아이디면 오류 메시지 표시
-            if (usersIdList.includes(idInput.value)) {
-                errorMessage2.style.display = "block";
-            } else {
-                errorMessage2.style.display = "none"; // 조건이 맞고 중복이 없으면 숨김
             }
          
             
@@ -287,38 +376,15 @@
             
         }
         
-        function idCheck() {
-        	<!-- 1. 사용자가 입력한 id값 가져오기 -->
-        	let id=$('input[name=usersId]').eq('0').val();
-        	console.log(id);
-        	
-        	<!-- 2. Ajax 비동기통신으로 id 중복확인 -->
-        	$.ajax({
-        		url: 'idCheck.do', // 데이터 전송주소
-        		data: { // 전송할 데이터
-        			id: usersId
-        		},
-        		type: "get", // 데이터 전송방식(get/post)
-        		dataType: "text",
-        		success: function(res) {
-        			console.log(res);
-        			$('#idCheck').empty();
-        			$('#idCheck').append(res);
-        			$('#idCheck').css('color', 'red');
-        		},
-        		error: function() {
-        			alert("Ajax 통신 실패")
-        		}
-        	})
-        }
-     	
+        
+        
         
         
      // 실시간으로 비밀번호 유효성 검사를 수행하는 함수
         function validatePwd() {
             const pwdInput = document.getElementById("pwd");
             const errorMessage = document.getElementById("pwd-error");
-            const pwdPattern = /^[a-zA-Z0-9]{4,12}$/;
+            const pwdPattern = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\-]{4,12}$/;
 
             // 입력값이 없으면 오류 메시지를 숨김
             if (pwdInput.value === "") {
@@ -395,6 +461,6 @@
         });
      
     </script>
-    
+
 </body>
 </html>

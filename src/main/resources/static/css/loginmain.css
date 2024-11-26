@@ -9,17 +9,17 @@ body {
 .login-page {
     position: relative;
     width: 1440px;
-    height: 1024px;
+    height: auto;
     margin: 0 auto;
 }
 
 /* 로고 */
 .logo {
     position: absolute;
-    width: 303px;
-    height: 222px;
+    width: 263px;
+    height: 182px;
     left: 568px;
-    top: 109px;
+    top: 89px;
     background: url('/images/mycutepet.png') no-repeat center;
     background-size: cover;
 }
@@ -27,24 +27,23 @@ body {
 /* 입력 박스 */
 .input-box {
     position: absolute;
-    width: 600px;
-    left: 420px;
-    top: 459px;
+    width: 560px;
+    left: 440px;
+    top: 330px;
 }
-
 
 .input-field {
     position: relative;
-    width: 600px;
+    width: 560px;
     height: 63px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 25px;
 }
 
 .input-field.icon {
-    width: 56px;
-    height: 56px;
+    width: 50px;
+    height: 50px;
     background:#000000;
 }
 
@@ -52,12 +51,13 @@ body {
     flex: 1;
     border: none;
     outline: none;
-    font-size: 25px;
+    font-size: 20px;
     color: #000000;
+    margin-top: 7px;
 }
 
 .line {
-    width: 600px;
+    width: 560px;
     height: 0;
     border: 1px solid #D9D9D9;
     margin: 10px 0;
@@ -66,10 +66,10 @@ body {
 /* 로그인 버튼 */
 .login-box {
     position: absolute;
-    width: 600px;
-    height: 90px;
-    left: 420px;
-    top: 667px;
+    width: 560px;
+    height: 75px;
+    left: 440px;
+    top: 530px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -77,7 +77,7 @@ body {
     border-radius: 20px;
     color: #FFFFFF;
     font-weight: 700;
-    font-size: 25px;
+    font-size: 22px;
     line-height: 30px;
     cursor: pointer;
 }
@@ -85,16 +85,16 @@ body {
 /* 추가 옵션 */
 .additional-options {
     position: absolute;
-    width: 600px;
+    width: 560px;
     height: 50px;
-    left: 420px;
-    top: 839px;
+    left: 440px;
+    top: 700px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #868E96;
     font-weight: 400;
-    font-size: 25px;
+    font-size: 22px;
 }
 
 .divider {
