@@ -25,7 +25,15 @@ public class HomeController {
 	
 	@GetMapping(value={"", "/", "/home"})
 	public String home(Model model) {
-		List<Board> boardList = boardService.getBoardListByHeart(6);
+		List<Board> boardList6 = boardService.getBoardListByHeart();
+		
+		// 리스트의 크기를 확인
+		int toIndex = Math.min(6, boardList6.size()); // boardList.size()가 7보다 작은 경우에 대비
+
+		// subList 호출 시, 0부터 toIndex까지
+		List<Board> boardList = boardList6.subList(0, toIndex); 
+
+		
 		model.addAttribute("boardList", boardList);
 		
 		return "thymeleaf/choco/home";
