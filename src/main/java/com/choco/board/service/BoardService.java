@@ -8,7 +8,7 @@ public interface BoardService {
 	List<Board> getBoardList();
 	List<Board> getBoardList(String boardCategory);
 	List<Board> getBoardListByHeart();
-	List<Board> getBoardListByHeart(String boardCategory);
+	List<Board> getBoardListByHeart(int rank);
 	List<Board> getBoardListByUsersId(String usersId);
 	List<Board> getBoardListByUsersHeart(String usersId);
 	Board getBoardInfo(int boardId);

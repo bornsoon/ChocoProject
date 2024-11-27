@@ -2,7 +2,6 @@ package com.choco.board.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +25,8 @@ public class BasicBoardService implements BoardService {
 	}
 	
 	@Override
-	public List<Board> getBoardListByHeart(String boardCategory) {
-		return boardRepository.getBoardListByHeart(boardCategory);
+	public List<Board> getBoardListByHeart(int rank) {
+		return boardRepository.getBoardListByHeart(rank);
 	}
 	
 	@Override

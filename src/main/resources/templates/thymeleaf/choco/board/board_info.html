@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/thymeleaf/choco/default_layout}">
+
+<th:block layout:fragment="title">
+	<title>MYCUTEPET | BOARD FORM</title>
+</th:block>
+
+<th:block layout:fragment="wrapper">	
+  <!-- 메인 이미지 -->
+  <div class="main-img">
+      <img src="/images/board-img.png" alt="Pet Lovers" class="main-img" />
+  </div>
+
+  <!-- 콘텐츠 래퍼 -->
+  <div layout:fragment="content-wrapper" class="content-wrapper">
+  <!-- 배너 -->
+  <div th:replace="~{/thymeleaf/choco/include::banner}"></div>
+    <!-- 메인 콘텐츠 -->
+    <div layout:fragment="main-content-wrapper" class="main-content-wrapper">
+      <ul th:object=${board}>
+		<li th:text="*{usersId}"></li>
+		<li th:text="*{boardCategory}"></li>
+		<li th:text="*{boardDate}"></li>
+		<li th:text="*{boardTitle}"></li>
+		<li th:text="*{boardContent}"></li>
+      </ul>
+	
+	  <div th:if="${board.usersId == session.usersId}">
+	    <button th:onclick="|location.href='@{update(boardId=${board.boardId})}'|" class="btn">수정하기</button>
+	    <button th:onclick="|location.href='@{delete(boardId=${board.boardId})}'|" class="btn">삭제하기</button>
+	  </div>
+	
+	  <h3>댓글목록</h3>
+	  <ul th:each="reply: ${replyList}">
+		<li th:utext="${reply.usersId}"></li>
+		<li th:utext="${reply.replyDate}"></li>
+		<li th:utext="${reply.replyContent}"></li>
+      </ul>
+	
+	
+	  <form action="/reply/create" method="post" th:object="${reply}" accept-charset="UTF-8">
+	    <input type="hidden" th:field="*{boardId}"/>
+		<div class="mb-3">
+	  	    <label for="validationTextarea">댓글내용</label>
+	        <textarea th:field="*{replyContent}" placeholder="내용을 입력하세요." required></textarea>
+	    </div>
+	    
+	    <div class="mb-3">
+	        <button class="btn btn-primary" type="submit">등록</button>
+	    </div> 
+	  </form>
+
+    </div>
+  </div>
+</th:block>
+</html>
