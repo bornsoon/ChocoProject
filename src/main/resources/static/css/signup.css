@@ -92,14 +92,15 @@ body {
     top: 222px;
     font-size: 18px;
     text-align: right;
+    margin-right: 20px;
     color: #000000;
 }
 
 .required-asterisk {
     position: absolute;
-    width: 197px;
+    width: 200px;
     height: 30px;
-    left: 844px;
+    left: 830px;
     top: 225px;
     font-weight: 700;
     font-size: 28px;

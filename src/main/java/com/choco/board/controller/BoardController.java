@@ -159,7 +159,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/update")
-	public String createBoard(@ModelAttribute Board board, HttpServletRequest request, //@ModelAttribute Attach attach,
+	public String updateBoard(@ModelAttribute Board board, HttpServletRequest request, //@ModelAttribute Attach attach,
 							  @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 		try {
 			boardService.updateBoard(board);
