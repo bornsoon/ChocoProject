@@ -234,10 +234,10 @@ public class UsersController {
 		return usersService.EmailCheck(usersEmail);
 	}
 	
-	@GetMapping("/getAllUsersIds")
-    public List<String> getAllUsersIds() {
-        return usersService.getAllUsersIds(); // USERS_ID 리스트 반환
-    }	
+//	@GetMapping("/getAllUsersIds")
+//    public List<String> getAllUsersIds() {
+//        return usersService.getAllUsersIds(); // USERS_ID 리스트 반환
+//    }	
 	
 	@GetMapping("/revise")
 	public String reviseUsersAndPet(HttpSession session, Model model) {
@@ -334,16 +334,6 @@ public class UsersController {
 	        redirectAttrs.addFlashAttribute("errorMessage2", "회원탈퇴 처리 중 오류가 발생했습니다.");
 	        return "redirect:/revise";
 	    }
-	}
-	
-	
-	@GetMapping("/users/{usersId}")
-	public String usersName(@PathVariable("usersId") String usersId, Model model) {
-		
-		model.addAttribute("name", usersService.getUsersName(usersId));
-		
-		return "thymeleaf/choco/users/users_detail";
-	}
-	
+	}	
 	
 }
