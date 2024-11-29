@@ -44,6 +44,12 @@ public class UsersController {
 	@Autowired
 	BoardService boardService;
 
+	@GetMapping("/findid")
+	public String findid(Model model) {
+	
+		return "thymeleaf/choco/users/findid";
+	}
+	
 	@PostMapping("/findid")
 	public String findId(@RequestParam("usersName") String usersName,
 			@RequestParam("usersNickname") String usersNickname,
@@ -58,6 +64,12 @@ public class UsersController {
 			redirectAttrs.addFlashAttribute("message", "입력하신 정보로 아이디를 찾을 수 없습니다.");
 			return "redirect:/findid";
 		}	
+	}
+	
+	@GetMapping("/findpwd")
+	public String findpwd(Model model) {
+		
+		return "thymeleaf/choco/users/findpwd";
 	}
 	
 	@PostMapping("/findpwd")
@@ -225,25 +237,7 @@ public class UsersController {
 	@GetMapping("/getAllUsersIds")
     public List<String> getAllUsersIds() {
         return usersService.getAllUsersIds(); // USERS_ID 리스트 반환
-    }
-	
-	
-	@GetMapping("/findid")
-	public String users3(Model model) {
-		
-		model.addAttribute("count", usersService.getUsersCount());
-		
-		return "thymeleaf/choco/users/findid";
-	}
-	
-	@GetMapping("/findpwd")
-	public String users4(Model model) {
-		
-		model.addAttribute("count", usersService.getUsersCount());
-		
-		return "thymeleaf/choco/users/findpwd";
-	}
-	
+    }	
 	
 	@GetMapping("/revise")
 	public String reviseUsersAndPet(HttpSession session, Model model) {
