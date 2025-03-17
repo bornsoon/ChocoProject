@@ -17,22 +17,21 @@ public class BasicHeartService implements HeartService {
 
     @Override
     public int checkHeart(int heartId, String sessionId) {
-			  return heartRepository.checkHeart(heartId, sessionId);
+	    return heartRepository.checkHeart(heartId, sessionId);
 		}
         
     @Override
     public int getHeartCount(int heartId) {
-		    return heartRepository.getHeartCount(heartId);
+		return heartRepository.getHeartCount(heartId);
     }
     
     @Override
     public void insertHeart(Heart heart) {
-		    heartRepository.insertHeart(heart);
+		heartRepository.insertHeart(heart);
     }
     
     @Override
     public void deleteHeart(Map<String, Object> heartMap) {
-		    heartRepository.deleteHeart(heartMap);
+		heartRepository.deleteHeart(heartMap);
     }
-
 }
