@@ -53,7 +53,7 @@ public class HeartController {
 			heartService.deleteHeart(heartMap);
 			log.info("좋아요 삭제 성공");
         } catch (RuntimeException e) {
-            log.error("좋아요 삭제 중 오류 발생: {}", e.getMessage());
+            // log.error("좋아요 삭제 중 오류 발생: {}", e.getMessage());
         }
 		return "redirect:/board/" + heartId;
     }
@@ -62,7 +62,7 @@ public class HeartController {
     public String getHeartCount(@RequestParam("boardId") int boardId, Model model) {
         int count = heartService.getHeartCount(boardId);
         model.addAttribute("heartCount", count);
-        return "heart/count"; // 좋아요 개수를 보여줄 뷰
+        return "heart/count";
     }
 }
     
