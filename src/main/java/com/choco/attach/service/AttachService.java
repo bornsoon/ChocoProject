@@ -5,7 +5,7 @@ package com.choco.attach.service;
 import com.choco.attach.model.Attach;
 
 public interface AttachService {
-	/* List<Attach> getAttachList(int boardId); */
+	// List<Attach> getAttachList(int boardId);
 	Attach getAttachFile(int boardId);
 	void insertAttach(Attach attah);
 	void updateAttach(Attach attach);
