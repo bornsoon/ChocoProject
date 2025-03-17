@@ -13,10 +13,10 @@ public class BasicReplyService implements ReplyService {
 	
 	@Autowired
 	private ReplyRepository replyRepository;
-		//의존성 주입
-		public BasicReplyService(ReplyRepository replyRepository) {
-			this.replyRepository = replyRepository;
-		}
+	
+	public BasicReplyService(ReplyRepository replyRepository) {
+		this.replyRepository = replyRepository;
+	}
 
 	@Override
 	public List<Reply> getReplyList() {
@@ -41,11 +41,6 @@ public class BasicReplyService implements ReplyService {
 	@Override
 	public void deleteReply(int replyId) {
 		replyRepository.deleteReply(replyId);
-	}
-
-	@Override
-	public List<Reply> getReplyByUsersId(String usersId) {
-		return replyRepository.getReplyByUsersId(usersId);
 	}
 
 	@Override
