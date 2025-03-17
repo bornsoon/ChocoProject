@@ -25,7 +25,8 @@ public class HomeController {
 	
 	@GetMapping(value={"", "/", "/home"})
 	public String home(Model model) {
-		List<Board> boardList = boardService.getBoardListByHeart(6);
+		int rank = 6;
+		List<Board> boardList = boardService.getBoardListByHeart(rank);
 		model.addAttribute("boardList", boardList);
 		
 		return "thymeleaf/choco/home";

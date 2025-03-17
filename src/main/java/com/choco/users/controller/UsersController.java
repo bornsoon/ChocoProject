@@ -139,21 +139,41 @@ public class UsersController {
 	}
 	
 	@GetMapping("/mypage-act")
-	public String mypageact(Model model, HttpServletRequest request) {
+	public String mypageact(Model model, HttpServletRequest request,
+			                @RequestParam(value = "sort", required = false) String sort) {
 		HttpSession session = request.getSession();
 		String usersId = (String)session.getAttribute("usersId");
-		List<Board> boardList = boardService.getBoardListByUsersId(usersId);
-		model.addAttribute("boardList", boardList);
+		Map<String, String> params = new HashMap<>();
+		params.put("usersId", usersId);
+		params.put("sort", sort);
+		if (sort == null || sort.equals("latest")) {
+			List<Board> boardList = boardService.getBoardListByUsersId(params);
+			model.addAttribute("boardList", boardList);
+		} else if (sort.equals("popular")) {
+			List<Board> boardList = boardService.getBoardListByUsersId(params);
+			model.addAttribute("boardList", boardList);
+		}
+		model.addAttribute("sort", sort);
 		model.addAttribute("act", true);
 		return "thymeleaf/choco/mypage-act";
 	}
 	
 	@GetMapping("/mypage-act/heart")
-	public String mypageactHeart(Model model, HttpServletRequest request) {
+	public String mypageactHeart(Model model, HttpServletRequest request,
+			                     @RequestParam(value = "sort", required = false) String sort) {
 		HttpSession session = request.getSession();
 		String usersId = (String)session.getAttribute("usersId");
-		List<Board> boardList = boardService.getBoardListByUsersHeart(usersId);
-		model.addAttribute("boardList", boardList);
+		Map<String, String> params = new HashMap<>();
+		params.put("usersId", usersId);
+		params.put("sort", sort);
+		if (sort == null || sort.equals("latest")) {
+			List<Board> boardList = boardService.getBoardListByUsersHeart(params);
+			model.addAttribute("boardList", boardList);
+		} else if (sort.equals("popular")) {
+			List<Board> boardList = boardService.getBoardListByUsersHeart(params);
+			model.addAttribute("boardList", boardList);
+		}
+		model.addAttribute("sort", sort);
 		model.addAttribute("act", false);
 		return "thymeleaf/choco/mypage-act";
 	}

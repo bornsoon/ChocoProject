@@ -1,5 +1,6 @@
 package com.choco.board.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,13 +42,13 @@ public class BasicBoardService implements BoardService {
 	}
 	
 	@Override
-	public List<Board> getBoardListByUsersId(String usersId) {
-		return boardRepository.getBoardListByUsersId(usersId);
+	public List<Board> getBoardListByUsersId(Map<String, String> params) {
+		return boardRepository.getBoardListByUsersId(params);
 	}
 	
 	@Override
-	public List<Board> getBoardListByUsersHeart(String usersId) {
-		return boardRepository.getBoardListByUsersHeart(usersId);
+	public List<Board> getBoardListByUsersHeart(Map<String, String> params) {
+		return boardRepository.getBoardListByUsersHeart(params);
 	}
 	
 	@Override

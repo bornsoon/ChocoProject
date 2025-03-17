@@ -1,8 +1,7 @@
 package com.choco.board.service;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 import com.choco.board.model.Board;
 
@@ -12,8 +11,8 @@ public interface BoardService {
 	List<Board> getBoardListByHeart();
 	List<Board> getBoardListByHeart(String boardCategory);
 	List<Board> getBoardListByHeart(int rank);
-	List<Board> getBoardListByUsersId(String usersId);
-	List<Board> getBoardListByUsersHeart(String usersId);
+	List<Board> getBoardListByUsersId(Map<String, String> params);
+	List<Board> getBoardListByUsersHeart(Map<String, String> params);
 	Board getBoardInfo(int boardId);
 	int createBoardId();
 	void createBoard(Board board);

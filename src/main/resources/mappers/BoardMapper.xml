@@ -38,7 +38,7 @@
 		ORDER BY BOARD_DATE DESC, ATTACH_NAME NULLS LAST
 	</select>
 
-	<select id="getBoardListByHeart" parameterType="hashmap" resultType="com.choco.board.model.Board">
+	<select id="getBoardListByHeart" parameterType="map" resultType="com.choco.board.model.Board">
 		SELECT 
 		    MAIN.*,
 		    A.ATTACH_NAME AS ATTACH_NAME
@@ -61,11 +61,11 @@
 		</if>
 		ORDER BY HEART_SUM DESC, ATTACH_NAME NULLS LAST
 		<if test = "rank != null">
-			FETCH FIRST #{top} ROW ONLY
+			FETCH FIRST #{rank} ROW ONLY
 		</if>
 	</select>	
 	
-	<select id="getBoardListByUsersId" parameterType="String" resultType="com.choco.board.model.Board">
+	<select id="getBoardListByUsersId" parameterType="map" resultType="com.choco.board.model.Board">
 		SELECT 
 		    MAIN.*,
 		    A.ATTACH_NAME AS ATTACH_NAME
@@ -84,10 +84,17 @@
 		) MAIN
 		LEFT JOIN ATTACH A ON MAIN.BOARD_ID = A.BOARD_ID
 		WHERE MAIN.ID = #{usersId}
-		ORDER BY BOARD_DATE DESC, ATTACH_NAME NULLS LAST  
+		<choose>
+			<when test = "sort != null">
+				ORDER BY HEART_SUM DESC, ATTACH_NAME NULLS LAST
+		    </when>
+		    <otherwise>
+				ORDER BY BOARD_DATE DESC, ATTACH_NAME NULLS LAST  		    
+		    </otherwise>
+		</choose>
 	</select>	
 	
-	<select id="getBoardListByUsersHeart" parameterType="String" resultType="com.choco.board.model.Board">
+	<select id="getBoardListByUsersHeart" parameterType="map" resultType="com.choco.board.model.Board">
 		SELECT 
 		    MAIN.*,
 		    A.ATTACH_NAME AS ATTACH_NAME
@@ -99,13 +106,21 @@
 		           BOARD_CATEGORY,
 		           B.USERS_ID AS ID,
 		           NVL(U.USERS_NICKNAME, B.USERS_ID) AS USERS_ID,
-		           COUNT(HEART_ID) OVER(PARTITION BY B.BOARD_ID) AS HEART_SUM
+		           (SELECT COUNT(*) FROM HEART H2 WHERE H2.HEART_ID = B.BOARD_ID) AS HEART_SUM
 		    FROM BOARD B 
 		    LEFT JOIN HEART H ON B.BOARD_ID = H.HEART_ID
 		    JOIN USERS U ON B.USERS_ID = U.USERS_ID
 		    WHERE H.USERS_ID = #{usersId}
 		) MAIN
 		LEFT JOIN ATTACH A ON MAIN.BOARD_ID = A.BOARD_ID
+		<choose>
+			<when test = "sort != null">
+				ORDER BY HEART_SUM DESC, ATTACH_NAME NULLS LAST
+		    </when>
+		    <otherwise>
+				ORDER BY BOARD_DATE DESC, ATTACH_NAME NULLS LAST  		    
+		    </otherwise>
+		</choose>
 	</select>		
 	
 	<select id="getBoardInfo" parameterType="int" resultType="com.choco.board.model.Board">

@@ -14,8 +14,8 @@ public interface BoardRepository {
 	List<Board> getBoardList(@Param("boardCategory") String boardCategory);
 	List<Board> getBoardListByHeart();
 	List<Board> getBoardListByHeart(Map<String, Object> params);
-	List<Board> getBoardListByUsersId(@Param("usersId") String usersId);
-	List<Board> getBoardListByUsersHeart(@Param("usersId") String usersId);
+	List<Board> getBoardListByUsersId(Map<String, String> params);
+	List<Board> getBoardListByUsersHeart(Map<String, String> params);
 	Board getBoardInfo(int boardId);
 	int createBoardId();
 	void createBoard(Board board);
