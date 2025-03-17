@@ -8,7 +8,7 @@ import com.choco.attach.model.Attach;
 
 @Mapper
 public interface AttachRepository {
-	/* List<Attach> getAttachList(int boardId); */
+	// List<Attach> getAttachList(int boardId);
 	Attach getAttachFile(int boardId);
 	void insertAttach(Attach attach);
 	void updateAttach(Attach attach);
