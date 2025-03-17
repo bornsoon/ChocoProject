@@ -11,9 +11,8 @@ public interface ReplyService {
 	void updateReply(Reply reply);
 	void deleteReply(int replyId);
 
-	
 	// userId의 댓글 조회
-    List<Reply> getReplyByUsersId(String usersId);
+    // List<Reply> getReplyByUsersId(String usersId);
 	
 	// boardId의 댓글 조회
     List<Reply> getReplyByBoardId(int boardId);
