@@ -12,8 +12,6 @@ import lombok.ToString;
 @NoArgsConstructor
 
 public class Heart {
-
-	private int heartId;  // boardId + replyId (PK)
+	private int heartId;    // boardId + replyId (PK)
 	private String usersId;  
-
 }
