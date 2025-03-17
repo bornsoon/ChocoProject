@@ -2,12 +2,15 @@ package com.choco.board.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.choco.board.model.Board;
 
 public interface BoardService {
 	List<Board> getBoardList();
 	List<Board> getBoardList(String boardCategory);
 	List<Board> getBoardListByHeart();
+	List<Board> getBoardListByHeart(String boardCategory);
 	List<Board> getBoardListByHeart(int rank);
 	List<Board> getBoardListByUsersId(String usersId);
 	List<Board> getBoardListByUsersHeart(String usersId);

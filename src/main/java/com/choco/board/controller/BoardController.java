@@ -62,11 +62,18 @@ public class BoardController {
 	
 	@GetMapping("/category/{boardCategory}")
 	public String boardListByCategory(@PathVariable("boardCategory") String boardCategory, Model model,
+			                          @RequestParam(value = "sort", required = false) String sort,
 			                          RedirectAttributes redirectAttributes) {
 		
-		List<Board> boardList = boardService.getBoardList(boardCategory);
-		model.addAttribute("boardList", boardList);	
-		model.addAttribute("boardCategory", boardCategory);	
+		if (sort == null || sort.equals("latest")) {
+			List<Board> boardList = boardService.getBoardList(boardCategory);
+			model.addAttribute("boardList", boardList);	
+		} else if (sort.equals("popular")) {
+			List<Board> boardList = boardService.getBoardListByHeart(boardCategory);
+			model.addAttribute("boardList", boardList);
+		}
+		model.addAttribute("boardCategory", boardCategory);
+		model.addAttribute("sort", sort);
 
 		return "thymeleaf/choco/board/board";
 	}

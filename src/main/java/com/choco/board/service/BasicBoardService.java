@@ -1,6 +1,8 @@
 package com.choco.board.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +27,17 @@ public class BasicBoardService implements BoardService {
 	}
 	
 	@Override
+	public List<Board> getBoardListByHeart(String boardCategory) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("boardCategory", boardCategory);
+	    return boardRepository.getBoardListByHeart(params);
+	}
+
+	@Override
 	public List<Board> getBoardListByHeart(int rank) {
-		return boardRepository.getBoardListByHeart(rank);
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("rank", rank);
+	    return boardRepository.getBoardListByHeart(params);
 	}
 	
 	@Override

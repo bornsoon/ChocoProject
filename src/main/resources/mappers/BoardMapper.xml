@@ -38,7 +38,7 @@
 		ORDER BY BOARD_DATE DESC, ATTACH_NAME NULLS LAST
 	</select>
 
-	<select id="getBoardListByHeart" parameterType="int" resultType="com.choco.board.model.Board">
+	<select id="getBoardListByHeart" parameterType="hashmap" resultType="com.choco.board.model.Board">
 		SELECT 
 		    MAIN.*,
 		    A.ATTACH_NAME AS ATTACH_NAME
@@ -56,6 +56,9 @@
 		    JOIN USERS U ON B.USERS_ID = U.USERS_ID
 		) MAIN
 		LEFT JOIN ATTACH A ON MAIN.BOARD_ID = A.BOARD_ID
+		<if test = "boardCategory != null">
+			WHERE BOARD_CATEGORY = #{boardCategory} 
+		</if>
 		ORDER BY HEART_SUM DESC, ATTACH_NAME NULLS LAST
 		<if test = "rank != null">
 			FETCH FIRST #{top} ROW ONLY
