@@ -17,7 +17,7 @@
 <h2 id=1>📜 About</h2>
 
 ##### 🗓️ 작업기간 : 2024.11.13 ~ 2024.11.26
-##### 👩🏻‍👧‍👦 참여인원 : 풀스택 3인, UI/퍼블리셔 1인
+##### 👩🏻‍👧‍👦 참여인원 : 4인
 ##### 🔧 기술스택
 ##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🖥️ 개발 환경
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -48,11 +48,20 @@
 
 
 <h2 id=4>📌 상세 구현</h2>
-<div align=center>
 
 **`회원가입 & 로그인`**
 
-<br><img src=https://github.com/user-attachments/assets/aac1924c-7668-47ee-b0cd-e76985a86dc0>
+https://github.com/user-attachments/assets/06a10377-3bae-403c-af34-001eef4a3a6b
+
 <br>
 
-</div>
+**`게시글 & 댓글 & 좋아요`**
+
+https://github.com/user-attachments/assets/68ec149f-0cce-4e6c-bd54-1807029046b1
+
+<br>
+
+**`나의 활동 & 건강 계산기`**
+
+https://github.com/user-attachments/assets/ac163ddf-183b-4da6-87ef-4f0c64fd1973
+
