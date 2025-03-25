@@ -11,8 +11,8 @@
 01. <a href=#1>프로젝트 소개</a><br>
 02. <a href=#2>ERD</a><br>
 03. <a href=#3>Architecture</a><br>
-04. <a href=#4>상세 구현</a><br>
-05. <a href=#5>담당 역할</a><br>
+04. <a href=#4>담당 역할</a><br>
+05. <a href=#5>상세 구현</a><br>
 06. <a href=#6>회고</a><br>
 <br><br>
 
@@ -48,25 +48,6 @@
 
 ![Architecture](https://github.com/user-attachments/assets/32964052-66cb-46af-8ed0-58a6ac45a15e)
 
-
-<h2 id=4>📌 상세 구현</h2>
-
-**`회원가입 & 로그인`**
-
-https://github.com/user-attachments/assets/06a10377-3bae-403c-af34-001eef4a3a6b
-
-<br>
-
-**`게시글 & 댓글 & 좋아요`**
-
-https://github.com/user-attachments/assets/68ec149f-0cce-4e6c-bd54-1807029046b1
-
-<br>
-
-**`나의 활동 & 건강 계산기`**
-
-https://github.com/user-attachments/assets/ac163ddf-183b-4da6-87ef-4f0c64fd1973
-
 <br>
 <h2 id=5>📌 담당 역할</h2>
 
@@ -86,9 +67,30 @@ https://github.com/user-attachments/assets/ac163ddf-183b-4da6-87ef-4f0c64fd1973
 
 #### **📌 `  게시글 & 댓글 & 좋아요  `**
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src=https://github.com/user-attachments/assets/aa72c723-bbcb-4d76-a104-c5a100273d59 width=700>
+<br><br>
 
 #### **📌 `  마이페이지 '나의 활동'  `**
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src=https://github.com/user-attachments/assets/f1b52fd2-5cfd-4f46-8815-d24328fca5ad width=700>
+
+<br>
+<h2 id=4>📌 상세 구현</h2>
+
+**`회원가입 & 로그인`**
+
+https://github.com/user-attachments/assets/06a10377-3bae-403c-af34-001eef4a3a6b
+
+<br>
+
+**`게시글 & 댓글 & 좋아요`**
+
+https://github.com/user-attachments/assets/68ec149f-0cce-4e6c-bd54-1807029046b1
+
+<br>
+
+**`나의 활동 & 건강 계산기`**
+
+https://github.com/user-attachments/assets/ac163ddf-183b-4da6-87ef-4f0c64fd1973
+
 
 <br>
 <h2 id=6>💬 회고</h2>
