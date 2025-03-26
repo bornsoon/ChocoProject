@@ -67,11 +67,11 @@
 <br>
 
 #### **📌 `  게시글 & 댓글 & 좋아요  `**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src=https://github.com/user-attachments/assets/aa72c723-bbcb-4d76-a104-c5a100273d59 width=700>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src=https://github.com/user-attachments/assets/3363bc40-017c-4baa-9477-7a496fb6481f width=700>
 <br><br>
 
 #### **📌 `  마이페이지 '나의 활동'  `**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src=https://github.com/user-attachments/assets/f1b52fd2-5cfd-4f46-8815-d24328fca5ad width=700>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src=https://github.com/user-attachments/assets/72bc45ee-423e-4edf-a5b8-7ba10025493a width=700>
 
 <br>
 <h2 id=4>📌 상세 구현</h2>
